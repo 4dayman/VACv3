@@ -154,13 +154,10 @@ export default {
 .nextbtn {
     z-index: 1;
     color:#7481FF;
-    margin-top: 0;
-    transform: translateY(-50%);
     width: 53px;
     height: 53px;
     border-radius: 50%;
     background: #fff;
-    transition: opacity .4s ease-in;
     opacity: 0.8;
     @media (max-width: 460px) {
       width: 35px;
