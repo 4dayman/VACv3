@@ -1,18 +1,59 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header/>
+    <!-- <HelloScreen/> -->
+    <HelloScr/>
+    <HowDoesItWork /> 
+    <FiveSteps/>
+    <Advantages/>
+    <Inventory/>
+    <Metrics/>
+    <Comments/>
+    <!-- <HeadComp>Some text</HeadComp> -->
+    <div class="">Home Page</div>
+    <nav>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+    </nav>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Header from '@/components/Header.vue'
 
+// import HelloScreen from '@/components/HelloScreen.vue'
+import HelloScr from '@/components/HelloScr.vue'
+import HowDoesItWork from '@/components/HowDoesItWork.vue'
+import FiveSteps from '@/components/FiveSteps.vue'
+import Advantages from '@/components/Advantages.vue'
+import Inventory from '@/components/Inventory.vue'
+import Metrics from '@/components/Metrics.vue'
+import Comments from '@/components/Comments.vue'
+// import HeadComp from '@/components/HeadComp.vue'
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    Header,
+    // HelloScreen, 
+    HowDoesItWork, 
+    FiveSteps, 
+    Advantages, 
+    Inventory, 
+    Metrics,
+    Comments,
+    HelloScr,
+    // HeadComp
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .home {
+    margin-top: 80px;
+    @media (max-width: 360px) {
+      margin-top: 55px;
+
+    }
+
+  }
+</style>
