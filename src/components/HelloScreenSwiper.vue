@@ -108,7 +108,6 @@ export default {
   position: relative;
 }
 .swiper_wrapper {
-  z-index: 1;
   max-width: 600px;
   display: flex;
   overflow: hidden;
@@ -141,13 +140,10 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  // position: relative;
   position: absolute;
   top: 50%;
-  // z-index: 1;
 }
 .swiper_arrows{
-  z-index: 1;
   img{
     width: 100%;
     height: 100%;
@@ -156,6 +152,7 @@ export default {
 }
 .prevbtn,
 .nextbtn {
+    z-index: 1;
     color:#7481FF;
     margin-top: 0;
     transform: translateY(-50%);
@@ -184,5 +181,4 @@ export default {
 .nextbtn:after {
   transform: translatex(10%);
 }
-.nextbtn{}
 </style>
