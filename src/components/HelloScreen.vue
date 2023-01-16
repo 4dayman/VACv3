@@ -9,12 +9,13 @@
                     </div>
                     <div class="content_right">
                         <HelloScreenSwiper 
+                            :swiper_data="cars"
                             @carModel="showModel"
                         />
                     </div>
                 </div>
                 <div class="content_btn">
-                    <main-button class="white max">Request a suv</main-button>
+                    <main-button class="white max">Request a {{ this.model }}</main-button>
                 </div>
             </div>
         </div>
@@ -29,9 +30,21 @@ export default {
         MainButton,
         HelloScreenSwiper
     },
+    data() {
+        return {
+            cars: [
+                { id: 1, model: 'SUV', imgUrl: require("@/assets/main_swiper/SUV.png") },
+                { id: 2, model: 'CAR', imgUrl: require("@/assets/main_swiper/CAR.png") },
+                { id: 3, model: 'TRUCK', imgUrl: require("@/assets/main_swiper/TRUCK.png") },
+                { id: 4, model: 'VAN', imgUrl: require("@/assets/main_swiper/VAN.png") },
+            ],
+            model: 'SUV'
+        }
+    },
+
     methods: {
         showModel(data){
-            console.log(data)
+            return this.model = data
         }
     }
 }
@@ -58,6 +71,7 @@ export default {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            z-index: -1;
         }
     }
     .content {
@@ -84,14 +98,15 @@ export default {
     }
     .content_right {
         @media (max-width: 768px) {
-            margin-top: 60px;
+            margin-top: 40px;
         }
         @media (max-width: 460px) {
-            margin-top: 40px;
+            margin-top: 0px;
 
         }
     }
     .content_btn {
+        margin-top: 40px;
         display: flex;
         @media (max-width: 1024px) {
             justify-content: center;

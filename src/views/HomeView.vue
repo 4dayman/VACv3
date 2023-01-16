@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <Header/>
-    <!-- <HelloScreen/> -->
-    <HelloScr/>
+    <HelloScreen/>
+    <!-- <HelloScr/> -->
     <HowDoesItWork /> 
     <FiveSteps/>
     <Advantages/>
@@ -21,8 +21,8 @@
 <script>
 import Header from '@/components/Header.vue'
 
-// import HelloScreen from '@/components/HelloScreen.vue'
-import HelloScr from '@/components/HelloScr.vue'
+import HelloScreen from '@/components/HelloScreen.vue'
+// import HelloScr from '@/components/HelloScr.vue'
 import HowDoesItWork from '@/components/HowDoesItWork.vue'
 import FiveSteps from '@/components/FiveSteps.vue'
 import Advantages from '@/components/Advantages.vue'
@@ -34,14 +34,14 @@ export default {
   name: 'HomeView',
   components: {
     Header,
-    // HelloScreen, 
+    HelloScreen, 
     HowDoesItWork, 
     FiveSteps, 
     Advantages, 
     Inventory, 
     Metrics,
     Comments,
-    HelloScr,
+    // HelloScr,
     // HeadComp
   }
 }

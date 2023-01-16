@@ -1,69 +1,114 @@
 <template>
-  <div>
-    <swiper
+  <div class="main_swiper">
+    <Swiper
       class="swiper_wrapper"
+      :modules="modules"
       :slides-per-view="1"
       :space-between="30"
       :loop="false"
-      navigation
-      grabCursor
+      :navigation="{nextEl: '.nextbtn', prevEl: '.prevbtn'}"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide
+      <SwiperSlide
         class="slide"
-        v-for="image in images"
-        :key="image.id"
-        :model="image.model"
+        v-for="item in swiper_data"
+        :key="item.id"
+        :model="item.model"
       >
         <img
-          :src="image.imgUrl"
+          :src="item.imgUrl"
         >
-        <h1>{{ image.model }}</h1>
-      </swiper-slide>
-    </swiper>
+      </SwiperSlide>
+    </Swiper>
+      <div class="swiper_nav">
+        <div 
+        class="swiper-button-prev prevbtn"
+        @click="prevSlide" 
+        >
+        </div>
+        <div 
+        class="swiper-button-next nextbtn"
+        @click="nextSlide" 
+        >
+        </div>
+      </div>
   </div>
 </template>
 
 <script>
 // import Swiper core and required modules
-import { Navigation } from 'swiper'
-
-import { SwiperCore, Swiper, SwiperSlide } from 'swiper-vue2'
-
-// Import Swiper styles
-import 'swiper/swiper-bundle.css'
-
-SwiperCore.use([Navigation]);
+  import { Navigation } from 'swiper';
+  // Import Swiper Vue.js components
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
 export default {
   components: {
     Swiper,
     SwiperSlide,
   },
-  data() {
-    return {
-      images: [
-        { id: 1, model: 'SUV', imgUrl: require("@/assets/main_swiper/SUV.png") },
-        { id: 2, model: 'CAR', imgUrl: require("@/assets/main_swiper/CAR.png") },
-        { id: 3, model: 'TRUCK', imgUrl: require("@/assets/main_swiper/TRUCK.png") },
-        { id: 4, model: 'VAN', imgUrl: require("@/assets/main_swiper/VAN.png") },
-      ],
+  props: {
+    swiper_data: {
+      type: Array,
+      default: () => []
     }
   },
-  methods: {
-    onSwiper() {
-      console.log()
+  data() {
+    return {
+      currentSlide: 0,
+      isActivePrev: true,
+      isActiveNext: false,
+    }
+  },
+    methods: {
+    prevSlide() {
+      if (this.currentSlide > 0) {
+        this.currentSlide--
+        this.isActiveNext = false
+        // console.log(this.currentSlide)
+        this.$emit('carModel', this.swiper_data[this.currentSlide].model )
+      }
+      if (this.currentSlide === 0) {
+        this.isActivePrev = true
+      }
     },
-    onSlideChange(image) {
-      this.$emit('carModel', image )
+    nextSlide() {
+      if (this.currentSlide < this.swiper_data.length - 1){
+        // console.log(this.currentSlide)
+        this.isActivePrev = false
+        
+        this.currentSlide++
+        this.$emit('carModel', this.swiper_data[this.currentSlide].model )
+      }
+      if (this.currentSlide === this.swiper_data.length - 1) {
+        this.isActiveNext = true
+      }
     },
-  }
+  },
+  setup() {
+      const onSwiper = (swiper) => {
+        console.log(swiper);
+      };
+      const onSlideChange = () => {
+        console.log("slide change")
+      };
+      return {
+        onSwiper,
+        onSlideChange,
+        modules: [Navigation],
+      };
+  },
 
-};
+}
 </script>
 
 <style lang="scss">
+.main_swiper{
+  position: relative;
+}
 .swiper_wrapper {
+  z-index: 1;
   max-width: 600px;
   display: flex;
   overflow: hidden;
@@ -92,8 +137,25 @@ export default {
     object-fit: cover;
   }
 }
-.swiper-button-prev,
-.swiper-button-next {
+.swiper_nav{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  // position: relative;
+  position: absolute;
+  top: 50%;
+  // z-index: 1;
+}
+.swiper_arrows{
+  z-index: 1;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.prevbtn,
+.nextbtn {
     color:#7481FF;
     margin-top: 0;
     transform: translateY(-50%);
@@ -107,22 +169,20 @@ export default {
       width: 35px;
       height: 35px;
   }
-
 }
-.swiper-button-prev:after,
-.swiper-button-next:after {
+.prevbtn:after,
+.nextbtn:after {
  font-size: 20px;
  font-weight: 700;
   @media (max-width: 460px) {
     font-size: 15px;
   }
 }
-.swiper-button-prev:after {
+.prevbtn:after {
   transform: translatex(-10%);
-
 }
-.swiper-button-next:after {
+.nextbtn:after {
   transform: translatex(10%);
 }
-
+.nextbtn{}
 </style>
