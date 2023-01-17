@@ -74,10 +74,8 @@ export default {
   },
   setup() {
       const onSwiper1 = (swiper) => {
-        console.log(swiper);
       };
       const onSlideChange1 = () => {
-        console.log('slide change');
       };
       return {
         onSwiper1,
