@@ -2,13 +2,13 @@
   <div class="home">
     <Header/>
     <HelloScreen/>
-    <!-- <HelloScr/> -->
     <HowDoesItWork /> 
     <FiveSteps/>
     <Advantages/>
     <Inventory/>
     <Metrics/>
     <Comments/>
+    <Calculator/>
     <!-- <HeadComp>Some text</HeadComp> -->
     <div class="">Home Page</div>
     <nav>
@@ -22,13 +22,13 @@
 import Header from '@/components/Header.vue'
 
 import HelloScreen from '@/components/HelloScreen.vue'
-// import HelloScr from '@/components/HelloScr.vue'
 import HowDoesItWork from '@/components/HowDoesItWork.vue'
 import FiveSteps from '@/components/FiveSteps.vue'
 import Advantages from '@/components/Advantages.vue'
 import Inventory from '@/components/Inventory.vue'
 import Metrics from '@/components/Metrics.vue'
 import Comments from '@/components/Comments.vue'
+import Calculator from '@/components/Calculator.vue'
 // import HeadComp from '@/components/HeadComp.vue'
 export default {
   name: 'HomeView',
@@ -41,7 +41,7 @@ export default {
     Inventory, 
     Metrics,
     Comments,
-    // HelloScr,
+    Calculator,
     // HeadComp
   }
 }

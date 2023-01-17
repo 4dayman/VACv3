@@ -8,7 +8,7 @@
         </div>
         <div class="header_menu menu">
             <div>
-                <router-link to="/about">
+                <router-link class="menu_btn" to="/about">
                     <main-button class="white hide">Inventory</main-button>
                 </router-link>
                 <router-link to="/">
@@ -55,7 +55,7 @@ export default {
     data() {
         return {
             items: [],
-        active: false,
+            active: false,
         }
     },
     methods: {
@@ -143,7 +143,9 @@ export default {
         height: 25px;
     }
 }
-
+.menu_btn{
+    margin-right: 10px;
+}
 .menu_icon span,
 .menu_icon::before,
 .menu_icon::after {

@@ -22,15 +22,8 @@ export default {
     text-transform: uppercase;
     border: 1px solid #7481FF;
     border-radius: 2px;
-    margin-right: 10px;
     text-decoration: none;
     cursor: pointer;
-    &:not(last-child) {
-        margin-right: 20px;
-        @media (max-width: 460px) {
-            margin-right: 0px;
-        }
-    }
     &:hover {
         opacity: 0.9;
     }
@@ -43,6 +36,11 @@ export default {
     color: #7481FF;
     padding: 16px 17px;
     background: #fff;
+}
+.active {
+    color: #fff;
+    padding: 16px 17px;
+    background: #7481FF;
 }
 .colored {
     color: white;

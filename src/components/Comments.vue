@@ -8,7 +8,7 @@
                 <swiper
                     :modules="modules"
                     :slides-per-view="1"
-                    :space-between="10"
+                    :space-between="30"
                     :navigation="{prevEl: '.commentsPrev', nextEl: '.commentsNext'}"
                     @swiper="onSwiper1"
                     @slideChange="onSlideChange1"
@@ -93,8 +93,10 @@ export default {
     max-width: 1230px;
     padding: 0 15px;
     margin: 0 auto;
+    transition: all ease 0.5s;
 }
 .comments{
+    transition: all ease 0.5s;
     margin-bottom: 220px;
     @media (max-width: 1024px) {
         margin-bottom: 160px;
@@ -111,6 +113,7 @@ export default {
     color: #41456B;
     margin-bottom: 60px;
     text-align: left;
+    transition: all ease 0.5s;
     @media (max-width: 460px) {
         font-size: 30px;
         margin-bottom: 30px;
@@ -133,6 +136,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: all ease 0.5s;
     @media (max-width: 768px) {
         flex-direction: column;
     }
@@ -146,17 +150,18 @@ export default {
     max-height: 322px;
     margin-left: -70px;
     margin-right: 40px;
+    transition: all ease 0.5s;
     @media (max-width: 1024px) {
         max-width: 301px;
     }
     @media (max-width: 768px) {
-        width: 560px;
-        margin-right: 0px;
-        margin-left: 0px;
+        max-width: 140%;
+        margin-right: -70px;
+        margin-left: -70px;
         flex: 1 1 auto;
     }
     @media (max-width: 460px) {
-        width: 140%;
+        max-width: 140%;
 
     }
 
@@ -171,6 +176,7 @@ export default {
     max-width: 640px;
     text-align: left;
     // margin-left: 40px;
+    transition: all ease 0.5s;
     @media (max-width: 375px) {
         margin: 0 -20px;
     }
@@ -226,6 +232,7 @@ export default {
 .commentsNext:after {
  font-size: 20px;
  font-weight: 700;
+ transition: all ease 0.5s;
   @media (max-width: 460px) {
     font-size: 15px;
   }
