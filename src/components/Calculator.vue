@@ -25,31 +25,52 @@
                             <h4>Loan Amount</h4>
                             <p>$ {{ amountValue }}</p>
                         </div>
-                        <input 
-                            class="range" 
-                            type="range" 
-                            min="10000" 
-                            max="200000" 
-                            step="500"
-                            v-model.number="amountValue"
-                            @change="Priceround"
-                        >
+                        <div class="amount_fill">
+                            <input 
+                                class="range" 
+                                type="range" 
+                                min="10000" 
+                                max="200000" 
+                                step="500"
+                                v-model.number="amountValue"
+                                @change="Priceround"
+                            >
+                            <input 
+                                class="fill" 
+                                type="range" 
+                                min="10000" 
+                                max="200000" 
+                                step="500"
+                                v-model.number="amountValue"
+                                @change="Priceround"
+                            >
+                        </div>
                     </div>
                     <div class="settings_duration">
                         <div class="duration_value">
                             <h4>Loan Duration</h4>
                             <p>{{ amountDuration }} <span>month</span></p>
                         </div>
-
-                        <input
-                            class="range" 
-                            type="range"
-                            min="6"
-                            max="48"
-                            step="1"
-                            v-model.number="amountDuration"
-                            @change="Priceround"
-                        >
+                        <div class="duration_fill">
+                            <input
+                                class="range" 
+                                type="range"
+                                min="6"
+                                max="48"
+                                step="1"
+                                v-model.number="amountDuration"
+                                @change="Priceround"
+                            >
+                            <input
+                                class="fill" 
+                                type="range"
+                                min="6"
+                                max="48"
+                                step="1"
+                                v-model.number="amountDuration"
+                                @change="Priceround"
+                            >
+                        </div>
                     </div>
                 </div>
                 <div class="calculator_amount">
@@ -77,6 +98,7 @@
 </template>
 <script>
 import MainButton from '@/components/UI/MainButton.vue'
+
 export default {
     components: {
         MainButton,
@@ -183,10 +205,8 @@ export default {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 60px 60px 112px 60px;
-    // height: 478px;
     @media (max-width: 768px) {
         padding: 40px;
-        // height: 350px;
     }
     @media (max-width: 460px) {
         padding: 20px;
@@ -225,25 +245,48 @@ export default {
         width: 100%;
     }
 }
-.range {
-    width: 400px;
+.duration_fill,
+.amount_fill {
+    position: relative;
+}
+.range,
+.fill {
     height: 8px;
     -webkit-appearance: none;
+    appearance: none;
     background: #d7d7d7;
     border-radius: 2px;
     outline: none;
-    overflow: hidden;
     cursor: pointer;
 }
+.range{
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.fill {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    height: 8px;
+    overflow: visible;
+    cursor: pointer;
+}
+.fill::-webkit-slider-thumb,
 .range::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 18px;
     height: 18px;
     background: #7481FF;
-    border: 1px solid #FFFFFF;
     border-radius: 2px;
     cursor: pointer;
-    box-shadow: -407px 0 0 400px #7481FF;
+    border: 1px solid #FFFFFF;
+}
+.fill::-webkit-slider-thumb{
+    background: #7481FF;
+}
+.range::-webkit-slider-thumb {
+    box-shadow: -407px 0px 0px 400px #7481FF;
 }
 .amount_value,
 .duration_value {
@@ -317,7 +360,6 @@ export default {
         width: 100%;
         justify-content: space-between;
     }
-
 }
 .calcBtn {
     display: flex;
@@ -331,7 +373,5 @@ export default {
     @media (max-width: 560px) {
         width: 100%;
     }
-
-
 }
 </style>
