@@ -1,6 +1,6 @@
 <template>
   <div class="page_404">
-    <Header/>
+    <!-- <Header/> -->
       <div class="icon_404">
         <img src="@/assets/Sedan_icon.png" alt="">
       </div>

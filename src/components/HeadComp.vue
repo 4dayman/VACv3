@@ -17,6 +17,7 @@ export default {
 <style lang="scss" scoped>
 .head_wrapper{
     background: url('@/assets/headCompBg.png');
+    // height: 145px;
 }
 .head_text{
     max-width: 1230px;

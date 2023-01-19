@@ -2,7 +2,7 @@
   <div id="app" class="wrapper">
     <router-view />
     <div></div>
-    <Footer/>
+    <!-- <Footer/> -->
   </div>
 </template>
 <script>
@@ -43,7 +43,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  // margin-top: 80px;
 }
 .wrapper {
   height: 100vh;

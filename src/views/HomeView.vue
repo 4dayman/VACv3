@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <Header/>
+    <div>
     <HelloScreen/>
     <HowDoesItWork /> 
     <FiveSteps/>
@@ -9,6 +10,8 @@
     <Metrics/>
     <Comments/>
     <Calculator/>
+    </div>
+    <Footer/>
   </div>
 </template>
 
@@ -23,7 +26,7 @@ import Inventory from '@/components/Inventory.vue'
 import Metrics from '@/components/Metrics.vue'
 import Comments from '@/components/Comments.vue'
 import Calculator from '@/components/Calculator.vue'
-// import HeadComp from '@/components/HeadComp.vue'
+import Footer from '@/components/Footer.vue'
 export default {
   name: 'HomeView',
   components: {
@@ -36,7 +39,7 @@ export default {
     Metrics,
     Comments,
     Calculator,
-    // HeadComp
+    Footer
   }
 }
 </script>
