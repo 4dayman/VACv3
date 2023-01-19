@@ -2,9 +2,8 @@
   <div class="calculate">
         <Header/>
         <div>
-        <HeadComp msg="Use our free calculator!"/>
-        <Calculator/>
-
+          <HeadComp msg="Use our free calculator!"/>
+          <Calculator/>
         </div>
         <Footer/>
   </div>
