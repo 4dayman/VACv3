@@ -8,7 +8,7 @@
         </div>
         <div class="header_menu menu">
             <div>
-                <router-link class="menu_btn" to="/about">
+                <router-link class="menu_btn" to="/inventory">
                     <main-button class="white hide">Inventory</main-button>
                 </router-link>
                 <router-link to="/">
@@ -18,16 +18,16 @@
             <div class="menu_icon" @click="active = !active, active" :class="{active}">
                 <span></span>
             </div>
-            <div class="menu_body_shadow" @click="active = !active" :class="{active}"></div>
+            <div class="menu_body_shadow" @click="active = !active, active" :class="{active}"></div>
             <nav class="menu_body" :class="{active}">
                 <ul class="menu_list">
-                    <li @click="active = !active"><router-link to="/about" class="menu_link hide">Inventory</router-link></li>
-                    <li @click="active = !active"><router-link to="/about" class="menu_link">Contact us</router-link></li>
-                    <li @click="active = !active"><router-link to="/" class="menu_link">About VAC</router-link></li>
-                    <li @click="active = !active"><router-link to="/" class="menu_link">Lean Rates</router-link></li>
-                    <li @click="active = !active"><router-link to="/" class="menu_link">Video</router-link></li>
-                    <li @click="active = !active"><router-link to="/" class="menu_link">Blog</router-link></li>
-                    <li @click="active = !active"><router-link to="/" class="menu_link">Calculate</router-link></li>
+                    <li><router-link @click="active = !active, active" to="/inventory" class="menu_link hide">Inventory</router-link></li>
+                    <li><router-link @click="active = !active, active" to="/" class="menu_link">Contact us</router-link></li>
+                    <li><router-link @click="active = !active, active" to="/about" class="menu_link">About VAC</router-link></li>
+                    <li><router-link @click="active = !active, active" to="/loan" class="menu_link">Lean Rates</router-link></li>
+                    <li><router-link @click="active = !active, active" to="/videos" class="menu_link">Video</router-link></li>
+                    <li><router-link @click="active = !active, active" to="/blog" class="menu_link">Blog</router-link></li>
+                    <li><router-link @click="active = !active, active" to="/calculate" class="menu_link">Calculate</router-link></li>
                 </ul>
                 <div class="menu_social">
                     <a href="#">
@@ -61,11 +61,11 @@ export default {
     methods: {
     },
     watch: {
-    // whenever active changes, this function will run
-    active() {
-    document.body.style.overflow = this.active ? 'hidden' : ''
-  }
-}
+            // whenever active changes, this function will run
+        active() {
+            document.body.style.overflow = this.active ? 'hidden' : ''
+        }
+    }
 };
 </script>
 

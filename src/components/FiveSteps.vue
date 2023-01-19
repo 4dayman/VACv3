@@ -94,7 +94,6 @@
     margin-left: 8px;
     @media (max-width: 768px) {
         max-width: 100%;
-
     }
 
 }

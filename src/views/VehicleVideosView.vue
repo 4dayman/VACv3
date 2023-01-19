@@ -1,7 +1,7 @@
 <template>
   <div class="about">
       <Header/>
-        <HeadComp msg="About VAC"/>
+        <HeadComp msg="Vehicle videos"/>
   </div>
 </template>
 

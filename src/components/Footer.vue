@@ -7,8 +7,8 @@
                 </router-link>
             </div>
             <div class="footer_terms">
-                <a href="">Terms</a>
-                <a href="">Privacy</a>
+                <router-link to="/terms">Terms</router-link>
+                <router-link to="/privacy">Privacy</router-link>
             </div>
             <div class="footer_social">
                 <a href="#">

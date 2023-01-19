@@ -13,7 +13,7 @@
             </div>
             <div class="inventory_text-right">
                 <p>In our catalogue there are many models of vehicles. Choose your car to your liking.</p>
-                <main-button class="colored max per">inventory</main-button>
+                <router-link to="/inventory"><main-button class="colored max per">inventory</main-button></router-link>
             </div>
         </div>
     </div>

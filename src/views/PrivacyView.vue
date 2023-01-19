@@ -1,7 +1,7 @@
 <template>
   <div class="about">
       <Header/>
-        <HeadComp msg="About VAC"/>
+        <HeadComp msg="Privacy Policy"/>
   </div>
 </template>
 

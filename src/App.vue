@@ -46,7 +46,7 @@ export default {
   // margin-top: 80px;
 }
 .wrapper {
-  height: 100%;
+  height: 100vh;
   display: grid;
   grid-template: 1fr / 1fr;
 }
