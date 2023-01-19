@@ -31,11 +31,8 @@ components: {
 <style lang="scss">
   .calculate {
     margin-top: 80px;
-                  display: grid;
+     display: grid;
   grid-template: 1fr / 1fr;
 
-  }
-  .head_slot_text{
-font-family: 'Gilroy';
   }
 </style>
