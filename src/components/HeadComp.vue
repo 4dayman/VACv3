@@ -17,7 +17,11 @@ export default {
 <style lang="scss" scoped>
 .head_wrapper{
     background: url('@/assets/headCompBg.png');
-    // height: 145px;
+    height: 145px;
+        @media (max-width: 379px) {
+            height: 116px;
+        }
+
 }
 .head_text{
     max-width: 1230px;
@@ -41,6 +45,7 @@ export default {
         transition: all ease 0.4s;
         @media (max-width: 379px) {
             font-size: 35px;
+            margin-bottom: 30px;
         }
     }
 }

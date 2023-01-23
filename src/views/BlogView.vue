@@ -27,8 +27,8 @@ components: {
 <style lang="scss" scoped>
   .about {
     margin-top: 80px;
-      display: grid;
-  grid-template: 1fr / 1fr;
+    display: grid;
+    grid-template: 1fr / 1fr;
 
   }
 </style>

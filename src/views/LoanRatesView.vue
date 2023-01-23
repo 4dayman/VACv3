@@ -3,6 +3,8 @@
       <Header/>
       <div>
         <HeadComp msg="Loan rates"/>
+        <CreditPolicy/>
+        <Calculator/>
       </div>
       <Footer/>
   </div>
@@ -11,12 +13,16 @@
 <script>
 import Header from '@/components/Header.vue'
 import HeadComp from '@/components/HeadComp.vue'
+import CreditPolicy from '@/components/CreditPolicy.vue'
+import Calculator from '@/components/Calculator.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
 components: {
   Header,
   HeadComp,
+  CreditPolicy,
+  Calculator,
   Footer
 }
 }
