@@ -1,4 +1,3 @@
-// import { createRouter, createMemoryHistory } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PageNotFound from '../views/404Page.vue'
@@ -83,7 +82,6 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  // history: createMemoryHistory(process.env.BASE_URL),
   routes
 })
 
