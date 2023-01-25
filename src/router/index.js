@@ -72,15 +72,21 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "blog" */ '../views/BlogView.vue')
   },
+  // {
+  //   name: '404',
+  //   path: '/:pathMatch(.*)',
+  //   component: PageNotFound
+  // },
   {
     name: '404',
-    path: '/:pathMatch(.*)',
+    path: '/:catchAll(.*)',
     component: PageNotFound
   }
 ]
 
+
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
 })
 

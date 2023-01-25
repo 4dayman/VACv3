@@ -9,6 +9,8 @@
         <BestPrice/>
         <OurQualified/>
         <Comments/>
+        <TeamComp/>
+        <MainFeatures/>
         <Calculator/>
       </div>
       <Footer/>
@@ -24,6 +26,8 @@ import VacComp from '@/components/VacComp.vue'
 import BestPrice from '@/components/BestPrice.vue'
 import OurQualified from '@/components/OurQualified.vue'
 import Comments from '@/components/Comments.vue'
+import TeamComp from '@/components/TeamComp.vue'
+import MainFeatures from '@/components/MainFeatures.vue'
 import Calculator from '@/components/Calculator.vue'
 import Footer from '@/components/Footer.vue'
 
@@ -37,6 +41,8 @@ components: {
   BestPrice,
   OurQualified,
   Comments,
+  TeamComp,
+  MainFeatures,
   Calculator,
   Footer,
 }

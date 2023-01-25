@@ -146,13 +146,7 @@ export default {
     transition: all ease 0.5s;
 }
 .calculator {
-    margin-bottom: 220px;
-    @media (max-width: 1024px) {
-        margin-bottom: 160px;
-    }
-    @media (max-width: 768px) {
-        margin-bottom: 80px;
-    }
+    margin-bottom: 40px;
 }
 
 .calculator_top{
