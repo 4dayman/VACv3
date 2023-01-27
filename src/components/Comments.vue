@@ -120,7 +120,7 @@ export default {
 }
 .comments_swiper{
     margin: 0 auto;
-    max-width: 96vw;
+    max-width: 95vw;
     padding: 5px;
     box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1);
     background: #FFFFFF;

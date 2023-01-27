@@ -15,19 +15,19 @@
                     <main-button class="colored">Request a car</main-button>
                 </router-link>
             </div>
-            <div class="menu_icon" @click="active = !active, active" :class="{active}">
+            <div class="menu_icon" @click="active = !active" :class="{active}">
                 <span></span>
             </div>
-            <div class="menu_body_shadow" @click="active = !active, active" :class="{active}"></div>
+            <div class="menu_body_shadow" @click="active = !active" :class="{active}"></div>
             <nav class="menu_body" :class="{active}">
                 <ul class="menu_list">
-                    <li><router-link @click="active = !active, active" to="/inventory" class="menu_link hide">Inventory</router-link></li>
-                    <li><router-link @click="active = !active, active" to="/" class="menu_link">Contact us</router-link></li>
-                    <li><router-link @click="active = !active, active" to="/about" class="menu_link">About VAC</router-link></li>
-                    <li><router-link @click="active = !active, active" to="/loan" class="menu_link">Lean Rates</router-link></li>
-                    <li><router-link @click="active = !active, active" to="/videos" class="menu_link">Video</router-link></li>
-                    <li><router-link @click="active = !active, active" to="/blog" class="menu_link">Blog</router-link></li>
-                    <li><router-link @click="active = !active, active" to="/calculate" class="menu_link">Calculate</router-link></li>
+                    <li><router-link @click="active = !active" to="/inventory" class="menu_link hide">Inventory</router-link></li>
+                    <li @click="formActive = !formActive" ><p @click="active = !active" class="menu_link">Contact us</p></li>
+                    <li><router-link @click="active = !active" to="/about" class="menu_link">About VAC</router-link></li>
+                    <li><router-link @click="active = !active" to="/loan" class="menu_link">Lean Rates</router-link></li>
+                    <li><router-link @click="active = !active" to="/videos" class="menu_link">Video</router-link></li>
+                    <li><router-link @click="active = !active" to="/blog" class="menu_link">Blog</router-link></li>
+                    <li><router-link @click="active = !active" to="/calculate" class="menu_link">Calculate</router-link></li>
                 </ul>
                 <div class="menu_social">
                     <a href="#">
@@ -41,6 +41,69 @@
                     </a>
                 </div>
             </nav>
+            <div class="contactUs_shadow" @click="formActive = !formActive" :class="{formActive}"></div>
+            <form class="contactUs" :class="{formActive}" @submit.prevent="checkForm">
+                <div @click="formActive = !formActive" class="contactUs_close">
+                    <img src="../assets/Close.svg" alt="">
+                </div>
+                <div class="contactUs_title">We can't wait to hear from you!</div>
+                <div class="contactUs_inputs">
+                    <div class="contactsUs_input">
+                        <img src="../assets/socialIcons/Name.svg" alt="">
+                        <input 
+                            v-model.trim="name"
+                            type="text" 
+                            :class="v$.name.$error ? 'invalid' : ''"
+                            placeholder="Your Name">
+                        <p v-if="v$.name.$error">Required to fill out</p>
+                    </div>
+                    <div class="contactsUs_input">
+                        <img src="../assets/socialIcons/Phone.svg" alt="">
+                        <input 
+                            v-model.trim="phone" 
+                            :class="v$.phone.$error ? 'invalid' : ''"
+                            type="phone" 
+                            placeholder="Phone Number">
+                        <p v-if="v$.phone.$error">Required to fill out</p>
+                    </div>
+                    <div class="contactsUs_input">
+                        <img src="../assets/socialIcons/Mail.svg" alt="">
+                        <input 
+                            v-model.trim="email" 
+                            :class="v$.email.$error ? 'invalid' : ''"
+                            type="email" 
+                            placeholder="Email Address">
+                        <p v-if="v$.email.$error">Required to fill out</p>
+                    </div>
+                </div>
+                <button type="submit" class="colored formbtn">contact me</button>
+                <div class="contactUs_subtitle">You can contact us yourself</div>
+                <div class="contactUs_social">
+                    <a href="#">
+                        <img src="@/assets/socialIcons/Instagram.svg" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="@/assets/socialIcons/Facebook.svg" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="@/assets/socialIcons/YouTube.svg" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="@/assets/socialIcons/Email.svg" alt="">
+                    </a>
+                </div>
+            </form>
+            <div class="success_shadow" @click="successActive = !successActive" :class="{successActive}"></div>
+            <nav class="success" :class="{successActive}">
+                <div @click="successActive = !successActive" class="success_close">
+                    <img src="../assets/Close.svg" alt="">
+                </div>
+                <div class="success_check">
+                    <img src="../assets/socialIcons/Success.svg" alt="">
+                </div>
+                <div class="success_title">Application Successful!</div>
+                <div class="success_subtitle">You can contact us yourself</div>
+            </nav>
         </div>
     </header>  
 </div>
@@ -48,22 +111,65 @@
 
 <script>
 import MainButton from '@/components/UI/MainButton.vue'
+import { useVuelidate } from '@vuelidate/core'
+import { minLength, required, email, numeric } from '@vuelidate/validators'
 export default {
     components: {
         MainButton
+    },
+    setup () {
+        return { v$: useVuelidate() }
     },
     data() {
         return {
             items: [],
             active: false,
+            formActive: false,
+            successActive: false,
+                name: null,
+                phone: null,
+                email: null,
+                requiredNameLength: 2,
+                requiredPhoneLength: 10,
         }
     },
+    validations() {
+        return {
+            name: {
+                minLength: minLength(this.requiredNameLength),
+                required 
+            },
+            phone: { 
+                minLength: minLength(this.requiredPhoneLength),
+                required, 
+                numeric 
+            },
+            email: { required, email },
+        }
+
+    },
     methods: {
+        checkForm() {
+            this.v$.$touch()
+            if (!this.v$.$error) {
+                // console.log("submit")
+                this.formActive = !this.formActive
+                this.successActive = !this.successActive
+                this.name = this.phone = this.email = null
+                this.v$.$reset()
+            }
+        }
     },
     watch: {
-            // whenever active changes, this function will run
+        // whenever active changes, this function will run
         active() {
             document.body.style.overflow = this.active ? 'hidden' : ''
+        },
+        formActive() {
+            document.body.style.overflow = this.formActive ? 'hidden' : ''
+        },
+        successActive() {
+            document.body.style.overflow = this.successActive ? 'hidden' : ''
         }
     }
 };
@@ -210,7 +316,9 @@ export default {
     }
 
 }
-.menu_body_shadow {
+.menu_body_shadow, 
+.contactUs_shadow,
+.success_shadow {
     position: fixed;
     display: none;
     top: 0;
@@ -222,7 +330,15 @@ export default {
 .menu_body_shadow.active {
     display: block;
 }
-.menu_body {
+.contactUs_shadow.formActive {
+    display: block;
+}
+.success_shadow.successActive {
+    display: block;
+}
+.contactUs, 
+.menu_body,
+.success {
     position: fixed;
     top: 0;
     right: -100%;
@@ -248,7 +364,26 @@ export default {
         width: 100%;
     }
 }
+.contactUs,
+.success {
+    z-index: 6;
+    padding: 92px 120px 0px 60px;
+    justify-content: flex-start;
+    @media (max-width: 1024px) {
+        padding: 92px 60px 0px 60px;
+    }
+    @media (max-width: 768px) {
+        padding: 85px 20px 0px 20px;
+    }
+}
+
 .menu_body.active {
+    right: 0;
+}
+.contactUs.formActive {
+    right: 0;
+}
+.success.successActive {
     right: 0;
 }
 .menu_body.active::before {
@@ -269,7 +404,8 @@ export default {
         font-size: 25px;
         line-height: 140%;
         letter-spacing: 0.02em;
-        a {
+        cursor: pointer;
+        p, a {
             color: #41456B;
         }
     }
@@ -280,7 +416,8 @@ export default {
         display: block;
     }
 }
-.menu_social {
+.menu_social,
+.contactUs_social {
     img{
         margin-right: 10px;
         width: 30px;
@@ -290,4 +427,101 @@ export default {
         }
     }
 }
+.contactUs_close,
+.success_close {
+    position: absolute;
+    top: 28px;
+    left: 60px;
+    @media (max-width: 768px) {
+        top: 14px;
+        left: 21px;
+    }
+
+}
+.contactUs_title,
+.success_title {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 140%;
+    color: #41456B;
+    text-align: left;
+    margin-bottom: 60px;
+    @media (max-width: 425px) {
+            margin-bottom: 20px;
+    }
+}
+.success_title {
+    margin-bottom: 5px;
+    margin-top: 40px;
+}
+
+.contactUs_inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-bottom: 40px;
+}
+.contactsUs_input {
+    position: relative;
+    img{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+    p{
+        padding-top: 5px;
+        font-size: 14px;
+        text-align: left;
+        color: rgb(241, 86, 86);
+    }
+    input {
+        width: 100%;
+        padding: 10px 10px 10px 44px;
+        height: 45px;
+        border: 1px solid #D7D7D7;
+        border-radius: 2px;
+    &.invalid{
+        box-shadow: 0px 0px 5px rgb(255, 49, 49);
+    }
+    :focus{
+        border: 1px solid #770a6e;
+    }
+    }
+}
+.formbtn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: white;
+    background: #7481FF;
+    padding: 16px 37px;
+    transition: all 0.4s ease;
+    @media (max-width: 460px) {
+        padding: 9px;
+    }
+}
+.contactUs_subtitle {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    color: #41456B;
+    margin-bottom: 20px;
+}
+.success_subtitle {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 180%;
+    letter-spacing: 0.02em;
+    color: #606276;
+}
+
 </style>
