@@ -2,23 +2,23 @@
   <div id="app" class="wrapper">
     <router-view />
     <div></div>
-    <!-- <Footer/> -->
+    <Preloader/>
   </div>
 </template>
 <script>
-import Footer from '@/components/Footer.vue'
+import Preloader from '@/components/Preloader.vue'
 
 export default {
     components: {
-    Footer
+    Preloader
   },
-  data() {
-        return {
-            items: [],
-        active: false,
-        lock: false,
-        }
-  },
+  // data() {
+  //       return {
+  //           items: [],
+  //       active: false,
+  //       lock: false,
+  //       }
+  // },
 
 
 }

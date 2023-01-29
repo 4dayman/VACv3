@@ -13,13 +13,10 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
 import MainButton from '@/components/UI/MainButton.vue'
-
 
 export default {
 components: {
-  Header,
   MainButton
 }
 }

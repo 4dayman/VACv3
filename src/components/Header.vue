@@ -181,7 +181,8 @@ export default {
     z-index: 10;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     padding: 0 15px;
     margin: 0 auto;
     transition: all 0.5s ease 0.1s;
@@ -362,6 +363,7 @@ export default {
     }
     @media (max-width: 425px) {
         width: 100%;
+        box-shadow: none;
     }
 }
 .contactUs,
