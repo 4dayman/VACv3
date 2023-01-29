@@ -18,9 +18,10 @@ export default {
 .head_wrapper{
     background: url('@/assets/headCompBg.png');
     height: 145px;
-        @media (max-width: 379px) {
-            height: 116px;
-        }
+    margin-bottom: 40px;
+    @media (max-width: 379px) {
+        height: 116px;
+    }
 
 }
 .head_text{

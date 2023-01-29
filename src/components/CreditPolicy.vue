@@ -29,8 +29,7 @@ export default {
     padding: 0 15px;
 }
 .mission{
-    margin-top: 60px;
-    // max-height: 408px;
+    margin-top: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 66px;

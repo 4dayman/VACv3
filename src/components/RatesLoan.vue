@@ -88,9 +88,6 @@ export default {
         flex-direction: column;
         padding: 20px;
     }
-
-    h3{
-    }
     p{
         font-weight: 400;
         font-size: 16px;
