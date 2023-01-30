@@ -61,6 +61,9 @@ export default {
         line-height: 140.5%;
         color: #41456B;
         margin-bottom: 20px;
+        @media (max-width: 460px) {
+            font-size: 30px;
+        }
     }
     h3{
         font-weight: 600;
@@ -89,7 +92,8 @@ export default {
     max-width: 542px;
     img{
         width: 100%;
-        height: 100%;object-fit: cover;
+        height: 100%;
+        object-fit: cover;
     }
 }
 </style>

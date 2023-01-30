@@ -10,6 +10,9 @@
     <Metrics/>
     <Comments/>
     <Calculator/>
+    <interesting-read
+      :blogs="blogs"
+    />
     </div>
     <Footer/>
   </div>
@@ -27,6 +30,10 @@ import Metrics from '@/components/Metrics.vue'
 import Comments from '@/components/Comments.vue'
 import Calculator from '@/components/Calculator.vue'
 import Footer from '@/components/Footer.vue'
+import InterestingRead from '@/components/InterestingRead.vue'
+
+import blogs from '../mocks/blogs'
+
 export default {
   name: 'HomeView',
   components: {
@@ -39,8 +46,14 @@ export default {
     Metrics,
     Comments,
     Calculator,
-    Footer
-  }
+    Footer,
+    InterestingRead,
+  },
+   data() {
+    return {
+      blogs
+    }
+   }
 }
 </script>
 
@@ -49,8 +62,6 @@ export default {
     margin-top: 80px;
     @media (max-width: 360px) {
       margin-top: 55px;
-
     }
-
   }
 </style>

@@ -37,6 +37,9 @@ export default {
     font-size: 45px;
     line-height: 140.5%;
     color: #41456B;
+    @media (max-width: 460px) {
+        font-size: 30px;
+    }
 }
 .rates{
     margin-top: 60px;
@@ -87,6 +90,7 @@ export default {
         display: flex;
         flex-direction: column;
         padding: 20px;
+        max-height: none;
     }
     p{
         font-weight: 400;
