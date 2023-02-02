@@ -30,6 +30,7 @@ export default {
 }
 .mission{
     margin-top: 20px;
+    // max-height: 408px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 66px;
@@ -40,7 +41,7 @@ export default {
         grid-template-columns: 1fr;
         row-gap: 40px;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 560px) {
         padding: 0px;
         row-gap: 30px;
         margin-bottom: 80px;
@@ -52,7 +53,7 @@ export default {
     box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     text-align: left;
-        @media (max-width: 768px) {
+        @media (max-width: 460px) {
             display: flex;
             flex-direction: column;
             padding: 20px;
