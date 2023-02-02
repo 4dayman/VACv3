@@ -14,9 +14,6 @@
                 @toggleOpen="toggleOpen"
             />
         </div>
-        <!-- <TermsPolicy
-            :accordions='privacys'
-        /> -->
       </div>
       <Footer/>
   </div>
@@ -26,14 +23,12 @@
 import Header from '@/components/Header.vue'
 import HeadComp from '@/components/HeadComp.vue'
 import TermsAndPolicy from '@/components/TermsAndPolicy.vue'
-// import TermsPolicy from '@/components/TermsPolicy.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
 components: {
   Header,
   HeadComp,
-//   TermsPolicy,
   TermsAndPolicy,
   Footer
 },
