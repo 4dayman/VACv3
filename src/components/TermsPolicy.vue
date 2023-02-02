@@ -123,7 +123,7 @@ export default {
     }
 }
 .accordion_desc {
-    padding: 20px;
+    // padding: 20px;
     text-align: left;
     font-weight: 400;
     font-size: 16px;
