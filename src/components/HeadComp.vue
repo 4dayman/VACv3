@@ -19,7 +19,7 @@ export default {
     background: url('@/assets/headCompBg.png');
     height: 145px;
     margin-bottom: 40px;
-    @media (max-width: 379px) {
+    @media (max-width: 460px) {
         height: 116px;
     }
 
@@ -33,7 +33,7 @@ export default {
     align-items: center;
     justify-content: flex-start;
     margin-bottom: 40px;
-    @media (max-width: 379px) {
+    @media (max-width: 460px) {
         margin-bottom: 30px;
     }
     h2{
@@ -44,7 +44,7 @@ export default {
         color: #FFFFFF;
         text-align: left;
         transition: all ease 0.4s;
-        @media (max-width: 379px) {
+        @media (max-width: 460px) {
             font-size: 35px;
             margin-bottom: 30px;
         }
