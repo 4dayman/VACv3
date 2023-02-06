@@ -12,18 +12,15 @@
                     :modules="modules"
                     :slides-per-view="1"
                     :space-between="50"
-                    :space-between-view="50"
                     :navigation="{nextEl: '.nextBlog', prevEl: '.prevBlog'}"
                     :breakpoints="{
                         '768': {
                             slidesPerView: 2,
                             spaceBetween: 20,
-                            spaceBetweenView: 50,
                         },
                         '1024': {
                             slidesPerView: 3,
                             spaceBetween: 20,
-                            spaceBetweenView: 50,
                         }
                     }"
                 >
@@ -41,7 +38,7 @@
                                 <p>{{blog.date}}</p>
                                 <span>{{blog.title}}</span>
                             </div>
-                         </router-link>
+                        </router-link>
                     </swiper-slide>
                 </swiper>
                 <div class="blog_nav">
@@ -124,9 +121,17 @@ export default {
     }
 }
 .interesting_main{
-    padding: 0 18px 30px 18px;
-    width: 90vw;
     margin: 0 auto;
+    max-width: 90vw;
+    // padding: 0 18px 30px 18px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    @media (max-width: 768px) {
+        max-width: 90vw;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 0;
+    }
 }
 .swiper_wrap {
     position: relative;
@@ -136,9 +141,9 @@ export default {
     border-radius: 5px;
     min-height: 360px;
     padding: 5px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.15);
     overflow: hidden;
-    @media (max-width: 1175px) {
+    @media (max-width: 1193px) {
         min-height: 395px;
     }
     @media (max-width: 1023px) {
@@ -165,7 +170,7 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-end;
-    padding: 30px 30px 30px 30px;
+    padding: 30px;
     @media (max-width: 460px) {
         padding: 20px 10px 30px 10px;
     }
@@ -222,23 +227,23 @@ export default {
   }
 }
 .nextBlog{
-    right: 47px;
+    right: 20px;
     @media (max-width: 768px) {
         right: 40px;
     }
 
     @media (max-width: 460px) {
-        right: 20px;
+        right: 0px;
     }
 }
 .prevBlog{
-    left: 47px;
+    left: 20px;
     @media (max-width: 768px) {
         left: 40px;
     }
 
     @media (max-width: 460px) {
-        left: 20px;
+        left: 0px;
     }
 }
 .prevBlog:after,

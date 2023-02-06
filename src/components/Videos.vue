@@ -1,43 +1,45 @@
 <template>
-    <div class="interesting_wrapper">
-        <div class="interesting">
+    <div class="videos_wrapper">
+        <div class="videos">
             <div class="swiper_wrap">
-                <swiper class="interesting_main"
+                <swiper class="videos_main"
                     :modules="modules"
                     :slides-per-view="1"
                     :slides-per-group="1"
-                    :space-between="22"
+                    :space-between="40"
                     :pagination="{ clickable: true }"
-                    :grid="{ rows: 6, fill: true }"
+                    :grid="{ rows: 4, fill: true }"
                     :grabCursor="true"
                     :breakpoints="{
                         '768': {
-                            slidesPerView: 2,
-                            slidesPerGroup: 2,
+                            slidesPerView: 1,
+                            slidesPerGroup: 1,
                             grid: {rows: 4, fill: true}
 
                         },
                         '1024': {
-                            slidesPerView: 3,
-                            slidesPerGroup: 3,
-                            grid: {rows: 3, fill: true}
+                            slidesPerView: 2,
+                            slidesPerGroup: 2,
+                            grid: {rows: 2, fill: true}
                         }
                     }"
                 >
 
                     <swiper-slide 
-                        v-for="(blog, index) in blogs"
+                        v-for="(video, index) in videos"
                         :key="index"
-                        class="slide"
+                        class="videos_slide"
                         @click="indexNo(index)"
                     >
-                        <router-link to="/article">
-                            <div class="content_img">
-                                <img :src="blog.url" alt="">
+                        <div class="video_play">
+                            <img src="../assets/Video_play.svg" alt="">
+                        </div>
+                        <router-link to="">
+                            <div class="videos_content_img">
+                                <img :src="video.url" alt="">
                             </div>
-                            <div class="content_text">
-                                <p>{{blog.date}}</p>
-                                <span>{{blog.title}}</span>
+                            <div class="videos_content_text">
+                                <span>{{video.title}}</span>
                             </div>
                          </router-link>
                     </swiper-slide>
@@ -70,7 +72,7 @@ export default {
         
     },
     props: {
-        blogs: {
+        videos: {
         type: Array,
         default: () => []
         }
@@ -83,50 +85,34 @@ export default {
 }
 </script>
 <style lang="scss">
-.interesting_wrapper{
-    max-width: 1230px;
+.videos_wrapper{
+    max-width: 1300px;
     margin: 0 auto;
     padding: 0 24px;
     @media (max-width: 460px) {
         padding: 0 20px;
     }
 }
-.interesting{
+.videos{
     margin-top: 40px;
     margin-bottom: 40px;
     padding-bottom: 40px;
 }
-.interesting_title{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 60px;
-}
-.title{
-    text-align: left;
-    font-weight: 700;
-    font-size: 45px;
-    line-height: 140.5%;
-    color: #41456B;
-    @media (max-width: 560px) {
-        font-size: 30px;
-    }
-}
-.interesting_main{
+.videos_main{
     padding: 20px;
-    max-width: 95vw;
+    max-width: 100vw;
     margin: 0 auto;
 }
 .swiper_wrap {
     position: relative;
 }
-.slide {
+.videos_slide {
+    width: 100%;
+    position: relative;
     background: #FFFFFF;
     border-radius: 5px;
-    min-height: 360px;
-    padding: 5px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    min-height: 416px;
+    padding: 0px;
     @media (max-width: 1175px) {
         min-height: 395px;
     }
@@ -140,32 +126,38 @@ export default {
         min-height: 360px;
     }
 }
-.content_img {
+.video_play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 53px;
+    height: 53px;
+    transform: translate(-50%, -50%);
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.videos_content_img {
     margin: -5px;
-    height: 230px;
+    height: 326px;
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
 }
-.content_text {
+.videos_content_text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-end;
-    padding: 30px 30px 30px 30px;
+    padding: 20px 30px 0px 0px;
     @media (max-width: 460px) {
         padding: 20px 10px 30px 10px;
     }
 
-    p {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 180%;
-        letter-spacing: 0.02em;
-        color: #606276;
-    }
     span {
         max-width: 300px;
         text-align: left;
@@ -177,24 +169,6 @@ export default {
             font-size: 18px;
         }
 
-    }
-}
-.bottom_btn {
-    display: none;
-        width: 90%;
-    @media (max-width: 460px) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        display: block;
-        max-height: 35px;
-        padding: 10px;
-        margin: 0 auto;
-    }
-}
-.top_btn {
-    @media (max-width: 460px) {
-        display: none;
     }
 }
 .swiper-horizontal>.swiper-pagination-bullets{

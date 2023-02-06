@@ -88,7 +88,7 @@ export default {
 
 <style lang="scss" scoped>
 .comments_wrapper{
-    max-width: 1230px;
+    max-width: 1270px;
     padding: 0 24px;
     margin: 0 auto;
     transition: all ease 0.5s;
@@ -125,9 +125,9 @@ export default {
     margin: 0 auto;
     max-width: 90vw;
     padding: 10px;
-    box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1);
     background: #FFFFFF;
     border-radius: 5px;
+    box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1);
 }
 .comments_slide{
     height: 100%;
