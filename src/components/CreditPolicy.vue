@@ -26,11 +26,13 @@ export default {
 .mission_wrapper{
     max-width: 1230px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 24px;
+    @media (max-width: 460px) {
+        padding: 0 20px;
+    }
 }
 .mission{
     margin-top: 20px;
-    // max-height: 408px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 66px;

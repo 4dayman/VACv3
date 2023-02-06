@@ -19,7 +19,10 @@
 .vac_wrapper{
     max-width: 1230px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 24px;
+    @media (max-width: 460px) {
+        padding: 0 20px;
+    }
 }
 .vac{
     margin-top: 60px;

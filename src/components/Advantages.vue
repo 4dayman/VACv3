@@ -36,8 +36,11 @@
 .advantages {
     margin: 0 auto;
     max-width: 1230px;
-    padding: 0 15px;
+    padding: 0 24px;
     margin-bottom: 80px;
+    @media (max-width: 460px) {
+        padding: 0 20px;
+    }
 }
 .advantages_tite {
     font-weight: 700;

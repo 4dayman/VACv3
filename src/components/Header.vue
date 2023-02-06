@@ -183,11 +183,11 @@ export default {
     width: 100%;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    padding: 0 15px;
+    padding: 0 24px;
     margin: 0 auto;
     transition: all 0.5s ease 0.1s;
-    @media (max-width: 768px) {
-        padding: 0 24px;
+    @media (max-width: 460px) {
+        padding: 0 20px;
     }
 }
 .header {

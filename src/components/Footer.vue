@@ -34,8 +34,11 @@
 .conatiner {
     background: #7481FF;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 24px;
     z-index: 1;
+    @media (max-width: 460px) {
+        padding: 0 20px;
+    }
 }
 .footer {
     margin: 0 auto;

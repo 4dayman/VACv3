@@ -32,10 +32,13 @@ export default {
     .wrapper_inventory {
         max-width: 1230px;
         margin: 0 auto;
+        padding: 0 24px;
+        @media (max-width: 460px) {
+            padding: 0 20px;
+        }
     }
     .inventory {
         margin: 220px 0;
-        padding: 0 15px;
         height: 311px;
         display: flex;
         align-items: center;

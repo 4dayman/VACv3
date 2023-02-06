@@ -141,9 +141,12 @@ export default {
 <style lang="scss" scoped>
 .calculator_wrapper{
     max-width: 1230px;
-    padding: 0 20px;
+    padding: 0 24px;
     margin: 0 auto;
     transition: all ease 0.5s;
+    @media (max-width: 460px) {
+        padding: 0 20px;
+    }
 }
 .calculator {
     margin-bottom: 40px;

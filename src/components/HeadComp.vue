@@ -26,7 +26,7 @@ export default {
 }
 .head_text{
     max-width: 1230px;
-    padding: 0 15px;
+    padding: 0 24px;
     margin: 0 auto;
     height: 150px;
     display: flex;
@@ -35,6 +35,7 @@ export default {
     margin-bottom: 40px;
     @media (max-width: 460px) {
         margin-bottom: 30px;
+        padding: 0 20px;
     }
     h2{
         font-weight: 800;

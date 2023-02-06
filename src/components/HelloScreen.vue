@@ -76,11 +76,11 @@ export default {
     }
     .content {
         max-width: 1230px;
-        padding: 0 15px;
+        padding: 0 24px;
         margin: 0 auto;
-        @media (max-width: 768px) {
+        @media (max-width: 460px) {
+            padding: 0 20px;
         }
-
     }
     .content_top {
         padding-top: 120px;

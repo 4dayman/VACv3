@@ -11,14 +11,19 @@
                 <swiper class="interesting_main"
                     :modules="modules"
                     :slides-per-view="1"
-                    :space-between="22"
+                    :space-between="50"
+                    :space-between-view="50"
                     :navigation="{nextEl: '.nextBlog', prevEl: '.prevBlog'}"
                     :breakpoints="{
                         '768': {
                             slidesPerView: 2,
+                            spaceBetween: 20,
+                            spaceBetweenView: 50,
                         },
                         '1024': {
                             slidesPerView: 3,
+                            spaceBetween: 20,
+                            spaceBetweenView: 50,
                         }
                     }"
                 >
@@ -87,7 +92,10 @@ export default {
 .interesting_wrapper{
     max-width: 1230px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 24px;
+    @media (max-width: 460px) {
+        padding: 0 20px;
+    }
 }
 .interesting{
     margin-top: 220px;
@@ -116,8 +124,8 @@ export default {
     }
 }
 .interesting_main{
-    padding: 20px;
-    max-width: 95vw;
+    padding: 0 18px 30px 18px;
+    width: 90vw;
     margin: 0 auto;
 }
 .swiper_wrap {
@@ -136,10 +144,10 @@ export default {
     @media (max-width: 1023px) {
         min-height: 360px;
     }
-    @media (max-width: 791px) {
+    @media (max-width: 832px) {
         min-height: 395px;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
         min-height: 360px;
     }
 }
@@ -214,9 +222,9 @@ export default {
   }
 }
 .nextBlog{
-    right: 30px;
+    right: 47px;
     @media (max-width: 768px) {
-        right: 25px;
+        right: 40px;
     }
 
     @media (max-width: 460px) {
@@ -224,9 +232,9 @@ export default {
     }
 }
 .prevBlog{
-    left: 30px;
+    left: 47px;
     @media (max-width: 768px) {
-        left: 25px;
+        left: 40px;
     }
 
     @media (max-width: 460px) {
