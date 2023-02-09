@@ -2,7 +2,7 @@
     <div class="videos">
         <div class="grid">
             <div class="grid_item" v-for="(item, i) in collection" :key="i">
-                {{item}}
+                <div>{{item}}</div>
             </div>
         </div>
         <hr>
@@ -25,8 +25,8 @@ export default {
     data() {
         return {
             items: [0,1,2,3,4,5,6,7,8,9,10,11,],
-            perPage: 6,
-            pagination:{}
+            perPage: 3,
+            pagination:{},
         }
     },
     computed: {
@@ -62,10 +62,12 @@ export default {
     max-width: 1230px;
     margin: 0 auto;
     padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr, 1fr;
 }
 .grid{
-    display: grid;
-    grid-template: 1fr, 1fr;
+    // display: grid;
+    // grid-template: 1fr, 1fr;
 }
 .grid_item {
     width: 200px;
@@ -73,6 +75,7 @@ export default {
     border: 1px solid red;
 }
 button{
-    width: 50px;height: 50px;
+    width: 50px;
+    height: 50px;
 }
 </style>

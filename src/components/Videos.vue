@@ -31,18 +31,27 @@
                         class="videos_slide"
                         @click="indexNo(index)"
                     >
-                        <div class="video_play">
-                            <img src="../assets/Video_play.svg" alt="">
-                        </div>
-                        <router-link to="">
+                        <div @click="popupActive = !popupActive">
                             <div class="videos_content_img">
+                                <div class="video_play">
+                                    <img src="../assets/Video_play.svg" alt="">
+                                </div>
                                 <img :src="video.url" alt="">
                             </div>
                             <div class="videos_content_text">
                                 <span>{{video.title}}</span>
                             </div>
-                         </router-link>
+                        </div>
                     </swiper-slide>
+                        <div class="video_popup_shadow" @click="popupActive = !popupActive" :class="{popupActive}"></div>
+                        <div class="video_popup" :class="{popupActive}">
+                            <div @click="popupActive = !popupActive" class="video_popup_close">
+                                <img src="../assets/CloseW.svg" alt="">
+                            </div>
+                            <div class="popup_frame">
+                                <iframe width="100%" height="100%" :src="videos[index].videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                        </div>
                 </swiper>
             </div>
         </div>
@@ -56,20 +65,35 @@ import 'swiper/css/pagination'
 import "swiper/css/bundle"
 import 'swiper/css/grid'
 
-
-
-
+// import LazyYoutube from 'vue-lazytube'
 export default {
     components: {
         Swiper,
-        SwiperSlide
+        SwiperSlide,
+        // LazyYoutube,
+    },
+    data() {
+        return {
+            popupActive: false,
+            index: 0,
+        }
     },
     methods: {
         indexNo(index) {
-            console.log(index)
             this.$emit('blogIndex', index)
+            this.index = index
         },
         
+    },
+    watch: {
+        popupActive() {
+            document.body.style.overflow = this.popupActive ? 'hidden' : ''
+            if(this.index == 0) {
+                this.index = 1
+            } else {
+                this.index = 0
+            }
+        },
     },
     props: {
         videos: {
@@ -86,7 +110,7 @@ export default {
 </script>
 <style lang="scss">
 .videos_wrapper{
-    max-width: 1300px;
+    max-width: 1230px;
     margin: 0 auto;
     padding: 0 24px;
     @media (max-width: 460px) {
@@ -97,33 +121,24 @@ export default {
     margin-top: 40px;
     margin-bottom: 40px;
     padding-bottom: 40px;
+    position: relative;
 }
 .videos_main{
     padding: 20px;
-    max-width: 100vw;
+    max-width: 90vw;
     margin: 0 auto;
-}
-.swiper_wrap {
-    position: relative;
 }
 .videos_slide {
     width: 100%;
-    position: relative;
     background: #FFFFFF;
     border-radius: 5px;
     min-height: 416px;
     padding: 0px;
-    @media (max-width: 1175px) {
-        min-height: 395px;
+    @media (max-width: 768px) {
+        min-height: 400px;
     }
-    @media (max-width: 1023px) {
-        min-height: 360px;
-    }
-    @media (max-width: 791px) {
-        min-height: 395px;
-    }
-    @media (max-width: 767px) {
-        min-height: 360px;
+    @media (max-width: 460px) {
+        min-height: 244px;
     }
 }
 .video_play {
@@ -133,6 +148,10 @@ export default {
     width: 53px;
     height: 53px;
     transform: translate(-50%, -50%);
+    @media (max-width: 460px) {
+        width: 35px;
+        height: 35px;
+    }
     img{
         width: 100%;
         height: 100%;
@@ -140,8 +159,15 @@ export default {
     }
 }
 .videos_content_img {
+    position: relative;
     margin: -5px;
     height: 326px;
+    @media (max-width: 768px) {
+        height: 400px;
+    }
+    @media (max-width: 460px) {
+        height: 178px;
+    }
     img {
         width: 100%;
         height: 100%;
@@ -182,4 +208,90 @@ export default {
     background: #606276;
     opacity: 1;
 }
+
+.video_popup {
+    position: fixed;
+    top: -100%;
+    right: -100%;
+    left: -100%;
+    opacity: 0;
+    z-index: 4;
+    transition: all 0.3s ease 0s;
+    display: flex;
+    flex-direction: row-reverse;
+    @media (max-width: 460px) {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+}
+.popup_frame {
+    width: 900px;
+    height: 543px;
+    @media (max-width: 768px) {
+        width: 660px;
+        height: 375px;
+    }
+    @media (max-width: 460px) {
+        width: 320px;
+        height: 234px;
+    }
+    @media (max-width: 375px) {
+        width: 280px;
+        height: 234px;
+    }
+}
+.video_popup.popupActive {
+    opacity: 1;
+    right: 253px;
+    left: 286px;
+    top: 225px;
+    @media (min-width: 1450px) {
+        right: 30%;
+        left: 30%;
+        top: 225px;
+    }
+    @media (max-width: 1270px) {
+        right: 24px;
+        left: 84px;
+        top: 225px;
+    }
+    @media (max-width: 460px) {
+        right: 20px;
+        left: 20px;
+        top: 166px;
+    }
+    @media (max-width: 460px) {
+        right: 10vw;
+        left: 10vw;
+        top: 166px;
+    }
+}
+
+.video_popup_close {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    @media (max-width: 1270px) {
+        margin-left: 36px;
+    }
+    @media (max-width: 460px) {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+}
+.video_popup_shadow {
+    position: fixed;
+    display: none;
+    top: 0;
+    left:0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+}
+.video_popup_shadow.popupActive {
+    display: block;
+}
+
 </style>
