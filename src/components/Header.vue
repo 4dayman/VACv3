@@ -5,6 +5,7 @@
             <router-link to="/">
                 <img src="@/assets/HeaderLogo.svg" alt="">
             </router-link>
+            <span>{{msg}}</span>
         </div>
         <div class="header_menu menu">
             <div>
@@ -117,6 +118,9 @@ export default {
     components: {
         MainButton
     },
+    props: {
+        msg: String,
+    },
     setup () {
         return { v$: useVuelidate() }
     },
@@ -214,6 +218,8 @@ export default {
 }
 
 .header_logo {
+        display: flex;
+        align-items: center;
     img{
         width: 112px;
         height: 33px;
@@ -221,6 +227,17 @@ export default {
         @media (max-width: 767px) {
             width: 81px;
             height: 24px;
+        }
+    }
+    span{
+        margin-left: 40px;
+        font-weight: 700;
+        font-size: 25px;
+        line-height: 140%;
+        letter-spacing: 0.02em;
+        color: #41456B;
+        @media (max-width: 560px) {
+            display: none;
         }
     }
 }

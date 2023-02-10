@@ -70,11 +70,11 @@ data() {
             videoUrl: 'https://www.youtube.com/embed/CSc-uTgU-_M',
             title: 'VAC\'s Vehicle Shoot #09: 2019 Mazda CX-5',
           },
-          {
-            url: require('../assets/Video_2.png'),
-            videoUrl: 'https://www.youtube.com/embed/fPEnXfcvZ_c',
-            title: 'VAC\'s Vehicle Shoot #11: Toyota Highlander',
-          },
+        //   {
+        //     url: require('../assets/Video_2.png'),
+        //     videoUrl: 'https://www.youtube.com/embed/fPEnXfcvZ_c',
+        //     title: 'VAC\'s Vehicle Shoot #11: Toyota Highlander',
+        //   },
         ]
     }
 },

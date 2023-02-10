@@ -1,6 +1,6 @@
 <template>
   <div class="inventory">
-      <Header/>
+      <Header msg="Inventory"/>
       <div>
 
       </div>

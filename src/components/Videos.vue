@@ -13,16 +13,13 @@
                 </div>
             </div>
         </div>
-        <!-- <hr> -->
         <div class="video_popup_shadow" @click="popupActive = !popupActive" :class="{popupActive}"></div>
-                        <div class="video_popup" :class="{popupActive}">
-                            <div @click="popupActive = !popupActive" class="video_popup_close">
-                                <img src="../assets/CloseW.svg" alt="">
-                            </div>
-                            <!-- <div class="popup_frame"> -->
-                                <iframe width="100%" height="100%" :src="videos[index].videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                            <!-- </div> -->
-                        </div>
+        <div class="video_popup" :class="{popupActive}">
+            <div @click="popupActive = !popupActive" class="video_popup_close">
+                <img src="../assets/CloseW.svg" alt="">
+            </div>
+                <iframe width="100%" height="100%" :src="videos[index].videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
         <div class="btn-toolbar">
             <button
                 v-for="(p, i) in pagination.pages" 
@@ -109,8 +106,7 @@ export default {
     flex-wrap: wrap;
     column-gap: 40px;
     align-items: center;
-    justify-content: center;
-    // margin-bottom: 40px;
+    justify-content: flex-start;
     @media (max-width: 460px) {
         gap: 20px;
     }
@@ -200,9 +196,6 @@ button.active {
 }
 .video_popup {
     position: fixed;
-    // top: -100%;
-    // right: -100%;
-    // left: -100%;
     opacity: 0;
     z-index: 4;
     transition: all 0.3s ease 0s;
