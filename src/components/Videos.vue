@@ -1,114 +1,101 @@
 <template>
     <div class="videos_wrapper">
         <div class="videos">
-            <div class="swiper_wrap">
-                <swiper class="videos_main"
-                    :modules="modules"
-                    :slides-per-view="1"
-                    :slides-per-group="1"
-                    :space-between="40"
-                    :pagination="{ clickable: true }"
-                    :grid="{ rows: 4, fill: true }"
-                    :grabCursor="true"
-                    :breakpoints="{
-                        '768': {
-                            slidesPerView: 1,
-                            slidesPerGroup: 1,
-                            grid: {rows: 4, fill: true}
-
-                        },
-                        '1024': {
-                            slidesPerView: 2,
-                            slidesPerGroup: 2,
-                            grid: {rows: 2, fill: true}
-                        }
-                    }"
-                >
-
-                    <swiper-slide 
-                        v-for="(video, index) in videos"
-                        :key="index"
-                        class="videos_slide"
-                        @click="indexNo(index)"
-                    >
-                        <div @click="popupActive = !popupActive">
-                            <div class="videos_content_img">
-                                <div class="video_play">
-                                    <img src="../assets/Video_play.svg" alt="">
-                                </div>
-                                <img :src="video.url" alt="">
-                            </div>
-                            <div class="videos_content_text">
-                                <span>{{video.title}}</span>
-                            </div>
-                        </div>
-                    </swiper-slide>
-                        <div class="video_popup_shadow" @click="popupActive = !popupActive" :class="{popupActive}"></div>
+            <div class="videos_item" v-for="(video, i) in collection" :key="i"  @click="indexNo(i)">
+                <div class="videos_content_img" @click="popupActive = !popupActive">
+                    <div class="video_play">
+                        <img src="../assets/Video_play.svg" alt="">
+                    </div>
+                    <img :src="video.url" alt="">
+                </div>
+                <div class="videos_content_text" @click="popupActive = !popupActive">
+                    <span>{{video.title}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- <hr> -->
+        <div class="video_popup_shadow" @click="popupActive = !popupActive" :class="{popupActive}"></div>
                         <div class="video_popup" :class="{popupActive}">
                             <div @click="popupActive = !popupActive" class="video_popup_close">
                                 <img src="../assets/CloseW.svg" alt="">
                             </div>
-                            <div class="popup_frame">
+                            <!-- <div class="popup_frame"> -->
                                 <iframe width="100%" height="100%" :src="videos[index].videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                            </div>
+                            <!-- </div> -->
                         </div>
-                </swiper>
-            </div>
+        <div class="btn-toolbar">
+            <button
+                v-for="(p, i) in pagination.pages" 
+                :key="i" 
+                @click.prevent="setPage(p)"
+                :class="{'active': active === i}"
+            ></button>
         </div>
     </div>
 </template>
-<script>
-import {Grid, Pagination} from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
-import 'swiper/css/pagination'
-import "swiper/css/bundle"
-import 'swiper/css/grid'
 
-// import LazyYoutube from 'vue-lazytube'
+<script>
+import _ from 'lodash'
 export default {
-    components: {
-        Swiper,
-        SwiperSlide,
-        // LazyYoutube,
-    },
-    data() {
-        return {
-            popupActive: false,
-            index: 0,
-        }
-    },
-    methods: {
-        indexNo(index) {
-            this.$emit('blogIndex', index)
-            this.index = index
-        },
-        
-    },
-    watch: {
-        popupActive() {
-            document.body.style.overflow = this.popupActive ? 'hidden' : ''
-            if(this.index == 0) {
-                this.index = 1
-            } else {
-                this.index = 0
-            }
-        },
-    },
     props: {
         videos: {
         type: Array,
         default: () => []
         }
     },
-    setup() {
-      return {
-        modules: [Grid, Pagination ],
-      }
+    data() {
+        return {
+            index: 0,
+            popupActive: false,
+            perPage: 4,
+            pagination:{},
+            active: 0
+        }
+    },
+    watch: {
+    popupActive() {
+        document.body.style.overflow = this.popupActive ? 'hidden' : ''
+        if(this.index == 0) {
+            this.index = 1
+        } else {
+            this.index = 0
+        }
+    },
+    },
+    computed: {
+        collection() {
+            return this.paginate(this.videos)
+        }
+    },
+    methods: {
+        indexNo(i) {
+            this.$emit('blogIndex', i)
+            this.index = i
+        },
+        setPage(p) {
+            this.pagination = this.paginator(this.videos.length, p);
+                this.active = p - 1
+        },
+        paginate(videos) {
+            return _.slice(videos, this.pagination.startIndex, this.pagination.endtIndex +1)
+        },
+        paginator(totalItems, currentPage) {
+            var startIndex = (currentPage - 1) * this.perPage,
+            endtIndex = Math.min(startIndex + this.perPage - 1, totalItems - 1);
+            return {
+                currentPage: currentPage,
+                startIndex: startIndex,
+                endtIndex: endtIndex,
+                pages: _.range(1, Math.ceil(totalItems / this.perPage) + 1)
+            };
+        }
+    },
+    created() {
+        this.setPage(1)
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .videos_wrapper{
     max-width: 1230px;
     margin: 0 auto;
@@ -118,27 +105,45 @@ export default {
     }
 }
 .videos{
-    margin-top: 40px;
-    margin-bottom: 40px;
-    padding-bottom: 40px;
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    align-items: center;
+    justify-content: center;
+    // margin-bottom: 40px;
+    @media (max-width: 460px) {
+        gap: 20px;
+    }
 }
-.videos_main{
-    padding: 20px;
-    max-width: 90vw;
-    margin: 0 auto;
-}
-.videos_slide {
-    width: 100%;
-    background: #FFFFFF;
-    border-radius: 5px;
+.videos_item {
+    width: 48%;
     min-height: 416px;
-    padding: 0px;
+    
+    @media (max-width: 1048px) {
+        width: 47%;
+    }
     @media (max-width: 768px) {
+        width: 100%;
         min-height: 400px;
     }
     @media (max-width: 460px) {
         min-height: 244px;
+    }
+}
+.videos_content_img{
+     position: relative;
+    margin: -5px;
+    height: 326px;
+    @media (max-width: 768px) {
+        height: 400px;
+    }
+    @media (max-width: 460px) {
+        height: 178px;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
 .video_play {
@@ -153,22 +158,6 @@ export default {
         height: 35px;
     }
     img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
-.videos_content_img {
-    position: relative;
-    margin: -5px;
-    height: 326px;
-    @media (max-width: 768px) {
-        height: 400px;
-    }
-    @media (max-width: 460px) {
-        height: 178px;
-    }
-    img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -197,62 +186,46 @@ export default {
 
     }
 }
-.swiper-horizontal>.swiper-pagination-bullets{
-    bottom: 0px;
-}
-.swiper-pagination-bullet{
+button{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-bottom: 40px;
     background: #606276;
     opacity: 0.3;
 }
-.swiper-pagination-bullet-active{
-    background: #606276;
+button.active {
     opacity: 1;
 }
-
 .video_popup {
     position: fixed;
-    top: -100%;
-    right: -100%;
-    left: -100%;
+    // top: -100%;
+    // right: -100%;
+    // left: -100%;
     opacity: 0;
     z-index: 4;
     transition: all 0.3s ease 0s;
-    display: flex;
-    flex-direction: row-reverse;
-    @media (max-width: 460px) {
-        flex-direction: column;
-        align-items: flex-end;
-    }
-
 }
-.popup_frame {
-    width: 900px;
+iframe {
     height: 543px;
     @media (max-width: 768px) {
-        width: 660px;
         height: 375px;
     }
     @media (max-width: 460px) {
-        width: 320px;
         height: 234px;
     }
     @media (max-width: 375px) {
-        width: 280px;
         height: 234px;
     }
 }
 .video_popup.popupActive {
     opacity: 1;
-    right: 253px;
+    right: 287px;
     left: 286px;
     top: 225px;
-    @media (min-width: 1450px) {
-        right: 30%;
-        left: 30%;
-        top: 225px;
-    }
     @media (max-width: 1270px) {
-        right: 24px;
+        right: 84px;
         left: 84px;
         top: 225px;
     }
@@ -269,15 +242,13 @@ export default {
 }
 
 .video_popup_close {
+    position: absolute;
+    right: -40px;
     width: 24px;
     height: 24px;
-    margin-left: 10px;
-    @media (max-width: 1270px) {
-        margin-left: 36px;
-    }
     @media (max-width: 460px) {
-        margin-left: 0;
-        margin-bottom: 10px;
+        right: 0;
+        top: -40px;
     }
 }
 .video_popup_shadow {
