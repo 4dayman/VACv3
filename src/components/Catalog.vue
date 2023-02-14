@@ -91,19 +91,6 @@
                     <div class="inventory_filter" :class="open4 ? 'open4' : ''" >
                         <div class="filter_title" @click="open4 = !open4">Price</div>
                         <div class="filter_desc" :class="open4 ? 'open' : ''">
-                            <!-- <div class="middle">
-                                <div class="multi-range-slider">
-                                    <input class="input" type="range" id="input-left" min="0" max="100" value="25">
-                                    <input class="input" type="range" id="input-right" min="0" max="100" value="75">
-
-                                    <div class="slider">
-                                        <div class="track"></div>
-                                        <div class="range"></div>
-                                        <div class="thumb left"></div>
-                                        <div class="thumb right"></div>
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="price_value">
                                 <p>$ {{this.price[0]}}</p>
                                 <p>$ {{this.price[1]}}</p>
