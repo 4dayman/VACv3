@@ -122,9 +122,9 @@ export default {
 }
 .interesting_main{
     margin: 0 auto;
-    max-width: 90vw;
-    // padding: 0 18px 30px 18px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 94vw;
+    padding: 0 18px 40px 18px;
+    // box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
     @media (max-width: 768px) {
         max-width: 90vw;
         margin-bottom: 30px;
@@ -215,6 +215,7 @@ export default {
 }
 .prevBlog,
 .nextBlog {
+    z-index: 2;
     color:#fff;
     width: 53px;
     height: 53px;

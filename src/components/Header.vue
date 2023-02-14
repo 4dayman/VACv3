@@ -9,7 +9,7 @@
         </div>
         <div class="header_menu menu">
             <div>
-                <router-link class="menu_btn" to="/inventory">
+                <router-link class="menu_btn" to="/inventory" v-if="!msg">
                     <main-button class="white hide">Inventory</main-button>
                 </router-link>
                 <router-link to="/">
@@ -56,7 +56,7 @@
                             type="text" 
                             :class="v$.name.$error ? 'invalid' : ''"
                             placeholder="Your Name">
-                        <p v-if="v$.name.$error">Required to fill out</p>
+                        <p v-if="v$.name.$error">{{v$.name.$errors[0].$message}}</p>
                     </div>
                     <div class="contactsUs_input">
                         <img src="../assets/socialIcons/Phone.svg" alt="">
@@ -65,7 +65,7 @@
                             :class="v$.phone.$error ? 'invalid' : ''"
                             type="phone" 
                             placeholder="Phone Number">
-                        <p v-if="v$.phone.$error">Required to fill out</p>
+                        <p v-if="v$.phone.$error">{{v$.phone.$errors[0].$message}}</p>
                     </div>
                     <div class="contactsUs_input">
                         <img src="../assets/socialIcons/Mail.svg" alt="">
@@ -74,7 +74,7 @@
                             :class="v$.email.$error ? 'invalid' : ''"
                             type="email" 
                             placeholder="Email Address">
-                        <p v-if="v$.email.$error">Required to fill out</p>
+                        <p v-if="v$.email.$error">{{v$.email.$errors[0].$message}}</p>
                     </div>
                 </div>
                 <button type="submit" class="colored formbtn">contact me</button>
@@ -113,7 +113,7 @@
 <script>
 import MainButton from '@/components/UI/MainButton.vue'
 import { useVuelidate } from '@vuelidate/core'
-import { minLength, required, email, numeric } from '@vuelidate/validators'
+import { minLength, required, email, numeric} from '@vuelidate/validators'
 export default {
     components: {
         MainButton
@@ -141,7 +141,7 @@ export default {
         return {
             name: {
                 minLength: minLength(this.requiredNameLength),
-                required 
+                required,
             },
             phone: { 
                 minLength: minLength(this.requiredPhoneLength),
@@ -155,6 +155,7 @@ export default {
     methods: {
         checkForm() {
             this.v$.$touch()
+            this.v$.$validate()
             if (!this.v$.$error) {
                 // console.log("submit")
                 this.formActive = !this.formActive
@@ -451,6 +452,7 @@ export default {
     position: absolute;
     top: 28px;
     left: 60px;
+    cursor: pointer;
     @media (max-width: 768px) {
         top: 14px;
         left: 21px;
