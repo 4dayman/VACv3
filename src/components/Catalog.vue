@@ -165,8 +165,22 @@
                     <div class="mainbar_cards_wrapper">
                         <div class="mainbar_card">
                             <div class="mainbar_card_item" v-for="(video, i) in collection" :key="i"  @click="indexNo(i)">
+                                    <!-- <img :src="video.url" alt=""> -->
                                 <div class="mainbar_card_content_img">
-                                    <img :src="video.url" alt="">
+                                    <Swiper class="img"
+                                        :slides-per-view="1"
+                                        :space-between="0"
+                                    >
+                                        <SwiperSlide class="slide">
+                                            <img :src="video.url" alt="">
+                                        </SwiperSlide>
+                                        <SwiperSlide class="slide">
+                                            <img :src="video.url" alt="">
+                                        </SwiperSlide>
+                                        <!-- <SwiperSlide> -->
+                                            <!-- <img :src="video.url" alt=""> -->
+                                        <!-- </SwiperSlide> -->
+                                    </Swiper>
                                 </div>
                                 <div class="mainbar_card_content_text">
                                     <span>{{video.title}}</span>
@@ -200,10 +214,22 @@
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.scss"
 import _ from 'lodash'
+  import { Navigation } from 'swiper';
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import 'swiper/css';
+
 export default {
     components: {
         Slider,
+        Swiper,
+        SwiperSlide,
     },
+      setup() {
+      return {
+        modules: [Navigation],
+      };
+  },
+
     data() {
         return {
             videos: [
@@ -685,18 +711,24 @@ box-shadow: none;
     }
 }
 .mainbar_card_content_img{
-     position: relative;
+    // display: grid;
+    // grid-template-columns: 1fr;
+    // padding: 0;
+        // margin: 0 -80px;
+    .slide{
+        padding: 0;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
     height: 216px;
     @media (max-width: 768px) {
         height: 400px;
     }
     @media (max-width: 460px) {
         height: 178px;
-    }
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
     }
 }
 .mainbar_card_content_text {
