@@ -21,50 +21,50 @@
                         <div class="filter_title" @click="open2 = !open2">Body type</div>
                         <div class="filter_desc" :class="open2 ? 'open' : ''">
                             <div class="checkbox">
-                                <input type="checkbox" id="truck" value="truck">
-                                <lable for="truck" class="lable">
+                                <input type="checkbox" id="Trucks" value="Trucks">
+                                <lable for="Trucks" class="lable">
                                     <img src="../assets/Truckicon.svg" alt="">
                                     Trucks
                                 </lable>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="truck" value="truck">
-                                <lable for="truck" class="lable">
+                                <input type="checkbox" id="SUV" value="SUV">
+                                <lable for="SUV" class="lable">
                                     <img src="../assets/SUVicon.svg" alt="">
                                     SUV
                                 </lable>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="truck" value="truck">
-                                <lable for="truck" class="lable">
+                                <input type="checkbox" id="Sedan" value="Sedan">
+                                <lable for="Sedan" class="lable">
                                     <img src="../assets/Sedanicon.svg" alt="">
                                     Sedan
                                 </lable>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="truck" value="truck">
-                                <lable for="truck" class="lable">
+                                <input type="checkbox" id="Hatchback" value="Hatchback">
+                                <lable for="Hatchback" class="lable">
                                     <img src="../assets/Hatchbackicon.svg" alt="">
                                     Hatchback
                                 </lable>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="truck" value="truck">
-                                <lable for="truck" class="lable">
+                                <input type="checkbox" id="Coupe" value="Coupe">
+                                <lable for="Coupe" class="lable">
                                     <img src="../assets/Coupeicon.svg" alt="">
                                     Coupe
                                 </lable>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="truck" value="truck">
-                                <lable for="truck" class="lable">
+                                <input type="checkbox" id="Convertiable" value="Convertiable">
+                                <lable for="Convertiable" class="lable">
                                     <img src="../assets/Convertiableicon.svg" alt="">
                                     Convertiable
                                 </lable>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="truck" value="truck">
-                                <lable for="truck" class="lable">
+                                <input type="checkbox" id="VAN" value="VAN">
+                                <lable for="VAN" class="lable">
                                     <img src="../assets/VANicon.svg" alt="">
                                     VAN
                                 </lable>
@@ -150,13 +150,45 @@
                         <div class="main_right">
                             <p class="sorted">Sorted by</p>
                             <div class="catalog_filter recommendations" :class="open7 ? 'open7' : ''" >
-                                <div class="filter_title recommendations" @click="open7 = !open7">Recommendations</div>
-                                <div class="filter_desc" :class="open7 ? 'open' : ''">
-                                    <p>Newest inventory</p>
-                                    <p>Lowest price</p>
-                                    <p>Highest prices</p>
+                                <div class="filter_title recommendations" @click="open7 = !open7">{{selected}}</div>
+                                <div class="filter_desc recommendations" :class="open7 ? 'open' : ''">
+                                    <p @click="recom" v-if="selected != recomValue">Recommendations</p>
+                                    <p @click="newest" v-if="selected != newestValue">Newest inventory</p>
+                                    <p @click="lowest" v-if="selected != lowestValue">Lowest price</p>
+                                    <p @click="highest" v-if="selected != highestValue">Highest prices</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mainbar_cards">
+                    <div class="mainbar_cards_wrapper">
+                        <div class="mainbar_card">
+                            <div class="mainbar_card_item" v-for="(video, i) in collection" :key="i"  @click="indexNo(i)">
+                                <div class="mainbar_card_content_img">
+                                    <img :src="video.url" alt="">
+                                </div>
+                                <div class="mainbar_card_content_text">
+                                    <span>{{video.title}}</span>
+                                    <h4>$ {{video.price}}</h4>
+                                    <div class="info">
+                                        <p>{{video.year}} year</p>
+                                        <p>|</p>
+                                        <p>{{video.body}}</p>
+                                        <p>|</p>
+                                        <p>{{video.transmition}}</p>
+                                    </div>
+                                    <p>{{video.kilometres}} km</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-toolbar">
+                            <button
+                                v-for="(p, i) in pagination.pages" 
+                                :key="i" 
+                                @click.prevent="setPage(p)"
+                                :class="{'active': active === i}"
+                            ></button>
                         </div>
                     </div>
                 </div>
@@ -167,12 +199,96 @@
 <script>
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.scss"
+import _ from 'lodash'
 export default {
     components: {
         Slider,
     },
     data() {
         return {
+            videos: [
+                {
+                    url: require('../assets/catalog/PorschePanamera_1.png'),
+                    title: 'Porsche Panamera II Turbo S E-Hybrid',
+                    price: '150 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+                {
+                    url: require('../assets/catalog/MitsubishiOutlander_1.png'),
+                    title: 'Mitsubishi Outlander III Restyling 3',
+                    price: '23 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+                {
+                    url: require('../assets/catalog/Mercedes-BenzCLA_1.png'),
+                    title: 'Mercedes-Benz CLA I (C117, X117) 200',
+                    price: '150 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+                {
+                    url: require('../assets/catalog/Mercedes-BenzW124_1.png'),
+                    title: 'Mercedes-Benz W124 420',
+                    price: '23 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+                {
+                    url: require('../assets/catalog/Mercedes-BenzE-Class_1.png'),
+                    title: 'Mercedes-Benz E-Class III (W211, S211) Restyling 230',
+                    price: '150 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+                {
+                    url: require('../assets/catalog/Audi-A7_1.png'),
+                    title: 'Audi A7 I (4G) S-tronic',
+                    price: '23 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+                {
+                    url: require('../assets/catalog/PorschePanamera_1.png'),
+                    title: 'Porsche Panamera II Turbo S E-Hybrid',
+                    price: '150 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+                {
+                    url: require('../assets/catalog/PorschePanamera_1.png'),
+                    title: 'Porsche Panamera II Turbo S E-Hybrid',
+                    price: '23 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+                {
+                    url: require('../assets/catalog/PorschePanamera_1.png'),
+                    title: 'Porsche Panamera II Turbo S E-Hybrid',
+                    price: '150 000',
+                    year: '2012',
+                    body: 'Sedan',
+                    transmition: 'Manual',
+                    kilometres: '100 000',
+                },
+            ],
             open1: false,
             open2: false,
             open3: false,
@@ -183,14 +299,82 @@ export default {
             price: [10000, 100000],
             year: [2000, 2005],
             kilometres: 100000,
+            // index: 0,
+            popupActive: false,
+            perPage: 6,
+            pagination:{},
+            // active: 0,
+            recomValue: 'Recommendations',
+            newestValue: 'Newest inventory',
+            lowestValue: 'Lowest price',
+            highestValue: 'Highest prices',
+            selected: 'Recommendations',
         }
     },
-methods: {
-},
+    computed: {
+        collection() {
+            return this.paginate(this.videos)
+        }
+    },
+    methods: {
+        recom() {
+            this.selected = this.recomValue
+            this.open7 = !this.open7
+        },
+        newest() {
+            this.selected = this.newestValue
+            this.open7 = !this.open7
+        },
+        lowest() {
+            this.selected = this.lowestValue
+            this.open7 = !this.open7
+        },
+        highest() {
+            this.selected = this.highestValue
+            this.open7 = !this.open7
+        },
+        indexNo(i) {
+            this.$emit('blogIndex', i)
+            this.index = i
+        },
+        setPage(p) {
+            this.pagination = this.paginator(this.videos.length, p);
+                this.active = p - 1
+        },
+        paginate(videos) {
+            return _.slice(videos, this.pagination.startIndex, this.pagination.endtIndex +1)
+        },
+        paginator(totalItems, currentPage) {
+            var startIndex = (currentPage - 1) * this.perPage,
+            endtIndex = Math.min(startIndex + this.perPage - 1, totalItems - 1);
+            return {
+                currentPage: currentPage,
+                startIndex: startIndex,
+                endtIndex: endtIndex,
+                pages: _.range(1, Math.ceil(totalItems / this.perPage) + 1)
+            };
+        }
+    },
+    created() {
+        this.setPage(1)
+    }
 
 }
+
+
+
 </script>
 <style lang="scss">
+.select_recommendations{
+    height: 45px;
+    width: 237px;
+    padding-left: 20px;
+    border: 1px solid #D7D7D7;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #41456B;
+}
 // -----slider------
 .slider-tooltip {
     display: none;
@@ -233,8 +417,6 @@ box-shadow: none;
   }
 }
 // ------end of slider-------
-
-
 .catalog_wrapper{
     max-width: 1230px;
     margin: 0 auto;
@@ -251,11 +433,8 @@ box-shadow: none;
     grid-template-columns: 300px 1fr;
     column-gap: 40px;
 }
-.catalog_sidebar, 
-.catalog_mainbar {
-    margin-top: 49px;
-}
 .catalog_sidebar {
+    margin-top: 49px;
     width: 300px;
     height: 100%;
     h2{
@@ -268,6 +447,7 @@ box-shadow: none;
     }
 }
 .catalog_mainbar {
+    margin-top: 40px;
     width: 100%;
 }
 .main_searchbar {
@@ -292,6 +472,7 @@ box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 .search_input {
     max-width: 350px;
@@ -360,10 +541,15 @@ box-shadow: none;
 }
 .catalog_filter.open7 .filter_title::after{
     transform: translateY(-50%) rotate(180deg);
-    margin-top: 5px;
 }
-.catalog_filter.open7 .filter_title{
-    padding-bottom: 0;
+.catalog_filter.open7{
+        border-bottom: none;
+
+}
+.catalog_filter.open7 .filter_desc{
+        border: 1px solid #D7D7D7;
+        border-top:none;
+
 }
 .filter_desc {
     padding: 0 20px;
@@ -382,6 +568,29 @@ box-shadow: none;
         max-height: 1000px;
         padding-bottom: 20px;
         padding-top: 8px;
+        @media (max-width: 450px) {
+            padding-bottom: 20px;
+        }
+    }
+}
+.filter_desc.recommendations {
+    text-align: left;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 180%;
+    letter-spacing: 0.02em;
+    color: #606276;
+    opacity:0;
+    max-height: 0px;
+    overflow-y: hidden;
+        position: absolute;
+        background: #FFFFFF;
+    &.open {
+        width: 100%;
+        z-index: 2;
+        opacity:1;
+        max-height: 1000px;
+        padding-bottom: 20px;
         @media (max-width: 450px) {
             padding-bottom: 20px;
         }
@@ -439,6 +648,171 @@ box-shadow: none;
         text-align: right;
         color: #41456B;
     }
+}
+.mainbar_cards_wrapper{
+    margin-right: -15px;
+    @media (max-width: 460px) {
+        padding: 0 20px;
+    }
+}
+.mainbar_card{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    @media (max-width: 460px) {
+        gap: 20px;
+    }
+}
+.mainbar_card_item {
+    width: 48%;
+    margin-bottom: 20px;
+    background: #FFFFFF;
+    box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    align-self: flex-start;
+    @media (max-width: 1048px) {
+        width: 47%;
+    }
+    @media (max-width: 768px) {
+        width: 100%;
+        min-height: 400px;
+    }
+    @media (max-width: 460px) {
+        min-height: 244px;
+    }
+}
+.mainbar_card_content_img{
+     position: relative;
+    height: 216px;
+    @media (max-width: 768px) {
+        height: 400px;
+    }
+    @media (max-width: 460px) {
+        height: 178px;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.mainbar_card_content_text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 20px;
+    @media (max-width: 460px) {
+        // padding: 20px 10px 30px 10px;
+    }
+    span {
+        text-align: left;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        color: #41456B;
+        @media (max-width: 460px) {
+            font-size: 18px;
+        }
+    }
+    h4 {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        color: #7481FF;
+    }
+    p{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 180%;
+        letter-spacing: 0.02em;
+        color: #41456B;
+    }
+    .info {
+        display: flex;
+        column-gap: 20px;
+        flex-wrap: wrap;
+    }
+}
+button{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-bottom: 40px;
+    background: #606276;
+    opacity: 0.3;
+}
+button.active {
+    opacity: 1;
+}
+.video_popup {
+    position: fixed;
+    opacity: 0;
+    z-index: 4;
+    transition: all 0.3s ease 0s;
+}
+iframe {
+    height: 543px;
+    @media (max-width: 768px) {
+        height: 375px;
+    }
+    @media (max-width: 460px) {
+        height: 234px;
+    }
+    @media (max-width: 375px) {
+        height: 234px;
+    }
+}
+.video_popup.popupActive {
+    opacity: 1;
+    right: 287px;
+    left: 286px;
+    top: 225px;
+    @media (max-width: 1270px) {
+        right: 84px;
+        left: 84px;
+        top: 225px;
+    }
+    @media (max-width: 460px) {
+        right: 20px;
+        left: 20px;
+        top: 166px;
+    }
+    @media (max-width: 460px) {
+        right: 10vw;
+        left: 10vw;
+        top: 166px;
+    }
+}
+
+.video_popup_close {
+    position: absolute;
+    right: -40px;
+    width: 24px;
+    height: 24px;
+    @media (max-width: 460px) {
+        right: 0;
+        top: -40px;
+    }
+}
+.video_popup_shadow {
+    position: fixed;
+    display: none;
+    top: 0;
+    left:0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+}
+.video_popup_shadow.popupActive {
+    display: block;
 }
 
 </style>
