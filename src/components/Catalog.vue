@@ -145,7 +145,7 @@
                         <div class="main_searchbar">
                             <img @click="filtersShow = !filtersShow" class="filter_icon_show" src="../assets/Filtericon.svg" alt="icon">
                             <p class="seatch_filter_show">Search Filter</p>
-                            <input class="input search_input" type="text" placeholder="Find a dream car...">
+                            <input v-model="search" class="input search_input" type="text" placeholder="Find a dream car...">
                             <img src="../assets/Share.svg" alt="">
                         </div>
                     <!-- </div> -->
@@ -361,12 +361,21 @@ export default {
             highestValue: 'Highest prices',
             selected: 'Recommendations',
             filtersShow: false,
+            search: '',
         }
     },
     computed: {
+        filteredCars() {
+            return this.videos.filter(video => {
+                return video.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+            })
+        },
         collection() {
-            return this.paginate(this.videos)
-        }
+            return this.paginate(this.filteredCars)
+        },
+        // collection() {
+        //     return this.paginate(this.videos)
+        // },
     },
     methods: {
         recom() {
@@ -390,11 +399,11 @@ export default {
             this.index = i
         },
         setPage(p) {
-            this.pagination = this.paginator(this.videos.length, p);
+            this.pagination = this.paginator(this.filteredCars.length, p);
                 this.active = p - 1
         },
-        paginate(videos) {
-            return _.slice(videos, this.pagination.startIndex, this.pagination.endtIndex +1)
+        paginate(filteredCars) {
+            return _.slice(filteredCars, this.pagination.startIndex, this.pagination.endtIndex +1)
         },
         paginator(totalItems, currentPage) {
             var startIndex = (currentPage - 1) * this.perPage,
@@ -411,6 +420,11 @@ export default {
         this.setPage(1)
     },
     watch: {
+        search(search){
+            if (search = '') {
+                return filteredCars = videos
+            }
+        },
         // whenever active changes, this function will run
         filtersShow() {
             document.body.style.overflow = this.filtersShow ? 'hidden' : '';
@@ -497,7 +511,6 @@ export default {
     height: 80%;
     padding: 0px 174px 20px 174px;
     margin: 0 auto;
-    overflow: auto;
     @media (max-width: 768px) {
         padding: 0 24px 20px 24px;
     }
@@ -519,7 +532,7 @@ export default {
     top: 80px;
     left: 0;
     opacity: 1;
-    overflow: auto !important;
+    overflow: auto;
     @media (max-width: 375px) {
         top: 55px;
     }
@@ -583,12 +596,10 @@ export default {
         display: block;
         margin-top: 49px;
         width: 300px;
-        height: 100%;
         padding: 0;
         left: 0;
         opacity: 1;
         background: none;
-            overflow: auto !important;
         h2{
             text-align: left;
             font-weight: 600;
