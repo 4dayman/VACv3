@@ -1,7 +1,9 @@
 <template>
     <div class="catalog_wrapper">
         <div class="catalog">
-            <div class="catalog_sidebar">
+            <div class="catalog_sidebar_shadow" @click="filtersShow = !filtersShow" :class="filtersShow ? 'filtersShow' : ''"></div>
+            <div class="catalog_sidebar" :class="filtersShow ? 'filtersShow' : ''">
+                <div @click="filtersShow = !filtersShow" class="sidebar_close_show"><img src="../assets/Close.svg" alt=""></div>
                 <h2>Detailed search</h2>
                 <div class="catalog_filters">
                     <div class="catalog_filter" :class="open1 ? 'open1' : ''" >
@@ -9,11 +11,11 @@
                         <div class="filter_desc" :class="open1 ? 'open' : ''">
                             <div class="search_make">
                                 <p>Make</p>
-                                <input class="input search_input" type="text" placeholder="Search Make...">
+                                <input class="input" type="text" placeholder="Search Make...">
                             </div>
                             <div class="search_model">
                                 <p>Model</p>
-                                <input class="input search_input" type="text" placeholder="Search Model...">
+                                <input class="input" type="text" placeholder="Search Model...">
                             </div>
                         </div>
                     </div>
@@ -139,14 +141,15 @@
             </div>
             <div class="catalog_mainbar">
                 <div class="mainbar_header">
-                    <div class="mainbar_header_left">
+                    <!-- <div class="mainbar_header_left"> -->
                         <div class="main_searchbar">
+                            <img @click="filtersShow = !filtersShow" class="filter_icon_show" src="../assets/Filtericon.svg" alt="icon">
+                            <p class="seatch_filter_show">Search Filter</p>
                             <input class="input search_input" type="text" placeholder="Find a dream car...">
                             <img src="../assets/Share.svg" alt="">
                         </div>
-                        
-                    </div>
-                    <div class="mainbar_header_right">
+                    <!-- </div> -->
+                    <!-- <div class="mainbar_header_right"> -->
                         <div class="main_right">
                             <p class="sorted">Sorted by</p>
                             <div class="catalog_filter recommendations" :class="open7 ? 'open7' : ''" >
@@ -159,27 +162,30 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="mainbar_cards">
                     <div class="mainbar_cards_wrapper">
                         <div class="mainbar_card">
                             <div class="mainbar_card_item" v-for="(video, i) in collection" :key="i"  @click="indexNo(i)">
-                                    <!-- <img :src="video.url" alt=""> -->
                                 <div class="mainbar_card_content_img">
-                                    <Swiper class="img"
+                                    <Swiper
+                                        class="swiper"
+                                        :modules="modules"
                                         :slides-per-view="1"
                                         :space-between="0"
+                                        :scrollbar="{ draggable: true }"
+                                        :draggable="true"
                                     >
                                         <SwiperSlide class="slide">
                                             <img :src="video.url" alt="">
                                         </SwiperSlide>
                                         <SwiperSlide class="slide">
-                                            <img :src="video.url" alt="">
+                                            <img :src="video.url1" alt="">
                                         </SwiperSlide>
-                                        <!-- <SwiperSlide> -->
-                                            <!-- <img :src="video.url" alt=""> -->
-                                        <!-- </SwiperSlide> -->
+                                        <SwiperSlide class="slide">
+                                            <img :src="video.url2" alt="">
+                                        </SwiperSlide>
                                     </Swiper>
                                 </div>
                                 <div class="mainbar_card_content_text">
@@ -210,14 +216,15 @@
         </div>
     </div>
 </template>
+
 <script>
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.scss"
 import _ from 'lodash'
-  import { Navigation } from 'swiper';
-  import { Swiper, SwiperSlide } from 'swiper/vue';
-  import 'swiper/css';
-
+import { Navigation, Scrollbar } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
 export default {
     components: {
         Slider,
@@ -226,7 +233,7 @@ export default {
     },
       setup() {
       return {
-        modules: [Navigation],
+        modules: [Navigation, Scrollbar],
       };
   },
 
@@ -235,84 +242,102 @@ export default {
             videos: [
                 {
                     url: require('../assets/catalog/PorschePanamera_1.png'),
+                    url1: require('../assets/catalog/PorschePanamera_2.png'),
+                    url2: require('../assets/catalog/PorschePanamera_3.png'),
                     title: 'Porsche Panamera II Turbo S E-Hybrid',
-                    price: '150 000',
-                    year: '2012',
+                    price: '199 500',
+                    year: '2016',
                     body: 'Sedan',
                     transmition: 'Manual',
                     kilometres: '100 000',
                 },
                 {
                     url: require('../assets/catalog/MitsubishiOutlander_1.png'),
+                    url1: require('../assets/catalog/MitsubishiOutlander_2.png'),
+                    url2: require('../assets/catalog/MitsubishiOutlander_3.png'),
                     title: 'Mitsubishi Outlander III Restyling 3',
-                    price: '23 000',
-                    year: '2012',
-                    body: 'Sedan',
-                    transmition: 'Manual',
-                    kilometres: '100 000',
+                    price: '37 500',
+                    year: '2018',
+                    body: 'SUV',
+                    transmition: 'Automatic',
+                    kilometres: '150 000',
                 },
                 {
                     url: require('../assets/catalog/Mercedes-BenzCLA_1.png'),
+                    url1: require('../assets/catalog/Mercedes-BenzCLA_2.png'),
+                    url2: require('../assets/catalog/Mercedes-BenzCLA_3.png'),
                     title: 'Mercedes-Benz CLA I (C117, X117) 200',
-                    price: '150 000',
-                    year: '2012',
-                    body: 'Sedan',
+                    price: '350 000',
+                    year: '2017',
+                    body: 'Coupe',
                     transmition: 'Manual',
-                    kilometres: '100 000',
+                    kilometres: '200 000',
                 },
                 {
                     url: require('../assets/catalog/Mercedes-BenzW124_1.png'),
+                    url1: require('../assets/catalog/Mercedes-BenzW124_2.png'),
+                    url2: require('../assets/catalog/Mercedes-BenzW124_3.png'),
                     title: 'Mercedes-Benz W124 420',
                     price: '23 000',
-                    year: '2012',
+                    year: '2015',
                     body: 'Sedan',
-                    transmition: 'Manual',
-                    kilometres: '100 000',
+                    transmition: 'Automatic',
+                    kilometres: '250 000',
                 },
                 {
                     url: require('../assets/catalog/Mercedes-BenzE-Class_1.png'),
+                    url1: require('../assets/catalog/Mercedes-BenzE-Class_2.png'),
+                    url2: require('../assets/catalog/Mercedes-BenzE-Class_3.png'),
                     title: 'Mercedes-Benz E-Class III (W211, S211) Restyling 230',
-                    price: '150 000',
-                    year: '2012',
-                    body: 'Sedan',
+                    price: '50 000',
+                    year: '2014',
+                    body: 'Hatchback',
                     transmition: 'Manual',
-                    kilometres: '100 000',
+                    kilometres: '300 000',
                 },
                 {
                     url: require('../assets/catalog/Audi-A7_1.png'),
+                    url1: require('../assets/catalog/Audi-A7_2.png'),
+                    url2: require('../assets/catalog/Audi-A7_3.png'),
                     title: 'Audi A7 I (4G) S-tronic',
-                    price: '23 000',
-                    year: '2012',
+                    price: '73 000',
+                    year: '2013',
                     body: 'Sedan',
-                    transmition: 'Manual',
-                    kilometres: '100 000',
+                    transmition: 'Automatic',
+                    kilometres: '350 000',
                 },
                 {
-                    url: require('../assets/catalog/PorschePanamera_1.png'),
-                    title: 'Porsche Panamera II Turbo S E-Hybrid',
-                    price: '150 000',
-                    year: '2012',
-                    body: 'Sedan',
+                    url: require('../assets/catalog/FordE150_1.png'),
+                    url1: require('../assets/catalog/FordE150_2.png'),
+                    url2: require('../assets/catalog/FordE150_3.png'),
+                    title: 'Ford E150',
+                    price: '50 000',
+                    year: '2020',
+                    body: 'VAN',
                     transmition: 'Manual',
-                    kilometres: '100 000',
+                    kilometres: '400 000',
                 },
                 {
-                    url: require('../assets/catalog/PorschePanamera_1.png'),
-                    title: 'Porsche Panamera II Turbo S E-Hybrid',
-                    price: '23 000',
-                    year: '2012',
-                    body: 'Sedan',
-                    transmition: 'Manual',
-                    kilometres: '100 000',
+                    url: require('../assets/catalog/FordF150Rapto_1.png'),
+                    url1: require('../assets/catalog/FordF150Rapto_2.png'),
+                    url2: require('../assets/catalog/FordF150Rapto_3.png'),
+                    title: 'Ford F150 Raptor',
+                    price: '123 000',
+                    year: '2015',
+                    body: 'Truck',
+                    transmition: 'Automatic',
+                    kilometres: '450 000',
                 },
                 {
-                    url: require('../assets/catalog/PorschePanamera_1.png'),
-                    title: 'Porsche Panamera II Turbo S E-Hybrid',
-                    price: '150 000',
+                    url: require('../assets/catalog/ToyotaSupra_1.png'),
+                    url1: require('../assets/catalog/ToyotaSupra_2.png'),
+                    url2: require('../assets/catalog/ToyotaSupra_3.png'),
+                    title: 'Toyota Supra',
+                    price: '45 000',
                     year: '2012',
-                    body: 'Sedan',
+                    body: 'Convertiable',
                     transmition: 'Manual',
-                    kilometres: '100 000',
+                    kilometres: '500 000',
                 },
             ],
             open1: false,
@@ -335,6 +360,7 @@ export default {
             lowestValue: 'Lowest price',
             highestValue: 'Highest prices',
             selected: 'Recommendations',
+            filtersShow: false,
         }
     },
     computed: {
@@ -383,7 +409,14 @@ export default {
     },
     created() {
         this.setPage(1)
+    },
+    watch: {
+        // whenever active changes, this function will run
+        filtersShow() {
+            // document.body.style.overflow = this.filtersShow ? 'hidden' : '';
+        },
     }
+
 
 }
 
@@ -430,17 +463,17 @@ export default {
 }
 .slider-handle {
     overflow: visible;
-  width: 18px;
-  height: 18px;
+    width: 18px;
+    height: 18px;
     border: 1px solid #FFFFFF;
     border-radius: 2px;
-  background: #7481FF;
-  cursor: grab;
-box-shadow: none;
-  &:focus {
-    outline: none;
+    background: #7481FF;
+    cursor: grab;
     box-shadow: none;
-  }
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
 }
 // ------end of slider-------
 .catalog_wrapper{
@@ -454,15 +487,18 @@ box-shadow: none;
         padding: 0 20px;
     }
 }
-.catalog {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    column-gap: 40px;
-}
 .catalog_sidebar {
-    margin-top: 49px;
-    width: 300px;
-    height: 100%;
+    left: -100%;
+    opacity: 0;
+    position: fixed;
+    z-index: 2;
+    background: #FFFFFF;
+    width: 100%;
+    padding: 0px 174px 20px 174px;
+    margin: 0 auto;
+    @media (max-width: 768px) {
+        padding: 0 24px 20px 24px;
+    }
     h2{
         text-align: left;
         font-weight: 600;
@@ -470,27 +506,136 @@ box-shadow: none;
         line-height: 25px;
         color: #41456B;
         margin-bottom: 31px;
+        @media (max-width: 768px) {
+            padding: 0 34px;
+        }
     }
+}
+.filtersShow {
+    transition: all 0.4s;
+    padding-top: 49px;
+    top: 80px;
+    left: 0;
+    opacity: 1;
+    @media (max-width: 375px) {
+        top: 55px;
+    }
+}
+.sidebar_close_show {
+    left: 24px;
+    position: absolute;
+    cursor: pointer;
+}
+.catalog_sidebar_shadow {
+    position: fixed;
+    display: none;
+    top: 0;
+    left:0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+}
+.catalog_sidebar_shadow.filtersShow {
+    display: block;
 }
 .catalog_mainbar {
     margin-top: 40px;
+    @media (max-width: 375px) {
+        margin-top: 20px;
+    }
     width: 100%;
 }
 .main_searchbar {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 20px;
-}
-.main_right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    .sorted {
+    .seatch_filter_show {
+        min-width: 104px;
         font-weight: 400;
         font-size: 16px;
         line-height: 180%;
         letter-spacing: 0.02em;
         color: #41456B;
+    }
+}
+
+@media (max-width: 900px) {
+    .seatch_filter_show {
+        display: none;
+    }
+    .sorted {
+        display: none;
+    }
+}
+@media (min-width: 1024px) {
+    .catalog {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        column-gap: 40px;
+    }
+    .catalog_sidebar {
+        position: relative;
+        display: block;
+        margin-top: 49px;
+        width: 300px;
+        height: 100%;
+        padding: 0;
+        left: 0;
+        opacity: 1;
+        h2{
+            text-align: left;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 25px;
+            color: #41456B;
+            margin-bottom: 31px;
+        }
+    }
+    .sidebar_close_show {
+    display: none;
+    }
+    .catalog_sidebar_shadow {
+        display: none;
+    }
+    .catalog_sidebar_shadow.filtersShow {
+        display: none;
+    }
+    .filter_icon_show {
+        width: 26px;
+        height: 22px;
+        display: none;
+    }
+    .seatch_filter_show {
+        width: 94px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 180%;
+        letter-spacing: 0.02em;
+        color: #41456B;
+        display: none;
+    }
+}
+.filter_icon_show {
+    cursor: pointer;
+}
+.main_right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+
+    .sorted {
+        width: 75px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 180%;
+        letter-spacing: 0.02em;
+        color: #41456B;
+        margin-left: 10px;
     }
 }
 .mainbar_header {
@@ -499,9 +644,16 @@ box-shadow: none;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 }
 .search_input {
     max-width: 350px;
+    @media (max-width: 768px) {
+        margin-bottom: 10px;
+        max-width: 100%;
+    }
 }
 .catalog_filters {
     width: 100%;
@@ -512,6 +664,10 @@ box-shadow: none;
     position: relative;
 }
 .catalog_filter.recommendations{
+    width: 237px;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
     p{
         font-weight: 500;
         font-size: 16px;
@@ -520,7 +676,6 @@ box-shadow: none;
             padding-bottom: 10px;
         }
     }
-    width: 237px;
 }
 .filter_title{
     padding: 10px 20px 10px 20px;
@@ -547,6 +702,11 @@ box-shadow: none;
         transition: all 0.2s linear;
     }
 }
+.filter_title.recommendations{
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
 .catalog_filter.open1 .filter_title::after{
     transform: translateY(-50%) rotate(180deg);
 }
@@ -569,12 +729,12 @@ box-shadow: none;
     transform: translateY(-50%) rotate(180deg);
 }
 .catalog_filter.open7{
-        border-bottom: none;
+    border-bottom: none;
 
 }
 .catalog_filter.open7 .filter_desc{
-        border: 1px solid #D7D7D7;
-        border-top:none;
+    border: 1px solid #D7D7D7;
+    border-top:none;
 
 }
 .filter_desc {
@@ -609,8 +769,14 @@ box-shadow: none;
     opacity:0;
     max-height: 0px;
     overflow-y: hidden;
-        position: absolute;
-        background: #FFFFFF;
+    background: #FFFFFF;
+    position: absolute;
+    p{
+        cursor: pointer;
+        &:hover{
+            color: #000;
+        }
+    }
     &.open {
         width: 100%;
         z-index: 2;
@@ -675,61 +841,42 @@ box-shadow: none;
         color: #41456B;
     }
 }
-.mainbar_cards_wrapper{
-    margin-right: -15px;
-    @media (max-width: 460px) {
-        padding: 0 20px;
-    }
-}
 .mainbar_card{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     column-gap: 20px;
-    align-items: center;
-    justify-content: flex-start;
-    @media (max-width: 460px) {
-        gap: 20px;
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
     }
 }
 .mainbar_card_item {
-    width: 48%;
     margin-bottom: 20px;
     background: #FFFFFF;
     box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     overflow: hidden;
     align-self: flex-start;
-    @media (max-width: 1048px) {
-        width: 47%;
-    }
-    @media (max-width: 768px) {
-        width: 100%;
-        min-height: 400px;
-    }
-    @media (max-width: 460px) {
-        min-height: 244px;
-    }
 }
 .mainbar_card_content_img{
-    // display: grid;
-    // grid-template-columns: 1fr;
-    // padding: 0;
-        // margin: 0 -80px;
     .slide{
+        cursor: pointer;
+        height: 216px;
         padding: 0;
-        img{
+        img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
     }
-    height: 216px;
-    @media (max-width: 768px) {
-        height: 400px;
-    }
-    @media (max-width: 460px) {
-        height: 178px;
-    }
+}
+.swiper-scrollbar{
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 28px;
+    cursor: pointer;
+}
+.swiper-scrollbar-drag {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 28px;
 }
 .mainbar_card_content_text {
     display: flex;
@@ -737,9 +884,6 @@ box-shadow: none;
     align-items: flex-start;
     justify-content: flex-end;
     padding: 20px;
-    @media (max-width: 460px) {
-        // padding: 20px 10px 30px 10px;
-    }
     span {
         text-align: left;
         font-weight: 600;
@@ -783,68 +927,4 @@ button{
 button.active {
     opacity: 1;
 }
-.video_popup {
-    position: fixed;
-    opacity: 0;
-    z-index: 4;
-    transition: all 0.3s ease 0s;
-}
-iframe {
-    height: 543px;
-    @media (max-width: 768px) {
-        height: 375px;
-    }
-    @media (max-width: 460px) {
-        height: 234px;
-    }
-    @media (max-width: 375px) {
-        height: 234px;
-    }
-}
-.video_popup.popupActive {
-    opacity: 1;
-    right: 287px;
-    left: 286px;
-    top: 225px;
-    @media (max-width: 1270px) {
-        right: 84px;
-        left: 84px;
-        top: 225px;
-    }
-    @media (max-width: 460px) {
-        right: 20px;
-        left: 20px;
-        top: 166px;
-    }
-    @media (max-width: 460px) {
-        right: 10vw;
-        left: 10vw;
-        top: 166px;
-    }
-}
-
-.video_popup_close {
-    position: absolute;
-    right: -40px;
-    width: 24px;
-    height: 24px;
-    @media (max-width: 460px) {
-        right: 0;
-        top: -40px;
-    }
-}
-.video_popup_shadow {
-    position: fixed;
-    display: none;
-    top: 0;
-    left:0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-}
-.video_popup_shadow.popupActive {
-    display: block;
-}
-
 </style>
