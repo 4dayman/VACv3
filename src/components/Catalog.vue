@@ -11,11 +11,11 @@
                         <div class="filter_desc" :class="open1 ? 'open' : ''">
                             <div class="search_make">
                                 <p>Make</p>
-                                <input class="input" type="text" placeholder="Search Make...">
+                                <input v-model="searchMake" class="input" type="text" placeholder="Search Make...">
                             </div>
                             <div class="search_model">
                                 <p>Model</p>
-                                <input class="input" type="text" placeholder="Search Model...">
+                                <input v-model="searchModel" class="input" type="text" placeholder="Search Model...">
                             </div>
                         </div>
                     </div>
@@ -362,12 +362,20 @@ export default {
             selected: 'Recommendations',
             filtersShow: false,
             search: '',
+            searchMake: '',
+            searchModel: '',
         }
     },
     computed: {
         filteredCars() {
             return this.videos.filter(video => {
-                return video.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                    return video.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+            })
+        },
+        filteredCarsMake() {
+            return this.videos.filter(video => {
+                filteredCars = filteredCarsMake
+                return video.title.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
             })
         },
         collection() {
