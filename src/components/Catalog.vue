@@ -413,7 +413,7 @@ export default {
     watch: {
         // whenever active changes, this function will run
         filtersShow() {
-            // document.body.style.overflow = this.filtersShow ? 'hidden' : '';
+            document.body.style.overflow = this.filtersShow ? 'hidden' : '';
         },
     }
 
@@ -490,12 +490,14 @@ export default {
 .catalog_sidebar {
     left: -100%;
     opacity: 0;
-    position: fixed;
-    z-index: 2;
+    position: absolute;
+    z-index: 3;
     background: #FFFFFF;
     width: 100%;
+    height: 80%;
     padding: 0px 174px 20px 174px;
     margin: 0 auto;
+    overflow: auto;
     @media (max-width: 768px) {
         padding: 0 24px 20px 24px;
     }
@@ -517,6 +519,7 @@ export default {
     top: 80px;
     left: 0;
     opacity: 1;
+    overflow: auto !important;
     @media (max-width: 375px) {
         top: 55px;
     }
@@ -584,6 +587,8 @@ export default {
         padding: 0;
         left: 0;
         opacity: 1;
+        background: none;
+            overflow: auto !important;
         h2{
             text-align: left;
             font-weight: 600;
