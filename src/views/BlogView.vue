@@ -3,8 +3,9 @@
       <Header/>
       <div>
         <HeadComp msg="Our blog"/>
-        <BlogSwiper
+        <Blogs
           :blogs="blogs"
+          :size="9"
         />
       </div>
       <Footer/>
@@ -14,7 +15,7 @@
 <script>
 import Header from '@/components/Header.vue'
 import HeadComp from '@/components/HeadComp.vue'
-import BlogSwiper from '@/components/BlogSwiper.vue'
+import Blogs from '@/components/Blogs.vue'
 import Footer from '@/components/Footer.vue'
 import blogs from '../mocks/blogs'
 
@@ -22,7 +23,7 @@ export default {
 components: {
   Header,
   HeadComp,
-  BlogSwiper,
+  Blogs,
   Footer,
 },
 methods: {

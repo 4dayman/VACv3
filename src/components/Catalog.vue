@@ -141,15 +141,12 @@
             </div>
             <div class="catalog_mainbar">
                 <div class="mainbar_header">
-                    <!-- <div class="mainbar_header_left"> -->
                         <div class="main_searchbar">
                             <img @click="filtersShow = !filtersShow" class="filter_icon_show" src="../assets/Filtericon.svg" alt="icon">
                             <p class="seatch_filter_show">Search Filter</p>
                             <input v-model="search" class="input search_input" type="text" placeholder="Find a dream car...">
                             <img src="../assets/Share.svg" alt="">
                         </div>
-                    <!-- </div> -->
-                    <!-- <div class="mainbar_header_right"> -->
                         <div class="main_right">
                             <p class="sorted">Sorted by</p>
                             <div class="catalog_filter recommendations" :class="open7 ? 'open7' : ''" >
@@ -162,7 +159,6 @@
                                 </div>
                             </div>
                         </div>
-                    <!-- </div> -->
                 </div>
                 <div class="mainbar_cards">
                     <div class="mainbar_cards_wrapper">
@@ -939,16 +935,19 @@ export default {
         flex-wrap: wrap;
     }
 }
-button{
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-bottom: 40px;
-    background: #606276;
-    opacity: 0.3;
-}
-button.active {
-    opacity: 1;
+.btn-toolbar{
+    button{
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 10px;
+        margin-bottom: 40px;
+        background: #606276;
+        opacity: 0.3;
+    }
+    button.active {
+        opacity: 1;
+    }
+
 }
 </style>

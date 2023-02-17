@@ -1,7 +1,7 @@
 <template>
     <div class="videos_wrapper">
         <div class="videos">
-            <div class="videos_item" v-for="(video, i) in paginatedData" :key="i"  @click="indexNo(i)">
+            <div class="videos_item" v-for="(video, i) in collection" :key="i"  @click="indexNo(i)">
                 <div class="videos_content_img" @click="popupActive = !popupActive">
                     <div class="video_play">
                         <img src="../assets/Video_play.svg" alt="">
@@ -22,9 +22,9 @@
         </div>
         <div class="btn-toolbar">
             <button
-                v-for="(p, i) in pageCount" 
+                v-for="(p, i) in pagination.pages" 
                 :key="i" 
-                @click.prevent="setPage(i)"
+                @click.prevent="setPage(p)"
                 :class="{'active': active === i}"
             ></button>
         </div>
@@ -38,41 +38,30 @@ export default {
         videos: {
         type: Array,
         default: () => []
-        },
-        size: {
-            type: Number,
-            required: false,
-            default: 4,
         }
     },
     data() {
         return {
-            pageNumber: 0,
             index: 0,
             popupActive: false,
-            active: 0,
+            perPage: 4,
+            pagination:{},
+            active: 0
         }
     },
     watch: {
-        popupActive() {
-            document.body.style.overflow = this.popupActive ? 'hidden' : ''
-            if(this.index == 0) {
-                this.index = 1
-            } else {
-                this.index = 0
-            }
-        },
+    popupActive() {
+        document.body.style.overflow = this.popupActive ? 'hidden' : ''
+        if(this.index == 0) {
+            this.index = 1
+        } else {
+            this.index = 0
+        }
+    },
     },
     computed: {
-        pageCount(){
-            let l = this.videos.length,
-            s = this.size;
-            return Math.ceil(l/s);
-        },
-        paginatedData(){
-            const start = this.pageNumber * this.size,
-            end = start + this.size;
-            return this.videos.slice(start, end);
+        collection() {
+            return this.paginate(this.videos)
         }
     },
     methods: {
@@ -80,11 +69,27 @@ export default {
             this.$emit('blogIndex', i)
             this.index = i
         },
-        setPage(i) {
-            this.pageNumber = i;
-            this.active = i
+        setPage(p) {
+            this.pagination = this.paginator(this.videos.length, p);
+                this.active = p - 1
         },
+        paginate(videos) {
+            return _.slice(videos, this.pagination.startIndex, this.pagination.endtIndex +1)
+        },
+        paginator(totalItems, currentPage) {
+            var startIndex = (currentPage - 1) * this.perPage,
+            endtIndex = Math.min(startIndex + this.perPage - 1, totalItems - 1);
+            return {
+                currentPage: currentPage,
+                startIndex: startIndex,
+                endtIndex: endtIndex,
+                pages: _.range(1, Math.ceil(totalItems / this.perPage) + 1)
+            };
+        }
     },
+    created() {
+        this.setPage(1)
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -97,19 +102,24 @@ export default {
     }
 }
 .videos{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     column-gap: 40px;
-    @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-        row-gap: 20px;
-    }
+    align-items: center;
+    justify-content: flex-start;
     @media (max-width: 460px) {
+        gap: 20px;
     }
 }
 .videos_item {
+    width: 48%;
     min-height: 416px;
+    
+    @media (max-width: 1048px) {
+        width: 47%;
+    }
     @media (max-width: 768px) {
+        width: 100%;
         min-height: 400px;
     }
     @media (max-width: 460px) {
@@ -118,8 +128,8 @@ export default {
 }
 .videos_content_img{
      position: relative;
+    margin: -5px;
     height: 326px;
-    cursor: pointer;
     @media (max-width: 768px) {
         height: 400px;
     }
@@ -150,7 +160,6 @@ export default {
     }
 }
 .videos_content_text {
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -228,7 +237,6 @@ iframe {
 }
 
 .video_popup_close {
-    cursor: pointer;
     position: absolute;
     right: -40px;
     width: 24px;
