@@ -3,7 +3,7 @@
         <div class="catalog">
             <div class="catalog_sidebar_shadow" @click="filtersShow = !filtersShow" :class="filtersShow ? 'filtersShow' : ''"></div>
             <div class="catalog_sidebar" :class="filtersShow ? 'filtersShow' : ''">
-                <div @click="filtersShow = !filtersShow" class="sidebar_close_show"><img src="../assets/Close.svg" alt=""></div>
+                <div @click="filtersShow = !filtersShow" class="sidebar_close_show"><img src="../assets/Close.svg" alt="no-img"></div>
                 <h2>Detailed search</h2>
                 <div class="catalog_filters">
                     <div class="catalog_filter" :class="open1 ? 'open1' : ''" >
@@ -23,53 +23,53 @@
                         <div class="filter_title" @click="open2 = !open2">Body type</div>
                         <div class="filter_desc" :class="open2 ? 'open' : ''">
                             <div class="checkbox">
-                                <input type="checkbox" id="Trucks" value="Trucks">
-                                <lable for="Trucks" class="lable">
-                                    <img src="../assets/Truckicon.svg" alt="">
+                                <input type="checkbox" id="trucks" value="trucks">
+                                <label for="trucks" class="lable">
+                                    <img src="../assets/Truckicon.svg" alt="no-img">
                                     Trucks
-                                </lable>
+                                </label>
                             </div>
                             <div class="checkbox">
                                 <input type="checkbox" id="SUV" value="SUV">
-                                <lable for="SUV" class="lable">
-                                    <img src="../assets/SUVicon.svg" alt="">
+                                <label for="SUV" class="lable">
+                                    <img src="../assets/SUVicon.svg" alt="no-img">
                                     SUV
-                                </lable>
+                                </label>
                             </div>
                             <div class="checkbox">
                                 <input type="checkbox" id="Sedan" value="Sedan">
-                                <lable for="Sedan" class="lable">
-                                    <img src="../assets/Sedanicon.svg" alt="">
+                                <label for="Sedan" class="lable">
+                                    <img src="../assets/Sedanicon.svg" alt="no-img">
                                     Sedan
-                                </lable>
+                                </label>
                             </div>
                             <div class="checkbox">
                                 <input type="checkbox" id="Hatchback" value="Hatchback">
-                                <lable for="Hatchback" class="lable">
-                                    <img src="../assets/Hatchbackicon.svg" alt="">
+                                <label for="Hatchback" class="lable">
+                                    <img src="../assets/Hatchbackicon.svg" alt="no-img">
                                     Hatchback
-                                </lable>
+                                </label>
                             </div>
                             <div class="checkbox">
                                 <input type="checkbox" id="Coupe" value="Coupe">
-                                <lable for="Coupe" class="lable">
-                                    <img src="../assets/Coupeicon.svg" alt="">
+                                <label for="Coupe" class="lable">
+                                    <img src="../assets/Coupeicon.svg" alt="no-img">
                                     Coupe
-                                </lable>
+                                </label>
                             </div>
                             <div class="checkbox">
                                 <input type="checkbox" id="Convertiable" value="Convertiable">
-                                <lable for="Convertiable" class="lable">
-                                    <img src="../assets/Convertiableicon.svg" alt="">
+                                <label for="Convertiable" class="lable">
+                                    <img src="../assets/Convertiableicon.svg" alt="no-img">
                                     Convertiable
-                                </lable>
+                                </label>
                             </div>
                             <div class="checkbox">
                                 <input type="checkbox" id="VAN" value="VAN">
-                                <lable for="VAN" class="lable">
-                                    <img src="../assets/VANicon.svg" alt="">
+                                <label for="VAN" class="lable">
+                                    <img src="../assets/VANicon.svg" alt="no-img">
                                     VAN
-                                </lable>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -78,15 +78,15 @@
                         <div class="filter_desc" :class="open3 ? 'open' : ''">
                             <div class="checkbox">
                                 <input type="checkbox" id="Automatic" value="Automatic">
-                                <lable for="Automatic" class="lable">
+                                <label for="Automatic" class="lable">
                                     Automatic
-                                </lable>
+                                </label>
                             </div>
                             <div class="checkbox">
                                 <input type="checkbox" id="Manual" value="Manual">
-                                <lable for="Manual" class="lable">
+                                <label for="Manual" class="lable">
                                     Manual
-                                </lable>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,6 @@
                                 :min="0"
                                 :max="500000"
                                 :step="1000"
-
                             />
                         </div>
                     </div>
@@ -163,7 +162,7 @@
                 <div class="mainbar_cards">
                     <div class="mainbar_cards_wrapper">
                         <div class="mainbar_card">
-                            <div class="mainbar_card_item" v-for="(video, i) in collection" :key="i"  @click="indexNo(i)">
+                            <div class="mainbar_card_item" v-for="(car, i) in paginatedData" :key="i"  @click="indexNo(i)">
                                 <div class="mainbar_card_content_img">
                                     <Swiper
                                         class="swiper"
@@ -171,40 +170,46 @@
                                         :slides-per-view="1"
                                         :space-between="0"
                                         :scrollbar="{ draggable: true }"
-                                        :draggable="true"
                                     >
                                         <SwiperSlide class="slide">
-                                            <img :src="video.url" alt="">
+                                            <img :src="car.url" alt="">
                                         </SwiperSlide>
                                         <SwiperSlide class="slide">
-                                            <img :src="video.url1" alt="">
+                                            <img :src="car.url1" alt="">
                                         </SwiperSlide>
                                         <SwiperSlide class="slide">
-                                            <img :src="video.url2" alt="">
+                                            <img :src="car.url2" alt="">
                                         </SwiperSlide>
                                     </Swiper>
                                 </div>
                                 <div class="mainbar_card_content_text">
-                                    <span>{{video.title}}</span>
-                                    <h4>$ {{video.price}}</h4>
+                                    <span>{{car.make}} {{car.model}}</span>
+                                    <h4>$ {{car.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}}</h4>
                                     <div class="info">
-                                        <p>{{video.year}} year</p>
+                                        <p>{{car.year}} year</p>
                                         <p>|</p>
-                                        <p>{{video.body}}</p>
+                                        <p>{{car.body}}</p>
                                         <p>|</p>
-                                        <p>{{video.transmition}}</p>
+                                        <p>{{car.transmition}}</p>
                                     </div>
-                                    <p>{{video.kilometres}} km</p>
+                                    <p>{{car.kilometres}} km</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-toolbar">
+                        <div class="btn-toolbar"
+                                v-if="pageCount > 1">
                             <button
-                                v-for="(p, i) in pagination.pages" 
+                                v-for="(p, i) in pageCount" 
                                 :key="i" 
-                                @click.prevent="setPage(p)"
+                                @click.prevent="setPage(i)"
                                 :class="{'active': active === i}"
                             ></button>
+                        </div>
+                        <div class="no_match" v-if="paginatedData.length < 1">
+                            <img src="../assets/Sedan_icon.png" alt="no-img">
+                            <h3>Unfortunately there are no matches for your query.</h3>
+                            <p>Try using other filter settings or request a car of your choice.</p>
+                            <a href="">Request a car</a>
                         </div>
                     </div>
                 </div>
@@ -216,7 +221,7 @@
 <script>
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.scss"
-import _ from 'lodash'
+// import _ from 'lodash'
 import { Navigation, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
@@ -227,115 +232,27 @@ export default {
         Swiper,
         SwiperSlide,
     },
-      setup() {
+    setup() {
       return {
         modules: [Navigation, Scrollbar],
       };
-  },
-
+    },
+    props: {
+        cars: {
+        type: Array,
+        default: () => []
+        },
+        size: {
+            type: Number,
+            required: false,
+            default: 6,
+        }
+    },
     data() {
         return {
-            videos: [
-                {
-                    url: require('../assets/catalog/PorschePanamera_1.png'),
-                    url1: require('../assets/catalog/PorschePanamera_2.png'),
-                    url2: require('../assets/catalog/PorschePanamera_3.png'),
-                    title: 'Porsche Panamera II Turbo S E-Hybrid',
-                    price: '199 500',
-                    year: '2016',
-                    body: 'Sedan',
-                    transmition: 'Manual',
-                    kilometres: '100 000',
-                },
-                {
-                    url: require('../assets/catalog/MitsubishiOutlander_1.png'),
-                    url1: require('../assets/catalog/MitsubishiOutlander_2.png'),
-                    url2: require('../assets/catalog/MitsubishiOutlander_3.png'),
-                    title: 'Mitsubishi Outlander III Restyling 3',
-                    price: '37 500',
-                    year: '2018',
-                    body: 'SUV',
-                    transmition: 'Automatic',
-                    kilometres: '150 000',
-                },
-                {
-                    url: require('../assets/catalog/Mercedes-BenzCLA_1.png'),
-                    url1: require('../assets/catalog/Mercedes-BenzCLA_2.png'),
-                    url2: require('../assets/catalog/Mercedes-BenzCLA_3.png'),
-                    title: 'Mercedes-Benz CLA I (C117, X117) 200',
-                    price: '350 000',
-                    year: '2017',
-                    body: 'Coupe',
-                    transmition: 'Manual',
-                    kilometres: '200 000',
-                },
-                {
-                    url: require('../assets/catalog/Mercedes-BenzW124_1.png'),
-                    url1: require('../assets/catalog/Mercedes-BenzW124_2.png'),
-                    url2: require('../assets/catalog/Mercedes-BenzW124_3.png'),
-                    title: 'Mercedes-Benz W124 420',
-                    price: '23 000',
-                    year: '2015',
-                    body: 'Sedan',
-                    transmition: 'Automatic',
-                    kilometres: '250 000',
-                },
-                {
-                    url: require('../assets/catalog/Mercedes-BenzE-Class_1.png'),
-                    url1: require('../assets/catalog/Mercedes-BenzE-Class_2.png'),
-                    url2: require('../assets/catalog/Mercedes-BenzE-Class_3.png'),
-                    title: 'Mercedes-Benz E-Class III (W211, S211) Restyling 230',
-                    price: '50 000',
-                    year: '2014',
-                    body: 'Hatchback',
-                    transmition: 'Manual',
-                    kilometres: '300 000',
-                },
-                {
-                    url: require('../assets/catalog/Audi-A7_1.png'),
-                    url1: require('../assets/catalog/Audi-A7_2.png'),
-                    url2: require('../assets/catalog/Audi-A7_3.png'),
-                    title: 'Audi A7 I (4G) S-tronic',
-                    price: '73 000',
-                    year: '2013',
-                    body: 'Sedan',
-                    transmition: 'Automatic',
-                    kilometres: '350 000',
-                },
-                {
-                    url: require('../assets/catalog/FordE150_1.png'),
-                    url1: require('../assets/catalog/FordE150_2.png'),
-                    url2: require('../assets/catalog/FordE150_3.png'),
-                    title: 'Ford E150',
-                    price: '50 000',
-                    year: '2020',
-                    body: 'VAN',
-                    transmition: 'Manual',
-                    kilometres: '400 000',
-                },
-                {
-                    url: require('../assets/catalog/FordF150Rapto_1.png'),
-                    url1: require('../assets/catalog/FordF150Rapto_2.png'),
-                    url2: require('../assets/catalog/FordF150Rapto_3.png'),
-                    title: 'Ford F150 Raptor',
-                    price: '123 000',
-                    year: '2015',
-                    body: 'Truck',
-                    transmition: 'Automatic',
-                    kilometres: '450 000',
-                },
-                {
-                    url: require('../assets/catalog/ToyotaSupra_1.png'),
-                    url1: require('../assets/catalog/ToyotaSupra_2.png'),
-                    url2: require('../assets/catalog/ToyotaSupra_3.png'),
-                    title: 'Toyota Supra',
-                    price: '45 000',
-                    year: '2012',
-                    body: 'Convertiable',
-                    transmition: 'Manual',
-                    kilometres: '500 000',
-                },
-            ],
+            sortCars: this.cars,
+            pageNumber: 0,
+            active: 0,
             open1: false,
             open2: false,
             open3: false,
@@ -346,11 +263,9 @@ export default {
             price: [10000, 100000],
             year: [2000, 2005],
             kilometres: 100000,
-            // index: 0,
+            index: 0,
             popupActive: false,
-            perPage: 6,
             pagination:{},
-            // active: 0,
             recomValue: 'Recommendations',
             newestValue: 'Newest inventory',
             lowestValue: 'Lowest price',
@@ -363,20 +278,39 @@ export default {
         }
     },
     computed: {
+        pageCount(){
+            let l = this.filteredCars.length,
+            s = this.size;
+            return Math.ceil(l/s);
+        },
+        paginatedData(){
+            const start = this.pageNumber * this.size,
+            end = start + this.size;
+            return this.filteredCars.slice(start, end);
+        },
         filteredCars() {
-            return this.videos.filter(video => {
-                    return video.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+            return this.makeFilter.filter(car => {
+                return car.make.toLowerCase().indexOf(this.search.toLowerCase()) > -1  ||
+                car.model.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+                car.body.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+                car.transmition.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
             })
         },
-        filteredCarsMake() {
-            return this.videos.filter(video => {
-                filteredCars = filteredCarsMake
-                return video.title.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
+        makeFilter() {
+            return this.modelFilter.filter(car => {
+                return car.make.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
             })
         },
-        collection() {
-            return this.paginate(this.filteredCars)
+        modelFilter() {
+            return this.cars.filter(car => {
+                return car.model.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1
+            })
         },
+        // filteredCarsMake() {
+        //     return this.videos.filter(video => {
+        //         return video.title.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
+        //     })
+        // },
         // collection() {
         //     return this.paginate(this.videos)
         // },
@@ -385,50 +319,67 @@ export default {
         recom() {
             this.selected = this.recomValue
             this.open7 = !this.open7
+            this.sortCars.sort(function(a, b){
+                return a.id - b.id
+            })
         },
         newest() {
             this.selected = this.newestValue
             this.open7 = !this.open7
+            this.sortCars.sort(function(a, b){
+                return b.year - a.year
+            })
         },
         lowest() {
             this.selected = this.lowestValue
             this.open7 = !this.open7
+            this.sortCars.sort(function(a, b){
+                return Number(a.price) - Number(b.price)
+            })
+
         },
         highest() {
             this.selected = this.highestValue
             this.open7 = !this.open7
+            this.sortCars.sort(function(a, b){
+                return +b.price - +a.price
+            })
         },
         indexNo(i) {
             this.$emit('blogIndex', i)
             this.index = i
         },
-        setPage(p) {
-            this.pagination = this.paginator(this.filteredCars.length, p);
-                this.active = p - 1
+        setPage(i) {
+            this.pageNumber = i;
+            this.active = i
         },
-        paginate(filteredCars) {
-            return _.slice(filteredCars, this.pagination.startIndex, this.pagination.endtIndex +1)
-        },
-        paginator(totalItems, currentPage) {
-            var startIndex = (currentPage - 1) * this.perPage,
-            endtIndex = Math.min(startIndex + this.perPage - 1, totalItems - 1);
-            return {
-                currentPage: currentPage,
-                startIndex: startIndex,
-                endtIndex: endtIndex,
-                pages: _.range(1, Math.ceil(totalItems / this.perPage) + 1)
-            };
-        }
+        // setPage(p) {
+        //     this.pagination = this.paginator(this.filteredCars.length, p);
+        //         this.active = p - 1
+        // },
+        // paginate(filteredCars) {
+        //     return _.slice(filteredCars, this.pagination.startIndex, this.pagination.endtIndex +1)
+        // },
+        // paginator(totalItems, currentPage) {
+        //     var startIndex = (currentPage - 1) * this.perPage,
+        //     endtIndex = Math.min(startIndex + this.perPage - 1, totalItems - 1);
+        //     return {
+        //         currentPage: currentPage,
+        //         startIndex: startIndex,
+        //         endtIndex: endtIndex,
+        //         pages: _.range(1, Math.ceil(totalItems / this.perPage) + 1)
+        //     };
+        // }
     },
-    created() {
-        this.setPage(1)
-    },
+    // created() {
+    //     this.setPage(1)
+    // },
     watch: {
-        search(search){
-            if (search = '') {
-                return filteredCars = videos
-            }
-        },
+        // search(search){
+        //     if (search = '') {
+        //         return filteredCars = videos
+        //     }
+        // },
         // whenever active changes, this function will run
         filtersShow() {
             document.body.style.overflow = this.filtersShow ? 'hidden' : '';
@@ -749,6 +700,7 @@ export default {
     transform: translateY(-50%) rotate(180deg);
 }
 .catalog_filter.open7{
+    margin-bottom: 11px;
     border-bottom: none;
 
 }
@@ -791,6 +743,8 @@ export default {
     overflow-y: hidden;
     background: #FFFFFF;
     position: absolute;
+    width: calc(100% + 2px);
+    margin-left: -1px;
     p{
         cursor: pointer;
         &:hover{
@@ -798,14 +752,10 @@ export default {
         }
     }
     &.open {
-        width: 100%;
         z-index: 2;
         opacity:1;
         max-height: 1000px;
         padding-bottom: 20px;
-        @media (max-width: 450px) {
-            padding-bottom: 20px;
-        }
     }
 }
 .input {
@@ -949,5 +899,44 @@ export default {
         opacity: 1;
     }
 
+}
+.no_match {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 60px;
+    background: #FFFFFF;
+    box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 40px;
+    img{
+        width: 89px;
+        height: 30px;
+        margin-bottom: 20px;
+    }
+    h3{
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        color: #41456B;
+        margin-bottom: 10px;
+    }
+    p{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 180%;
+        letter-spacing: 0.02em;
+        color: #41456B;
+        margin-bottom: 20px;
+    }
+    a{
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 14px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: #7481FF;
+    }
 }
 </style>
