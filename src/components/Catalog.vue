@@ -102,6 +102,7 @@
                                 :min="0"
                                 :max="200000"
                                 :step="1000"
+                                @change="priceChange"
                             />
 
                         </div>
@@ -118,6 +119,7 @@
                                 :min="1990"
                                 :max="2023"
                                 :step="1"
+                                @change='yearCange'
                             />
                         </div>
                     </div>
@@ -133,6 +135,7 @@
                                 :min="0"
                                 :max="500000"
                                 :step="1000"
+                                @change="kmChange"
                             />
                         </div>
                     </div>
@@ -260,9 +263,9 @@ export default {
             open5: false,
             open6: false,
             open7: false,
-            price: [10000, 100000],
-            year: [2000, 2005],
-            kilometres: 100000,
+            price: [10000, 350000],
+            year: [1990, 2023],
+            kilometres: 500000,
             index: 0,
             popupActive: false,
             pagination:{},
@@ -302,9 +305,30 @@ export default {
             })
         },
         modelFilter() {
-            return this.cars.filter(car => {
+            return this.yearCange.filter(car => {
                 return car.model.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1
             })
+        },
+        yearCange() {
+            this.pageNumber = 0
+            this.active = 0
+            return this.priceChange.filter(car => {
+                return car.year >= this.year[0] && car.year <= this.year[1]
+            }) 
+        },
+        priceChange() {
+            this.pageNumber = 0
+            this.active = 0
+            return this.kmChange.filter(car => {
+                return car.price >= this.price[0] && car.price <= this.price[1]
+            }) 
+        },
+        kmChange() {
+            this.pageNumber = 0
+            this.active = 0
+            return this.cars.filter(car => {
+                return car.kilometres <= this.kilometres
+            }) 
         },
         // filteredCarsMake() {
         //     return this.videos.filter(video => {

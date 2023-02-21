@@ -10,7 +10,7 @@ export default [
         year: 2016,
         body: 'Sedan',
         transmition: 'Manual',
-        kilometres: '100 000',
+        kilometres: 100000,
     },
     {
         id: 2,
@@ -23,7 +23,7 @@ export default [
         year: 2018,
         body: 'SUV',
         transmition: 'Automatic',
-        kilometres: '150 000',
+        kilometres: 150000,
     },
     {
         id: 3,
@@ -36,7 +36,7 @@ export default [
         year: 2017,
         body: 'Coupe',
         transmition: 'Manual',
-        kilometres: '200 000',
+        kilometres: 200000,
     },
     {
         id: 4,
@@ -46,10 +46,10 @@ export default [
         make: 'Mercedes-Benz',
         model: 'W124 420',
         price: 23000,
-        year: 2015,
+        year: 1993,
         body: 'Sedan',
         transmition: 'Automatic',
-        kilometres: '250 000',
+        kilometres: 250000,
     },
     {
         id: 5,
@@ -62,7 +62,7 @@ export default [
         year: 2014,
         body: 'Hatchback',
         transmition: 'Manual',
-        kilometres: '300 000',
+        kilometres: 300000,
     },
     {
         id: 6,
@@ -75,7 +75,7 @@ export default [
         year: 2013,
         body: 'Sedan',
         transmition: 'Automatic',
-        kilometres: '350 000',
+        kilometres: 350000,
     },
     {
         id: 7,
@@ -88,7 +88,7 @@ export default [
         year: 2015,
         body: 'VAN',
         transmition: 'Manual',
-        kilometres: '400 000',
+        kilometres: 400000,
     },
     {
         id: 8,
@@ -101,7 +101,7 @@ export default [
         year: 2020,
         body: 'Truck',
         transmition: 'Automatic',
-        kilometres: '450 000',
+        kilometres: 450000,
     },
     {
         id: 9,
@@ -114,6 +114,6 @@ export default [
         year: 2012,
         body: 'Convertiable',
         transmition: 'Manual',
-        kilometres: '500 000',
+        kilometres: 500000,
     },
 ]
