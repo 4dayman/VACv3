@@ -146,8 +146,13 @@
                         <div class="main_searchbar">
                             <img @click="filtersShow = !filtersShow" class="filter_icon_show" src="../assets/Filtericon.svg" alt="icon">
                             <p class="seatch_filter_show">Search Filter</p>
-                            <input v-model="search" class="input search_input" type="text" placeholder="Find a dream car...">
+                            <input @focus="searchPop" v-model="search" class="input search_input" type="text" placeholder="Find a dream car...">
                             <img src="../assets/Share.svg" alt="">
+                            <div class="search_pop" @click="popActive = !popActive" :class="popActive ? 'active' : ''">
+                                <ul v-for="(car, i) in paginatedData" :key="i">
+                                    <li v-if="car.make == car.make">{{car.make}}</li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="main_right">
                             <p class="sorted">Sorted by</p>
@@ -253,7 +258,6 @@ export default {
     },
     data() {
         return {
-            sortCars: this.cars,
             pageNumber: 0,
             active: 0,
             open1: false,
@@ -267,8 +271,6 @@ export default {
             year: [1990, 2023],
             kilometres: 500000,
             index: 0,
-            popupActive: false,
-            pagination:{},
             recomValue: 'Recommendations',
             newestValue: 'Newest inventory',
             lowestValue: 'Lowest price',
@@ -278,6 +280,7 @@ export default {
             search: '',
             searchMake: '',
             searchModel: '',
+            popActive: false,
         }
     },
     computed: {
@@ -340,6 +343,9 @@ export default {
         // },
     },
     methods: {
+        searchPop(){
+            this.popActive = true
+        },
         recom() {
             this.selected = this.recomValue
             this.open7 = !this.open7
@@ -358,7 +364,7 @@ export default {
             this.selected = this.lowestValue
             this.open7 = !this.open7
             this.sortCars.sort(function(a, b){
-                return Number(a.price) - Number(b.price)
+                return a.price - b.price
             })
 
         },
@@ -542,6 +548,7 @@ export default {
     width: 100%;
 }
 .main_searchbar {
+    position: relative;
     width: 100%;
     display: flex;
     align-items: center;
@@ -650,6 +657,23 @@ export default {
         max-width: 100%;
     }
 }
+// .search_input:focus {
+//     background: red;
+// }
+.search_pop{
+    z-index: 2;
+    width: 300px;
+    height: 300px;
+    border: 1px solid red;
+    position: absolute;
+    display: none;
+    top: 20px;
+    left: 0;
+}
+.search_pop.active{
+        display: block;
+        background: red;
+    }
 .catalog_filters {
     width: 100%;
 }
