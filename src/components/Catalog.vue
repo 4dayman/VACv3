@@ -4,7 +4,10 @@
             <div class="catalog_sidebar_shadow" @click="filtersShow = !filtersShow" :class="filtersShow ? 'filtersShow' : ''"></div>
             <div class="catalog_sidebar" :class="filtersShow ? 'filtersShow' : ''">
                 <div @click="filtersShow = !filtersShow" class="sidebar_close_show"><img src="../assets/Close.svg" alt="no-img"></div>
-                <h2>Detailed search</h2>
+                <div class="clear_filters">
+                    <h2>Detailed search</h2>
+                    <p @click="clrarFilters" :class="clearFilters ? 'active' : ''">Clear filters</p>
+                </div>
                 <div class="catalog_filters">
                     <div class="catalog_filter" :class="open1 ? 'open1' : ''" >
                         <div class="filter_title" @click="open1 = !open1">Make, Model</div>
@@ -23,49 +26,49 @@
                         <div class="filter_title" @click="open2 = !open2">Body type</div>
                         <div class="filter_desc" :class="open2 ? 'open' : ''">
                             <div class="checkbox">
-                                <input type="checkbox" id="trucks" value="trucks">
-                                <label for="trucks" class="lable">
+                                <input type="checkbox" id="Truck" value="Truck" v-model="body">
+                                <label for="Truck" class="lable">
                                     <img src="../assets/Truckicon.svg" alt="no-img">
-                                    Trucks
+                                    Truck
                                 </label>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="SUV" value="SUV">
+                                <input type="checkbox" id="SUV" value="SUV" v-model="body">
                                 <label for="SUV" class="lable">
                                     <img src="../assets/SUVicon.svg" alt="no-img">
                                     SUV
                                 </label>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="Sedan" value="Sedan">
+                                <input type="checkbox" id="Sedan" value="Sedan" v-model="body">
                                 <label for="Sedan" class="lable">
                                     <img src="../assets/Sedanicon.svg" alt="no-img">
                                     Sedan
                                 </label>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="Hatchback" value="Hatchback">
+                                <input type="checkbox" id="Hatchback" value="Hatchback" v-model="body">
                                 <label for="Hatchback" class="lable">
                                     <img src="../assets/Hatchbackicon.svg" alt="no-img">
                                     Hatchback
                                 </label>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="Coupe" value="Coupe">
+                                <input type="checkbox" id="Coupe" value="Coupe" v-model="body">
                                 <label for="Coupe" class="lable">
                                     <img src="../assets/Coupeicon.svg" alt="no-img">
                                     Coupe
                                 </label>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="Convertiable" value="Convertiable">
+                                <input type="checkbox" id="Convertiable" value="Convertiable" v-model="body">
                                 <label for="Convertiable" class="lable">
                                     <img src="../assets/Convertiableicon.svg" alt="no-img">
                                     Convertiable
                                 </label>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="VAN" value="VAN">
+                                <input type="checkbox" id="VAN" value="VAN" v-model="body">
                                 <label for="VAN" class="lable">
                                     <img src="../assets/VANicon.svg" alt="no-img">
                                     VAN
@@ -77,13 +80,13 @@
                         <div class="filter_title" @click="open3 = !open3">Transmission</div>
                         <div class="filter_desc" :class="open3 ? 'open' : ''">
                             <div class="checkbox">
-                                <input type="checkbox" id="Automatic" value="Automatic">
+                                <input type="checkbox" id="Automatic" value="Automatic" v-model="transmition">
                                 <label for="Automatic" class="lable">
                                     Automatic
                                 </label>
                             </div>
                             <div class="checkbox">
-                                <input type="checkbox" id="Manual" value="Manual">
+                                <input type="checkbox" id="Manual" value="Manual" v-model="transmition">
                                 <label for="Manual" class="lable">
                                     Manual
                                 </label>
@@ -146,13 +149,22 @@
                         <div class="main_searchbar">
                             <img @click="filtersShow = !filtersShow" class="filter_icon_show" src="../assets/Filtericon.svg" alt="icon">
                             <p class="seatch_filter_show">Search Filter</p>
-                            <input @focus="searchPop" v-model="search" class="input search_input" type="text" placeholder="Find a dream car...">
+                                    <!-- @blur="popActive = false"  -->
+                                    <!-- @focusout="popActive = false"  -->
+                                <input 
+                                    @focus="popActive=true" 
+                                    v-model="search" 
+                                    class="input search_input" 
+                                    type="text" 
+                                    placeholder="Find a dream car..."
+                                >
+                                <div class="search_pop" :class="popActive ? 'active' : ''">
+                                    <img @click="popActive = !popActive" src="../assets/Close.svg" alt="no-img">
+                                    <ul v-for="(car, i) in carList" :key="i" >
+                                        <li @click="carSelect(i)">{{car.make}}</li>
+                                    </ul>
+                                </div>
                             <img src="../assets/Share.svg" alt="">
-                            <div class="search_pop" @click="popActive = !popActive" :class="popActive ? 'active' : ''">
-                                <ul v-for="(car, i) in paginatedData" :key="i">
-                                    <li v-if="car.make == car.make">{{car.make}}</li>
-                                </ul>
-                            </div>
                         </div>
                         <div class="main_right">
                             <p class="sorted">Sorted by</p>
@@ -229,7 +241,7 @@
 <script>
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.scss"
-// import _ from 'lodash'
+import _ from 'lodash'
 import { Navigation, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
@@ -258,6 +270,7 @@ export default {
     },
     data() {
         return {
+            sortCars: this.cars,
             pageNumber: 0,
             active: 0,
             open1: false,
@@ -281,6 +294,17 @@ export default {
             searchMake: '',
             searchModel: '',
             popActive: false,
+            transmition: [],
+            body: [],
+            carList: [
+                {make: 'Porsche'},
+                {make: 'Mitsubishi'},
+                {make: 'Mercedes-Benz'},
+                {make: 'Audi'},
+                {make: 'Ford'},
+                {make: 'Toyota'},
+            ],
+            clearFilters: false,
         }
     },
     computed: {
@@ -294,6 +318,10 @@ export default {
             end = start + this.size;
             return this.filteredCars.slice(start, end);
         },
+        // carsArray(){
+        //     return [...new Set(this.cars)];
+
+        // },
         filteredCars() {
             return this.makeFilter.filter(car => {
                 return car.make.toLowerCase().indexOf(this.search.toLowerCase()) > -1  ||
@@ -329,9 +357,33 @@ export default {
         kmChange() {
             this.pageNumber = 0
             this.active = 0
-            return this.cars.filter(car => {
+            return this.transmChange.filter(car => {
                 return car.kilometres <= this.kilometres
             }) 
+        },
+        transmChange(){
+            let data = []
+            // если есть выбранные чекбоксы
+            if (this.transmition.length) {
+                // фильтруем данные
+                data = this.bodyChange.filter(x => this.transmition.indexOf(x.transmition.toString()) != -1)
+            } else {
+                // иначе отдаем все данные из массива
+                data = this.bodyChange
+            }
+            return data
+        },
+        bodyChange(){
+            let data = []
+            // если есть выбранные чекбоксы
+            if (this.body.length) {
+                // фильтруем данные
+                data = this.cars.filter(x => this.body.indexOf(x.body.toString()) != -1)
+            } else {
+                // иначе отдаем все данные из массива
+                data = this.cars
+            }
+            return data
         },
         // filteredCarsMake() {
         //     return this.videos.filter(video => {
@@ -343,8 +395,15 @@ export default {
         // },
     },
     methods: {
-        searchPop(){
-            this.popActive = true
+        // searchPop(){
+        //     this.popActive = true
+        // },
+        clrarFilters(){
+            this.searchMake = ''
+        },
+        carSelect(i){
+            this.popActive = false
+            this.search = this.carList[i].make
         },
         recom() {
             this.selected = this.recomValue
@@ -499,6 +558,12 @@ export default {
     @media (max-width: 768px) {
         padding: 0 24px 20px 24px;
     }
+}
+.clear_filters{
+    width: 100%;
+    display: flex;
+    // align-items: center;
+    justify-content: space-between;
     h2{
         text-align: left;
         font-weight: 600;
@@ -508,6 +573,16 @@ export default {
         margin-bottom: 31px;
         @media (max-width: 768px) {
             padding: 0 34px;
+        }
+    }
+    p{
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 159%;
+        color: #7481FF;
+        display: none;
+        &.active{
+            display: block;
         }
     }
 }
@@ -661,18 +736,55 @@ export default {
 //     background: red;
 // }
 .search_pop{
+    width: 350px;
+    height: 155px;
+    overflow: auto;
     z-index: 2;
-    width: 300px;
-    height: 300px;
-    border: 1px solid red;
+    border: 1px solid #d7d7d7;
     position: absolute;
     display: none;
-    top: 20px;
+    top: 45px;
     left: 0;
+    padding: 20px;
+    img{
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    // @media (max-width: 1024px) {
+    //     left: 172px;
+    // }
+    // @media (max-width: 900px) {
+    //     left: 48px;
+    // }
+    // @media (max-width: 768px) {
+    //     max-width: 86.2%;
+    // }
+
+    ul{
+        &:not(:last-child){
+            padding-bottom: 10px;
+        }
+        li{
+            
+            display: flex;
+            text-align: left;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 14px;
+            color: #41456B;
+            cursor: pointer;
+            &:hover{
+                color: #000;
+            }
+        }
+    }
 }
 .search_pop.active{
         display: block;
-        background: red;
+        background: #ffffff;
     }
 .catalog_filters {
     width: 100%;
