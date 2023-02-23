@@ -26,7 +26,7 @@
                         <div class="filter_title" @click="open2 = !open2">Body type</div>
                         <div class="filter_desc" :class="open2 ? 'open' : ''">
                             <div class="checkbox">
-                                <input type="checkbox" id="Truck" value="Truck" v-model="body">
+                                <input  type="checkbox" id="Truck" value="Truck" v-model="body">
                                 <label for="Truck" class="lable">
                                     <img src="../assets/Truckicon.svg" alt="no-img">
                                     Truck
@@ -97,13 +97,13 @@
                         <div class="filter_title" @click="open4 = !open4">Price</div>
                         <div class="filter_desc" :class="open4 ? 'open' : ''">
                             <div class="price_value">
-                                <p>$ {{this.price[0]}}</p>
-                                <p>$ {{this.price[1]}}</p>
+                                <p>$ {{this.price[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</p>
+                                <p>$ {{this.price[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</p>
                             </div>
                             <Slider
                                 v-model="price"
                                 :min="0"
-                                :max="200000"
+                                :max="350000"
                                 :step="1000"
                                 @change="priceChange"
                             />
@@ -130,7 +130,7 @@
                         <div class="filter_title" @click="open6 = !open6">Kilometres</div>
                         <div class="filter_desc" :class="open6 ? 'open' : ''">
                             <div class="kilometres_value">
-                                <p>{{this.kilometres}} or less</p>
+                                <p>{{this.kilometres.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} or less</p>
                             </div>
 
                             <Slider
@@ -212,7 +212,7 @@
                                         <p>|</p>
                                         <p>{{car.transmition}}</p>
                                     </div>
-                                    <p>{{car.kilometres}} km</p>
+                                    <p>{{car.kilometres.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}} km</p>
                                 </div>
                             </div>
                         </div>
@@ -305,6 +305,7 @@ export default {
                 {make: 'Toyota'},
             ],
             clearFilters: false,
+            checked: true,
         }
     },
     computed: {
@@ -323,6 +324,11 @@ export default {
 
         // },
         filteredCars() {
+            this.pageNumber = 0
+            this.active = 0
+            if(this.search !==  ''){
+                this.clearFilters = true
+            }
             return this.makeFilter.filter(car => {
                 return car.make.toLowerCase().indexOf(this.search.toLowerCase()) > -1  ||
                 car.model.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
@@ -331,44 +337,58 @@ export default {
             })
         },
         makeFilter() {
+            if(this.searchMake !==  ''){
+                this.clearFilters = true
+            }
             return this.modelFilter.filter(car => {
                 return car.make.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
             })
         },
         modelFilter() {
+            if(this.searchModel !==  ''){
+                this.clearFilters = true
+            }
             return this.yearCange.filter(car => {
                 return car.model.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1
             })
         },
         yearCange() {
-            this.pageNumber = 0
-            this.active = 0
+            if(this.year[0] !==  1990){
+                this.clearFilters = true
+            }
+            if(this.year[1] !== 2023 ){
+                this.clearFilters = true
+            }
             return this.priceChange.filter(car => {
                 return car.year >= this.year[0] && car.year <= this.year[1]
             }) 
         },
         priceChange() {
-            this.pageNumber = 0
-            this.active = 0
+            if(this.price[0] !==  10000){
+                this.clearFilters = true
+            }
+            if(this.price[1] !== 350000 ){
+                this.clearFilters = true
+            }
             return this.kmChange.filter(car => {
                 return car.price >= this.price[0] && car.price <= this.price[1]
             }) 
         },
         kmChange() {
-            this.pageNumber = 0
-            this.active = 0
+            if(this.kilometres !== 500000){
+                this.clearFilters = true
+            }
             return this.transmChange.filter(car => {
                 return car.kilometres <= this.kilometres
             }) 
         },
         transmChange(){
             let data = []
-            // если есть выбранные чекбоксы
             if (this.transmition.length) {
-                // фильтруем данные
+                this.clearFilters = true
                 data = this.bodyChange.filter(x => this.transmition.indexOf(x.transmition.toString()) != -1)
             } else {
-                // иначе отдаем все данные из массива
+                this.clearFilters = false
                 data = this.bodyChange
             }
             return data
@@ -378,28 +398,27 @@ export default {
             // если есть выбранные чекбоксы
             if (this.body.length) {
                 // фильтруем данные
+                this.clearFilters = true
                 data = this.cars.filter(x => this.body.indexOf(x.body.toString()) != -1)
             } else {
+                this.clearFilters = false
                 // иначе отдаем все данные из массива
                 data = this.cars
             }
             return data
         },
-        // filteredCarsMake() {
-        //     return this.videos.filter(video => {
-        //         return video.title.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
-        //     })
-        // },
-        // collection() {
-        //     return this.paginate(this.videos)
-        // },
     },
     methods: {
-        // searchPop(){
-        //     this.popActive = true
-        // },
         clrarFilters(){
+            this.search = ''
             this.searchMake = ''
+            this.searchModel = ''
+            this.kilometres = 500000
+            this.price = [10000, 350000]
+            this.year = [1990, 2023]
+            this.clearFilters = false
+            this.body = [] 
+            this.transmition = [] 
         },
         carSelect(i){
             this.popActive = false
@@ -442,45 +461,16 @@ export default {
             this.pageNumber = i;
             this.active = i
         },
-        // setPage(p) {
-        //     this.pagination = this.paginator(this.filteredCars.length, p);
-        //         this.active = p - 1
-        // },
-        // paginate(filteredCars) {
-        //     return _.slice(filteredCars, this.pagination.startIndex, this.pagination.endtIndex +1)
-        // },
-        // paginator(totalItems, currentPage) {
-        //     var startIndex = (currentPage - 1) * this.perPage,
-        //     endtIndex = Math.min(startIndex + this.perPage - 1, totalItems - 1);
-        //     return {
-        //         currentPage: currentPage,
-        //         startIndex: startIndex,
-        //         endtIndex: endtIndex,
-        //         pages: _.range(1, Math.ceil(totalItems / this.perPage) + 1)
-        //     };
-        // }
     },
-    // created() {
-    //     this.setPage(1)
-    // },
     watch: {
-        // search(search){
-        //     if (search = '') {
-        //         return filteredCars = videos
-        //     }
-        // },
         // whenever active changes, this function will run
         filtersShow() {
             document.body.style.overflow = this.filtersShow ? 'hidden' : '';
         },
     }
-
-
 }
-
-
-
 </script>
+
 <style lang="scss">
 .select_recommendations{
     height: 45px;
