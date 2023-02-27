@@ -6,19 +6,45 @@
                 <div @click="filtersShow = !filtersShow" class="sidebar_close_show"><img src="../assets/Close.svg" alt="no-img"></div>
                 <div class="clear_filters">
                     <h2>Detailed search</h2>
-                    <p @click="clrarFilters" :class="clearFilters ? 'active' : ''">Clear filters</p>
+                    <p 
+                        @click="clrarFilters" 
+                        :class="clearFilters ? 'active' : ''"
+                        v-if="this.cars.length != this.filteredCars.length"
+                    >Clear filters</p>
                 </div>
                 <div class="catalog_filters">
                     <div class="catalog_filter" :class="open1 ? 'open1' : ''" >
                         <div class="filter_title" @click="open1 = !open1">Make, Model</div>
                         <div class="filter_desc" :class="open1 ? 'open' : ''">
-                            <div class="search_make">
+                            <div class="search_make" :class="makeClear ? 'active' : ''">
                                 <p>Make</p>
-                                <input v-model="searchMake" class="input" type="text" placeholder="Search Make...">
+                                <div class="search_make_wrap">
+                                    <input @focus="makeSearchPop = true" v-model="searchMake" class="input" type="text" placeholder="Search Make...">
+                                    <div class="search_make_pop" :class="makeSearchPop ? 'active' : ''">
+                                        <ul v-for="(car, i) in carList" :key="i" >
+                                            <li @click="makeSelect(i)" >{{ car.make }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="search_model">
+                            <div class="make_clear" @click="clearMake" :class="makeClear ? 'active' : ''">
+                                <img src="../assets/Close_filter.svg" alt="no-img">
+                                {{ searchMake }}
+                            </div>
+                            <div class="search_model" :class="modelClear ? 'active' : ''">
                                 <p>Model</p>
-                                <input v-model="searchModel" class="input" type="text" placeholder="Search Model...">
+                                <div class="search_model_wrap">
+                                    <input @focus="modelSearchPop = true" v-model="searchModel" class="input" type="text" placeholder="Search Model...">
+                                    <div class="search_make_pop" :class="modelSearchPop ? 'active' : ''">
+                                        <ul v-for="(car, i) in filteredCars" :key="i" >
+                                            <li @click="modelSelect(i)" >{{ car.model }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="model_clear" @click="clearModel" :class="modelClear ? 'active' : ''">
+                                <img src="../assets/Close_filter.svg" alt="no-img">
+                                {{ searchModel }}
                             </div>
                         </div>
                     </div>
@@ -149,8 +175,6 @@
                         <div class="main_searchbar">
                             <img @click="filtersShow = !filtersShow" class="filter_icon_show" src="../assets/Filtericon.svg" alt="icon">
                             <p class="seatch_filter_show">Search Filter</p>
-                                    <!-- @blur="popActive = false"  -->
-                                    <!-- @focusout="popActive = false"  -->
                                 <input 
                                     @focus="popActive=true" 
                                     v-model="search" 
@@ -203,7 +227,7 @@
                                     </Swiper>
                                 </div>
                                 <div class="mainbar_card_content_text">
-                                    <span>{{car.make}} {{car.model}}</span>
+                                    <span>{{car.make}} {{car.model}} {{ car.modelDesc }}</span>
                                     <h4>$ {{car.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}}</h4>
                                     <div class="info">
                                         <p>{{car.year}} year</p>
@@ -273,7 +297,7 @@ export default {
             sortCars: this.cars,
             pageNumber: 0,
             active: 0,
-            open1: false,
+            open1: true,
             open2: false,
             open3: false,
             open4: false,
@@ -292,6 +316,7 @@ export default {
             filtersShow: false,
             search: '',
             searchMake: '',
+            searchMake1: '',
             searchModel: '',
             popActive: false,
             transmition: [],
@@ -305,7 +330,10 @@ export default {
                 {make: 'Toyota'},
             ],
             clearFilters: false,
-            checked: true,
+            makeSearchPop: false,
+            modelSearchPop: false,
+            makeClear: false,
+            modelClear: false,
         }
     },
     computed: {
@@ -339,6 +367,7 @@ export default {
         makeFilter() {
             if(this.searchMake !==  ''){
                 this.clearFilters = true
+                this.makeClear = true
             }
             return this.modelFilter.filter(car => {
                 return car.make.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
@@ -347,6 +376,7 @@ export default {
         modelFilter() {
             if(this.searchModel !==  ''){
                 this.clearFilters = true
+                this.modelClear = true
             }
             return this.yearCange.filter(car => {
                 return car.model.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1
@@ -418,11 +448,35 @@ export default {
             this.year = [1990, 2023]
             this.clearFilters = false
             this.body = [] 
-            this.transmition = [] 
+            this.transmition = []
+            this.makeSearchPop = false
+            this.modelSearchPop = false
+            this.makeClear = false
+            this.modelClear = false
+        },
+        clearMake() { 
+            this.makeClear = false
+            this.searchMake = ''
+            this.modelClear = false
+            this.searchModel = ''
+        },
+        clearModel() { 
+            this.modelClear = false
+            this.searchModel = ''
         },
         carSelect(i){
             this.popActive = false
             this.search = this.carList[i].make
+        },
+        makeSelect(i){
+            this.makeSearchPop = false
+            this.searchMake = this.carList[i].make
+            this.modelClear = false
+            this.searchModel = ''
+        },
+        modelSelect(i){
+            this.modelSearchPop = false
+            this.searchModel = this.filteredCars[i].model
         },
         recom() {
             this.selected = this.recomValue
@@ -571,6 +625,7 @@ export default {
         line-height: 159%;
         color: #7481FF;
         display: none;
+        cursor: pointer;
         &.active{
             display: block;
         }
@@ -743,15 +798,15 @@ export default {
         top: 10px;
         right: 10px;
     }
-    // @media (max-width: 1024px) {
-    //     left: 172px;
-    // }
-    // @media (max-width: 900px) {
-    //     left: 48px;
-    // }
-    // @media (max-width: 768px) {
-    //     max-width: 86.2%;
-    // }
+    @media (max-width: 1024px) {
+        left: 172px;
+    }
+    @media (max-width: 900px) {
+        left: 48px;
+    }
+    @media (max-width: 768px) {
+        width: 86.2%;
+    }
 
     ul{
         &:not(:last-child){
@@ -933,6 +988,68 @@ export default {
 }
 .search_make {
     margin-bottom: 20px;
+}
+.search_make.active {
+    display: none;
+}
+.search_model.active {
+    display: none;
+}
+.search_make_wrap{
+    width: 100%;
+}
+
+.search_make_pop {
+    max-height: 155px;
+    width: 100%;
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px solid #D7D7D7;
+    border-radius: 2px;
+    border-top: none;
+    display: none;
+    li{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 14px;
+        color: #41456B;
+        margin-bottom: 10px;
+        cursor: pointer;
+        &:hover{
+            color: #000;
+        }
+    }
+}
+.search_make_pop.active{
+    display: inline-block;
+    overflow: auto;
+
+}
+.make_clear,
+.model_clear{
+    height: 35px;
+    display: none;
+    padding: 10px;
+    align-items: center;
+    background: rgba(116, 129, 255, 0.2);
+    border-radius: 2px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #41456B;
+    margin-bottom: 20px;
+    cursor: pointer;
+    img{
+        padding-right: 10px;
+    }
+}
+.make_clear.active,
+.model_clear.active{
+    display: inline-flex;
+    margin-right: 5px;
 }
 .checkbox {
     display: flex;
