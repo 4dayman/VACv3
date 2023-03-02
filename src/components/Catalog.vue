@@ -51,71 +51,72 @@
                     <div class="catalog_filter" :class="open2 ? 'open2' : ''" >
                         <div class="filter_title" @click="open2 = !open2">Body type</div>
                         <div class="filter_desc" :class="open2 ? 'open' : ''">
-                            <div class="checkbox">
-                                <input  type="checkbox" id="Truck" value="Truck" v-model="body">
-                                <label for="Truck" class="lable">
-                                    <img src="../assets/Truckicon.svg" alt="no-img">
-                                    Truck
-                                </label>
-                            </div>
-                            <div class="checkbox">
+                            <label class="checkbox" for="Truck">
+                                <img src="../assets/Truckicon.svg" alt="no-img">
+                                <p>Truck</p>
+                                <input type="checkbox" id="Truck" value="Truck" v-model="body">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox" for="SUV">
+                                <img src="../assets/SUVicon.svg" alt="no-img">
+                                <p>SUV</p>
                                 <input type="checkbox" id="SUV" value="SUV" v-model="body">
-                                <label for="SUV" class="lable">
-                                    <img src="../assets/SUVicon.svg" alt="no-img">
-                                    SUV
-                                </label>
-                            </div>
-                            <div class="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox" for="Sedan">
+                                <img src="../assets/Sedanicon.svg" alt="no-img">
+                                <p>Sedan</p>
                                 <input type="checkbox" id="Sedan" value="Sedan" v-model="body">
-                                <label for="Sedan" class="lable">
-                                    <img src="../assets/Sedanicon.svg" alt="no-img">
-                                    Sedan
-                                </label>
-                            </div>
-                            <div class="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox" for="Hatchback">
+                                <img src="../assets/Hatchbackicon.svg" alt="no-img">
+                                <p>Hatchback</p>
                                 <input type="checkbox" id="Hatchback" value="Hatchback" v-model="body">
-                                <label for="Hatchback" class="lable">
-                                    <img src="../assets/Hatchbackicon.svg" alt="no-img">
-                                    Hatchback
-                                </label>
-                            </div>
-                            <div class="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox" for="Coupe">
+                                <img src="../assets/Coupeicon.svg" alt="no-img">
+                                <p>Coupe</p>
                                 <input type="checkbox" id="Coupe" value="Coupe" v-model="body">
-                                <label for="Coupe" class="lable">
-                                    <img src="../assets/Coupeicon.svg" alt="no-img">
-                                    Coupe
-                                </label>
-                            </div>
-                            <div class="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox" for="Convertiable">
+                                <img src="../assets/Convertiableicon.svg" alt="no-img">
+                                <p>Convertiable</p>
                                 <input type="checkbox" id="Convertiable" value="Convertiable" v-model="body">
-                                <label for="Convertiable" class="lable">
-                                    <img src="../assets/Convertiableicon.svg" alt="no-img">
-                                    Convertiable
-                                </label>
-                            </div>
-                            <div class="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox" for="VAN">
+                                <img src="../assets/VANicon.svg" alt="no-img">
+                                <p>VAN</p>
                                 <input type="checkbox" id="VAN" value="VAN" v-model="body">
-                                <label for="VAN" class="lable">
-                                    <img src="../assets/VANicon.svg" alt="no-img">
-                                    VAN
-                                </label>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="checkbox_checks" v-for="(bod, i) in body.length" :key="i">
+                                <div @click="this.body.splice(i,1)" class="checks">
+                                    <img src="../assets/Close_filter.svg" alt="">{{ this.body[i] }}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="catalog_filter" :class="open3 ? 'open3' : ''" >
                         <div class="filter_title" @click="open3 = !open3">Transmission</div>
                         <div class="filter_desc" :class="open3 ? 'open' : ''">
-                            <div class="checkbox">
+                            <label class="checkbox" for="Automatic">
+                                <p>Automatic</p>
                                 <input type="checkbox" id="Automatic" value="Automatic" v-model="transmition">
-                                <label for="Automatic" class="lable">
-                                    Automatic
-                                </label>
-                            </div>
-                            <div class="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox" for="Manual">
+                                <p>Manual</p>
                                 <input type="checkbox" id="Manual" value="Manual" v-model="transmition">
-                                <label for="Manual" class="lable">
-                                    Manual
-                                </label>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="checkbox_checks" v-for="(trans, i) in transmition.length" :key="i">
+                                <div @click="this.transmition.splice(i, 1)" class="checks">
+                                    <img src="../assets/Close_filter.svg" alt="">{{ this.transmition[i] }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -133,7 +134,11 @@
                                 :step="1000"
                                 @change="priceChange"
                             />
-
+                            <div class="checkbox_checks price_checks" :class="clearPrice ? 'active' : ''">
+                                <div @click="priceClear" class="checks" v-if="this.price[0] != 10000 || this.price[1] != 350000" >
+                                    <img src="../assets/Close_filter.svg" alt="">$ {{ this.price[0]}} - $ {{ this.price[1] }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="catalog_filter" :class="open5 ? 'open5' : ''" >
@@ -150,6 +155,11 @@
                                 :step="1"
                                 @change='yearCange'
                             />
+                            <div class="checkbox_checks price_checks" :class="clearYear ? 'active' : ''">
+                                <div @click="yearClear" class="checks" v-if="this.year[0] != 1990 || this.year[1] != 2023" >
+                                    <img src="../assets/Close_filter.svg" alt="">$ {{ this.year[0] }} - $ {{ this.year[1] }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="catalog_filter" :class="open6 ? 'open6' : ''" >
@@ -158,7 +168,6 @@
                             <div class="kilometres_value">
                                 <p>{{this.kilometres.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} or less</p>
                             </div>
-
                             <Slider
                                 v-model="kilometres"
                                 :min="0"
@@ -166,42 +175,53 @@
                                 :step="1000"
                                 @change="kmChange"
                             />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="catalog_mainbar">
-                <div class="mainbar_header">
-                        <div class="main_searchbar">
-                            <img @click="filtersShow = !filtersShow" class="filter_icon_show" src="../assets/Filtericon.svg" alt="icon">
-                            <p class="seatch_filter_show">Search Filter</p>
-                                <input 
-                                    @focus="popActive=true" 
-                                    v-model="search" 
-                                    class="input search_input" 
-                                    type="text" 
-                                    placeholder="Find a dream car..."
-                                >
-                                <div class="search_pop" :class="popActive ? 'active' : ''">
-                                    <img @click="popActive = !popActive" src="../assets/Close.svg" alt="no-img">
-                                    <ul v-for="(car, i) in carList" :key="i" >
-                                        <li @click="carSelect(i)">{{car.make}}</li>
-                                    </ul>
-                                </div>
-                            <img src="../assets/Share.svg" alt="">
-                        </div>
-                        <div class="main_right">
-                            <p class="sorted">Sorted by</p>
-                            <div class="catalog_filter recommendations" :class="open7 ? 'open7' : ''" >
-                                <div class="filter_title recommendations" @click="open7 = !open7">{{selected}}</div>
-                                <div class="filter_desc recommendations" :class="open7 ? 'open' : ''">
-                                    <p @click="recom" v-if="selected != recomValue">Recommendations</p>
-                                    <p @click="newest" v-if="selected != newestValue">Newest inventory</p>
-                                    <p @click="lowest" v-if="selected != lowestValue">Lowest price</p>
-                                    <p @click="highest" v-if="selected != highestValue">Highest prices</p>
+                            <div class="checkbox_checks price_checks" :class="clearKm ? 'active' : ''">
+                                <div @click="kmClear" class="checks" v-if="this.kilometres != 500000" >
+                                    <img src="../assets/Close_filter.svg" alt="">{{ this.kilometres }}
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <button 
+                    @click="filtersShow = !filtersShow" 
+                    class="apply_btn" 
+                    :class="clearFilters ? 'active' : ''"
+                    v-if="this.cars.length != this.filteredCars.length"
+                >Apply</button>
+            </div>
+            <div class="catalog_mainbar">
+                <div class="mainbar_header">
+                    <div class="main_searchbar">
+                        <img @click="filtersShow = !filtersShow" class="filter_icon_show" src="../assets/Filtericon.svg" alt="icon">
+                        <p class="seatch_filter_show">Search Filter</p>
+                            <input 
+                                @focus="popActive=true" 
+                                v-model="search" 
+                                class="input search_input" 
+                                type="text" 
+                                placeholder="Find a dream car..."
+                            >
+                            <div class="search_pop" :class="popActive ? 'active' : ''">
+                                <img @click="popActive = !popActive" src="../assets/Close.svg" alt="no-img">
+                                <ul v-for="(car, i) in carList" :key="i" >
+                                    <li @click="carSelect(i)">{{car.make}}</li>
+                                </ul>
+                            </div>
+                        <img src="../assets/Share.svg" alt="">
+                    </div>
+                    <div class="main_right">
+                        <p class="sorted">Sorted by</p>
+                        <div class="catalog_filter recommendations" :class="open7 ? 'open7' : ''" >
+                            <div class="filter_title recommendations" @click="open7 = !open7">{{selected}}</div>
+                            <div class="filter_desc recommendations" :class="open7 ? 'open' : ''">
+                                <p @click="recom" v-if="selected != recomValue">Recommendations</p>
+                                <p @click="newest" v-if="selected != newestValue">Newest inventory</p>
+                                <p @click="lowest" v-if="selected != lowestValue">Lowest price</p>
+                                <p @click="highest" v-if="selected != highestValue">Highest prices</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="mainbar_cards">
                     <div class="mainbar_cards_wrapper">
@@ -227,7 +247,9 @@
                                     </Swiper>
                                 </div>
                                 <div class="mainbar_card_content_text">
-                                    <span>{{car.make}} {{car.model}} {{ car.modelDesc }}</span>
+                                    <router-link to="/car">
+                                        <span>{{car.make}} {{car.model}} {{ car.modelDesc }}</span>
+                                    </router-link>
                                     <h4>$ {{car.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}}</h4>
                                     <div class="info">
                                         <p>{{car.year}} year</p>
@@ -297,7 +319,7 @@ export default {
             sortCars: this.cars,
             pageNumber: 0,
             active: 0,
-            open1: true,
+            open1: false,
             open2: false,
             open3: false,
             open4: false,
@@ -334,6 +356,9 @@ export default {
             modelSearchPop: false,
             makeClear: false,
             modelClear: false,
+            clearPrice: false,
+            clearYear: false,
+            clearKm: false,
         }
     },
     computed: {
@@ -385,9 +410,11 @@ export default {
         yearCange() {
             if(this.year[0] !==  1990){
                 this.clearFilters = true
+                this.clearYear = true
             }
             if(this.year[1] !== 2023 ){
                 this.clearFilters = true
+                this.clearYear = true
             }
             return this.priceChange.filter(car => {
                 return car.year >= this.year[0] && car.year <= this.year[1]
@@ -396,9 +423,11 @@ export default {
         priceChange() {
             if(this.price[0] !==  10000){
                 this.clearFilters = true
+                this.clearPrice = true
             }
             if(this.price[1] !== 350000 ){
                 this.clearFilters = true
+                this.clearPrice = true
             }
             return this.kmChange.filter(car => {
                 return car.price >= this.price[0] && car.price <= this.price[1]
@@ -407,6 +436,7 @@ export default {
         kmChange() {
             if(this.kilometres !== 500000){
                 this.clearFilters = true
+                this.clearKm = true
             }
             return this.transmChange.filter(car => {
                 return car.kilometres <= this.kilometres
@@ -418,7 +448,7 @@ export default {
                 this.clearFilters = true
                 data = this.bodyChange.filter(x => this.transmition.indexOf(x.transmition.toString()) != -1)
             } else {
-                this.clearFilters = false
+                // this.clearFilters = false
                 data = this.bodyChange
             }
             return data
@@ -431,7 +461,7 @@ export default {
                 this.clearFilters = true
                 data = this.cars.filter(x => this.body.indexOf(x.body.toString()) != -1)
             } else {
-                this.clearFilters = false
+                // this.clearFilters = false
                 // иначе отдаем все данные из массива
                 data = this.cars
             }
@@ -453,6 +483,9 @@ export default {
             this.modelSearchPop = false
             this.makeClear = false
             this.modelClear = false
+            this.clearPrice = false
+            this.clearYear = false
+            this.clearKm = false
         },
         clearMake() { 
             this.makeClear = false
@@ -463,6 +496,18 @@ export default {
         clearModel() { 
             this.modelClear = false
             this.searchModel = ''
+        },
+        priceClear() {
+            this.price = [10000, 350000]
+            this.clearPrice = false
+        },
+        yearClear() {
+            this.year = [1990, 2023]
+            this.clearYear = false
+        },
+        kmClear() {
+            this.kilometres = 500000
+            this.clearKm = false
         },
         carSelect(i){
             this.popActive = false
@@ -715,6 +760,9 @@ export default {
             margin-bottom: 31px;
         }
     }
+    .filtersShow{
+       top: 0;
+    }
     .sidebar_close_show {
     display: none;
     }
@@ -833,6 +881,26 @@ export default {
     }
 .catalog_filters {
     width: 100%;
+}
+.apply_btn{
+    width: 100%;
+    display: none;
+    margin-top: 20px;
+    padding: 10px 0;
+    background: #7481FF;
+    border-radius: 2px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+@media (max-width: 1024px) {
+    .apply_btn.active{
+        display: block;
+    }
 }
 .catalog_filter {
     margin-bottom: 10px;
@@ -1051,16 +1119,111 @@ export default {
     display: inline-flex;
     margin-right: 5px;
 }
+// ------ custome checkbox--------
 .checkbox {
-    display: flex;
-    .lable{
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        position: relative;
+  position: relative;
+  cursor: pointer;
+  padding-left: 30px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2px;
+  img{
+    margin-top: 2px;
+    padding-right: 5px;
+  }
+  p{
+    margin-top: -2px;
+    &:hover{
+        color: #000;
     }
-    input{
-        margin-right: 10px;
+  }
+}
+/* Hide the browser's default checkbox */
+.checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #D7D7D7;
+    border-radius: 2px;
+    background: #fff;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox:hover input ~ .checkmark {
+    border: 1px solid #bebebe;
+}
+
+/* When the checkbox is checked, add a blue background */
+// .checkbox input:checked ~ .checkmark {
+  
+// }
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  background-image: url('../assets/checkmark.svg');
+  background-size: cover;
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox .checkmark:after {
+  left: 4.5px;
+  top: 2.5px;
+  width: 14.5px;
+  height: 10px;
+}
+// ------ end custome checkbox--------
+.checkbox_checks {
+    display: inline-flex;
+}
+.price_checks{
+    display: none;
+}
+.price_checks.active{
+    margin-top: 20px;
+    margin-bottom: -20px;
+    display: inline-block;
+}
+.checks {
+    height: 35px;
+    padding: 10px;
+    align-items: center;
+    background: rgba(116, 129, 255, 0.2);
+    border-radius: 2px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #41456B;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    img{
+        padding-right: 10px;
     }
 }
 .price_value,

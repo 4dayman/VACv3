@@ -187,7 +187,6 @@ export default {
     top: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     padding: 0 24px;
     margin: 0 auto;
     transition: all 0.5s ease 0.1s;
