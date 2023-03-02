@@ -1,7 +1,7 @@
 <template>
     <div class="car_wrapper">
         <div class="car_title">
-            <h2>Porsche Panamera 4S</h2>
+            <h2>{{ cars[0].make }} {{ cars[0].model }} {{ cars[0].modelDesc }}</h2>
             <p>Watching now {{ randomNumber }} people</p>
         </div>
         <div class="car">

@@ -1284,8 +1284,8 @@ export default {
     align-items: flex-start;
     justify-content: flex-end;
     padding: 20px;
+    text-align: left;
     span {
-        text-align: left;
         font-weight: 600;
         font-size: 20px;
         line-height: 25px;
