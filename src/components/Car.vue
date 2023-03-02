@@ -7,10 +7,6 @@
         <div class="car">
             <div class="car_swiper">
                 <swiper
-                    :style="{
-                        '--swiper-navigation-color': '#333',
-                        '--swiper-pagination-color': '#000',
-                    }"
                     :loop="true"
                     :spaceBetween="10"
                     :navigation="{ prevEl: '.prevCar', nextEl: '.nextCar' }"
