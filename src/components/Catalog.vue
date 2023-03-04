@@ -247,7 +247,7 @@
                                     </Swiper>
                                 </div>
                                 <div class="mainbar_card_content_text">
-                                    <router-link to="/car">
+                                    <router-link :to="{path: `/car/${car.id}`}">
                                         <span>{{car.make}} {{car.model}} {{ car.modelDesc }}</span>
                                     </router-link>
                                     <h4>$ {{car.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}}</h4>
@@ -559,6 +559,9 @@ export default {
         setPage(i) {
             this.pageNumber = i;
             this.active = i
+        },
+        carId(id) { 
+            
         },
     },
     watch: {

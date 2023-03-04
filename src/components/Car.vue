@@ -1,7 +1,7 @@
 <template>
     <div class="car_wrapper">
         <div class="car_title">
-            <h2>{{ cars[0].make }} {{ cars[0].model }} {{ cars[0].modelDesc }}</h2>
+            <h2>{{ car.make }} {{ car.model }} {{ car.modelDesc }}</h2>
             <p>Watching now {{ randomNumber }} people</p>
         </div>
         <div class="car">
@@ -57,24 +57,24 @@
             <div class="car_desc">
                 <div class="desc_price">
                     <p>Price</p>
-                    <span>{{ cars[0].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} $</span>
+                    <span>{{ car.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} $</span>
                 </div>
                 <div class="desc_body">
                     <div class="desc_body_body">
                         <p>Body</p>
-                        <span>{{ cars[0].body }}</span>
+                        <span>{{ car.body }}</span>
                     </div>
                     <div class="desc_body_body">
                         <p>Year</p>
-                        <span>{{ cars[0].year }}</span>
+                        <span>{{ car.year }}</span>
                     </div>
                     <div class="desc_body_body">
                         <p>Transmission</p>
-                        <span>{{ cars[0].transmition }}</span>
+                        <span>{{ car.transmition }}</span>
                     </div>
                     <div class="desc_body_body">
                         <p>Kilometres </p>
-                        <span>{{ cars[0].kilometres.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</span>
+                        <span>{{ car.kilometres.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</span>
                     </div>
                 </div>
                 <div class="separation"></div>
@@ -139,13 +139,14 @@ export default {
     data() { 
         return { 
             thumbsSwiper: this.swiper,
-            carUrl: this.cars[0].url,
-            carUrl1: this.cars[0].url1,
-            carUrl2: this.cars[0].url2,
+            carUrl: this.cars[this.$route.params.id - 1].url,
+            carUrl1: this.cars[this.$route.params.id - 1].url1,
+            carUrl2: this.cars[this.$route.params.id - 1].url2,
             exterior: true,
             interior: false,
-            price: this.cars[0].price,
+            price: 0,
             Number: '',
+            car: null,
         }
     },
     methods: {
@@ -153,20 +154,19 @@ export default {
             this.thumbsSwiper = swiper;
         },
         getInterior() { 
-            this.carUrl = this.cars[0].url3
-            this.carUrl1 = this.cars[0].url4
-            this.carUrl2 = this.cars[0].url5
+            this.carUrl = this.cars[this.$route.params.id - 1].url3
+            this.carUrl1 = this.cars[this.$route.params.id - 1].url4
+            this.carUrl2 = this.cars[this.$route.params.id - 1].url5
             this.interior = true
             this.exterior = false
         },
         getExterior() { 
-            this.carUrl = this.cars[0].url
-            this.carUrl1 = this.cars[0].url1
-            this.carUrl2 = this.cars[0].url2
+            this.carUrl = this.cars[this.$route.params.id - 1].url
+            this.carUrl1 = this.cars[this.$route.params.id - 1].url1
+            this.carUrl2 = this.cars[this.$route.params.id - 1].url2
             this.interior = false
             this.exterior = true
         },
-        
     },
     setup() {
         return {
@@ -177,7 +177,21 @@ export default {
         randomNumber() {
            return this.Number = Math.round(Math.random() * 100)
         },
+    },
+    created() {
+        const car = this.cars.find(car => car.id == this.$route.params.id)
+        if (car) {
+            this.car = car
+            // this.carUrl = car.url
+            // this.carUrl1 = car.url1
+            // this.carUrl2 = car.url2
+            // this.carUrl3= car.url3
+            // this.carUrl4 = car.url4
+            // this.carUrl5 = car.url5
+            this.price = car.price
+        }
     }
+
 }
 </script>
 
@@ -239,10 +253,13 @@ export default {
     // height: 366px;
     margin: 0 auto;
     max-height: 477px;
-      max-width: 90vw;
-      @media (min-width: 1025px) {
-        max-width: 650px;
-      }
+    max-width: 90vw;
+    @media (max-width: 1024px) {
+        overflow: hidden;
+    }
+    @media (min-width: 1025px) {
+    max-width: 650px;
+    }
 }
 .mySwiper2 {
   height: 366px;

@@ -8,7 +8,7 @@
                         class="slide"
                         @click="indexNo(index)"
                     >
-                        <router-link to="/article">
+                        <router-link :to="{ path: `/article/${blog.id}` }">
                             <div class="content_img">
                                 <img :src="blog.url" alt="">
                             </div>

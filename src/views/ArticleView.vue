@@ -2,47 +2,46 @@
   <div class="article">
       <Header/>
       <div>
-        <img :src="blogs[index].url" alt="">
+        <img :src="blog.url" alt="">
         <div class="article_wrapper">
           <router-link to="/blog" class="back_btn">
             <img src="../assets/Arrow-Bottom.svg" alt="arrow">
             <span>back</span>
           </router-link>
           <div class="article_content">
-            <p class="date">{{  blogs[index].date}}</p>
-            <h3>{{ blogs[index].title }}</h3>
-            <p>{{blogs[index].article1}}</p>
-            <p class="article2">{{blogs[index].article2}}</p>
+            <p class="date">{{  blog.date}}</p>
+            <h3>{{ blog.title }}</h3>
+            <p>{{blog.article1}}</p>
+            <p class="article2">{{blog.article2}}</p>
             <div class="article_topImg">
-                <div v-if="blogs[index].img1" class="topImg">
-                    <img :src="blogs[index].img1" alt="" >
+                <div v-if="blog.img1" class="topImg">
+                    <img :src="blog.img1" alt="" >
                 </div>
-                <div v-if="blogs[index].img2" class="topImg">
-                    <img :src="blogs[index].img2" alt="" >
+                <div v-if="blog.img2" class="topImg">
+                    <img :src="blog.img2" alt="" >
                 </div>
             </div>
-            <h4 v-if="blogs[index].subtitle">{{blogs[index].subtitle}}</h4>
-            <p v-if="blogs[index].article3" class="article3">{{blogs[index].article3}}</p>
-            <div v-if="blogs[index].img3" class="midleImg">
-                <img :src="blogs[index].img3" alt="" >
+            <h4 v-if="blog.subtitle">{{blog.subtitle}}</h4>
+            <p v-if="blog.article3" class="article3">{{blog.article3}}</p>
+            <div v-if="blog.img3" class="midleImg">
+                <img :src="blog.img3" alt="" >
             </div>
-            <p v-if="blogs[index].article3" class="article3">{{blogs[index].article3}}</p>
-            <h4 v-if="blogs[index].subtitle">{{blogs[index].subtitle}}</h4>
-            <p v-if="blogs[index].article3" class="article3">{{blogs[index].article3}}</p>
-            <h5 v-if="blogs[index].subtitle">{{blogs[index].subtitle}}</h5>
-            <p v-if="blogs[index].article4" class="article4">{{blogs[index].article4}}</p>
-            <h5 v-if="blogs[index].subtitle">{{blogs[index].subtitle}}</h5>
-            <p v-if="blogs[index].article4" class="article4">{{blogs[index].article4}}</p>
-            <div v-if="blogs[index].img4" class="midleImg">
-                <img :src="blogs[index].img4" alt="" >
+            <p v-if="blog.article3" class="article3">{{blog.article3}}</p>
+            <h4 v-if="blog.subtitle">{{blog.subtitle}}</h4>
+            <p v-if="blog.article3" class="article3">{{blog.article3}}</p>
+            <h5 v-if="blog.subtitle">{{blog.subtitle}}</h5>
+            <p v-if="blog.article4" class="article4">{{blog.article4}}</p>
+            <h5 v-if="blog.subtitle">{{blog.subtitle}}</h5>
+            <p v-if="blog.article4" class="article4">{{blog.article4}}</p>
+            <div v-if="blog.img4" class="midleImg">
+                <img :src="blog.img4" alt="" >
             </div>
-            <p v-if="blogs[index].article5" class="article5">{{blogs[index].article5}}</p>
-            <p v-if="blogs[index].article3" class="article3">{{blogs[index].article3}}</p>
+            <p v-if="blog.article5" class="article5">{{blog.article5}}</p>
+            <p v-if="blog.article3" class="article3">{{blog.article3}}</p>
           </div>
         </div>
         <interesting-read 
             :blogs="blogs"
-            @blogIndex='blogIndex'
         />
       </div>
       <Footer/>
@@ -61,18 +60,22 @@ components: {
   InterestingRead,
 },
 methods: {
-  blogIndex(data) {
-    console.log(data)
-    return this.index = data
-  }
 },
 
 data() {
     return {
         index: 0,
-        blogs
+        blogs,
+        blog: null
     }
-},
+  },
+  created() {
+    const blog = blogs.find(blog => blog.id == this.$route.params.id)
+    if (blog) {
+      this.blog = blog
+    }
+  }
+
 }
 
 </script>

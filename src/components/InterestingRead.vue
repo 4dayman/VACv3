@@ -28,9 +28,8 @@
                         v-for="(blog, index) in blogs"
                         :key="index"
                         class="slide"
-                        @click="indexNo(index)"
-                    >
-                        <router-link to="/article">
+                        >
+                        <router-link :to="{ path: `/article/${blog.id}` }">
                             <div class="content_img">
                                 <img :src="blog.url" alt="">
                             </div>
@@ -67,10 +66,9 @@ export default {
         SwiperSlide
     },
     methods: {
-        indexNo(index) {
-            console.log(index)
-            this.$emit('blogIndex', index)
-        }
+        // reloadPage() {
+        //     window.location.reload();
+        // }
     },
     props: {
         blogs: {
