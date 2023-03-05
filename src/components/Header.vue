@@ -43,7 +43,7 @@
                 </div>
             </nav>
             <div class="contactUs_shadow" @click="formActive = !formActive" :class="{formActive}"></div>
-            <form class="contactUs" :class="{formActive}" @submit.prevent="checkForm">
+            <form novalidate class="contactUs" :class="{formActive}" @submit.prevent="checkForm">
                 <div @click="formActive = !formActive" class="contactUs_close">
                     <img src="../assets/Close.svg" alt="">
                 </div>
@@ -163,7 +163,7 @@ export default {
                 this.name = this.phone = this.email = null
                 this.v$.$reset()
             }
-        }
+        },
     },
     watch: {
         // whenever active changes, this function will run
@@ -171,6 +171,7 @@ export default {
             document.body.style.overflow = this.active ? 'hidden' : ''
         },
         formActive() {
+            this.v$.$reset()
             document.body.style.overflow = this.formActive ? 'hidden' : ''
         },
         successActive() {
