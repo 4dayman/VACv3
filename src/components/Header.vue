@@ -12,8 +12,9 @@
                 <router-link class="menu_btn" to="/inventory" v-if="!msg">
                     <main-button class="white hide">Inventory</main-button>
                 </router-link>
-                <router-link to="/">
-                    <main-button class="colored">Request a car</main-button>
+                <router-link to="/quiz" v-show="!quizHide">
+                    <main-button v-show="!onCarBtnHide" class="colored">Request a car</main-button>
+                    <main-button v-show="onCarBtnHide" class="colored">Apply for this vehicle</main-button>
                 </router-link>
             </div>
             <div class="menu_icon" @click="active = !active" :class="{active}">
@@ -120,6 +121,8 @@ export default {
     },
     props: {
         msg: String,
+        onCarBtnHide: Boolean,
+        quizHide: Boolean
     },
     setup () {
         return { v$: useVuelidate() }
@@ -190,6 +193,7 @@ export default {
     background: rgba(255, 255, 255, 0.9);
     padding: 0 24px;
     margin: 0 auto;
+    box-shadow: 0px 1px 0px #D7D7D7;
     transition: all 0.5s ease 0.1s;
     @media (max-width: 460px) {
         padding: 0 20px;

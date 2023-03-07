@@ -1,8 +1,8 @@
 <template>
     <div class="inventory">
-        <Header onCarBtnHide="false"/>
+        <Header onCarBtnHide quizHide />
         <div>
-            <car :cars="cars" />
+            <Quiz/>
         </div>
         <Footer />
     </div>
@@ -11,20 +11,19 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import Car from '@/components/Car.vue'
+import Quiz from '@/components/Quiz.vue'
 import cars from '../mocks/cars'
 
 export default {
     components: {
         Header,
         Footer,
-        Car,
+        Quiz
     },
     data() {
         return {
             index: 0,
             cars,
-           
         }
     },
 }
@@ -37,5 +36,8 @@ export default {
     margin-top: 80px;
     display: grid;
     grid-template: 1fr / 1fr;
+}
+.hide{
+    display: none;
 }
 </style>
