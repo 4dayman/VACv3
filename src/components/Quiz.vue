@@ -1,7 +1,7 @@
 <template>
     <div class="quiz_wrapper">
         <div class="quiz">
-            <div class="quiz_progres">
+            <div class="quiz_progres" v-show="step !== 9">
                 <div class="progres_fill"></div>
             </div>
             <!-- ---- Step #1 ---- -->
@@ -191,10 +191,28 @@
                     <div v-show="notSelect" class="select_error">All fields values is required</div>
                 </div>
             </div>
-            <div class="quiz_continue">
+            <!-- ---- Step #9 ---- -->
+            <div class="quiz_change" v-show="step === 9">
+                <div class="success_check">
+                    <img src="../assets/socialIcons/Success.svg" alt="">
+                </div>
+                <h2>Application successful!</h2>
+                <p>Your response was successfully submitted. Thank you! Our team will reach out to you shortly.</p>
+                <span>Confirmation number:</span>
+                <div class="select">
+                    <input 
+                        v-model.trim="randomNumber"
+                        class="monthly_income" 
+                        type="text" >
+                </div>
+            </div>
+            <div class="quiz_continue" v-show="step !== 9">
                 <button @click="nextStep" class="continue_btn" type="button">Continue</button>
                 <button @click="prevStep" v-show="step > 1" class="back_btn" type="button"><img src="../assets/Arrow-Bottom.svg" alt="arrow">Back</button>
             </div>
+            <router-link to="/" class="quiz_continue" v-show="step == 9">
+                <button @click="nextStep" class="continue_btn" type="button">Go to main page</button>
+            </router-link>
         </div>
     </div>
 
@@ -217,9 +235,9 @@ export default {
                 {selected: false, text: 'Retired / Pension'},
                 {selected: false, text: 'Other'},
             ],
-            defaltProgres: 10,
+            defaltProgres: 11,
             progresFill: '10%',
-            step: 8,
+            step: 9,
             gotSelect: false,
             notSelect: false,
             income: '',
@@ -236,9 +254,32 @@ export default {
             firstName: '',
             lastName: '',
             email: '',
-            phone: ''
+            phone: '',
+            // confNumber: '0002466-1vwrh0',
+            str: '0123456789qwertyuiopasdfghjklzxcvbnm',
+            result: ''
         }
     },
+    props: {
+        cars: {
+            type: Array,
+            default: () => []
+        },
+
+    },
+    created() {
+        const car = this.cars.find(car => car.id == this.$route.params.id)
+        if (car) {
+            this.car = car
+            this.price = car.price
+        }
+    },
+    computed: {
+        randomNumber() {
+            return this.confNumber = Math.round(Math.random() * 10000000)
+        },
+    },
+
     methods: {
         nextStep() { 
             if (this.gotSelect) {
@@ -483,6 +524,9 @@ export default {
     grid-template-columns: 1fr 1fr;
     column-gap: 10px;
     row-gap: 10px;
+    @media (max-width: 400px) {
+        grid-template-columns: 1fr;
+    }
 }
 .select.input{
     position: relative;
@@ -491,6 +535,10 @@ export default {
 .select.born{
     position: relative;
     grid-template-columns: 2fr 1fr 1fr;
+    @media (max-width: 400px) {
+        grid-template-columns: 1fr;
+    }
+
 }
 .select_btn {
     font-weight: 600;
@@ -535,6 +583,9 @@ export default {
         text-transform: uppercase;
         color: #606276;
         background: none;
+        @media (max-width: 400px) {
+            grid-row: 1;
+        }
         img{
             height: 16px;
             margin-right: 15px;
@@ -561,6 +612,16 @@ export default {
         font-size: 16px;
         line-height: 159%;
         color: #D7D7D7;
+    }
+}
+.success_check{
+    margin-bottom: 20px;
+    width: 70px;
+    height: 70px;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
 </style>

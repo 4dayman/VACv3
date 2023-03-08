@@ -12,8 +12,10 @@
                 <router-link class="menu_btn" to="/inventory" v-if="!msg">
                     <main-button class="white hide">Inventory</main-button>
                 </router-link>
-                <router-link to="/quiz" v-show="!quizHide">
+                <router-link to="/quiz/0" v-show="!quizHide">
                     <main-button v-show="!onCarBtnHide" class="colored">Request a car</main-button>
+                </router-link>
+                <router-link :to="{ path: `/quiz/${this.$route.params.id}` }" v-show="!quizHide">
                     <main-button v-show="onCarBtnHide" class="colored">Apply for this vehicle</main-button>
                 </router-link>
             </div>
@@ -114,7 +116,9 @@
 <script>
 import MainButton from '@/components/UI/MainButton.vue'
 import { useVuelidate } from '@vuelidate/core'
-import { minLength, required, email, numeric} from '@vuelidate/validators'
+import { minLength, required, email, numeric } from '@vuelidate/validators'
+import cars from '../mocks/cars'
+
 export default {
     components: {
         MainButton
@@ -138,6 +142,7 @@ export default {
             email: null,
             requiredNameLength: 2,
             requiredPhoneLength: 10,
+            cars
         }
     },
     validations() {

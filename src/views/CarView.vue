@@ -1,6 +1,6 @@
 <template>
     <div class="inventory">
-        <Header onCarBtnHide="false"/>
+        <Header onCarBtnHide/>
         <div>
             <car :cars="cars" />
         </div>
@@ -24,7 +24,6 @@ export default {
         return {
             index: 0,
             cars,
-           
         }
     },
 }

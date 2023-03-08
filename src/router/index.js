@@ -49,9 +49,14 @@ const routes = [
     component: () => import('../views/BlogView.vue')
   },
   {
-    path: '/quiz',
-    name: 'quiz',
+    path: '/quiz/0',
+    name: 'quiz0',
     component: () => import('../views/QuizView.vue')
+  },
+  {
+    path: '/quiz/:id',
+    name: 'quizId',
+    component: () => import('../views/QuizIdView.vue')
   },
   {
     path: '/article/:id',
