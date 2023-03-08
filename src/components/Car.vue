@@ -182,12 +182,6 @@ export default {
         const car = this.cars.find(car => car.id == this.$route.params.id)
         if (car) {
             this.car = car
-            // this.carUrl = car.url
-            // this.carUrl1 = car.url1
-            // this.carUrl2 = car.url2
-            // this.carUrl3= car.url3
-            // this.carUrl4 = car.url4
-            // this.carUrl5 = car.url5
             this.price = car.price
         }
     }

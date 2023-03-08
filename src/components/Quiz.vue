@@ -39,8 +39,156 @@
                 <h2>Enter your monthly income</h2>
                 <p>Your income details help us make sure your vehicle payments are easy and affordable. Before taxes and deductions.</p>
                 <div class="select input">
-                    <input class="monthly_income" type="text" placeholder="Monthly income">
+                    <input 
+                        @focus="incomeFocus"
+                        @change="incomeChange"
+                        v-model.trim="income"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Monthly income">
                     <div v-show="notSelect" class="select_error">Value is required</div>
+                </div>
+            </div>
+            <!-- ---- Step #4 ---- -->
+            <div class="quiz_change" v-show="step === 4">
+                <h2>How long have you been earning this income?</h2>
+                <p>Your income details help us make sure your vehicle payments are easy and affordable.</p>
+                <div class="select">
+                    <input 
+                        @focus="yearsFocus"
+                        @change="yearsChange"
+                        v-model.trim="years"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Years">
+                    <input 
+                        @focus="mounthsFocus"
+                        @change="mounthsChange"
+                        v-model.trim="mounths"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Mounths">
+                    <div v-show="notSelect" class="select_error">All fields values is required</div>
+                </div>
+            </div>
+            <!-- ---- Step #5 ---- -->
+            <div class="quiz_change" v-show="step === 5">
+                <h2>How long receiving?</h2>
+                <p>Your income details help us make sure your vehicle payments are easy and affordable.</p>
+                <div class="select input">
+                    <input 
+                        @focus="timeFocus"
+                        @change="timeChange"
+                        v-model.trim="time"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Time">
+                    <div v-show="notSelect" class="select_error">Value is required</div>
+                </div>
+            </div>
+            <!-- ---- Step #6 ---- -->
+            <div class="quiz_change" v-show="step === 6">
+                <h2>Where do you live?</h2>
+                <p>Providing your location helps find the best deals near you.</p>
+                <div class="select input">
+                    <input 
+                        @focus="streetFocus"
+                        @change="streetChange"
+                        v-model.trim="street"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Street address">
+                    <input 
+                        @focus="cityFocus"
+                        @change="cityChange"
+                        v-model.trim="city"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="City">
+                </div>
+                <div class="select">
+                    <input 
+                        @focus="provinceFocus"
+                        @change="provinceChange"
+                        v-model.trim="province"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Province">
+                    <input 
+                        @focus="postalFocus"
+                        @change="postalChange"
+                        v-model.trim="postal"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Postal code">
+                    <div v-show="notSelect" class="select_error">All fields values is required</div>
+                </div>
+            </div>
+            <!-- ---- Step #7 ---- -->
+            <div class="quiz_change" v-show="step === 7">
+                <h2>When were you born?</h2>
+                <p></p>
+                <div class="select born">
+                    <input 
+                        @focus="bornYearFocus"
+                        @change="bornYearChange"
+                        v-model.trim="bornYear"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Year">
+                    <input 
+                        @focus="bornMounthFocus"
+                        @change="bornMounthChange"
+                        v-model.trim="bornMounth"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Mounth">
+                    <input 
+                        @focus="bornDayFocus"
+                        @change="bornDayChange"
+                        v-model.trim="bornDay"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Day">
+                    <div v-show="notSelect" class="select_error">All fields values is required</div>
+                </div>
+            </div>
+            <!-- ---- Step #8 ---- -->
+            <div class="quiz_change" v-show="step === 8">
+                <h2>Congratulations! Last step.</h2>
+                <p>Get access to your vehicle and financing options by creating your account. There is no obligation to continue with financing if you change your mind. </p>
+                <div class="select">
+                    <input 
+                        @focus="firstNameFocus"
+                        @change="firstNameChange"
+                        v-model.trim="firstName"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="First name">
+                    <input 
+                        @focus="lastNameFocus"
+                        @change="lastNameChange"
+                        v-model.trim="lastName"
+                        class="monthly_income" 
+                        type="text" 
+                        placeholder="Last name">
+                </div>
+                <div class="select input">
+                    <input 
+                        @focus="emailFocus"
+                        @change="emailChange"
+                        v-model.trim="email"
+                        class="monthly_income" 
+                        type="email" 
+                        placeholder="Email">
+                    <input 
+                        @focus="phoneFocus"
+                        @change="phoneChange"
+                        v-model.trim="phone"
+                        class="monthly_income" 
+                        type="phone" 
+                        placeholder="Phone number">
+                    <div v-show="notSelect" class="select_error">All fields values is required</div>
                 </div>
             </div>
             <div class="quiz_continue">
@@ -71,9 +219,24 @@ export default {
             ],
             defaltProgres: 10,
             progresFill: '10%',
-            step: 1,
+            step: 8,
             gotSelect: false,
             notSelect: false,
+            income: '',
+            years: '',
+            mounths: '',
+            time: '',
+            street: '',
+            city: '',
+            province: '',
+            postal: '',
+            bornYear: '',
+            bornMounth: '',
+            bornDay: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: ''
         }
     },
     methods: {
@@ -89,6 +252,14 @@ export default {
             this.progresFill = this.defaltProgres * this.step + '%'
             this.gotSelect = false
             this.notSelect = false
+            this.income = ''
+            this.years = ''
+            this.mounths = ''
+            this.time = ''
+            this.street = ''
+            this.city = ''
+            this.province = ''
+            this.postal = ''
             this.months = this.months.map((month) => {
                 month.selected = false
                 return month;
@@ -117,7 +288,142 @@ export default {
                 } else { status.selected = false }
                 return status;
             })
-        }
+        },
+        incomeFocus() { 
+            this.notSelect = false
+        },
+        incomeChange() { 
+            if (this.income !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        yearsFocus() {
+            this.notSelect = false
+        },
+        yearsChange() {
+            if (this.years !== '' && this.mounths !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        mounthsFocus() {
+            this.notSelect = false
+        },
+        mounthsChange() {
+            if (this.mounths !== '' && this.years !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        timeFocus() {
+            this.notSelect = false
+        },
+        timeChange() {
+            if (this.time !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        streetFocus() {
+            this.notSelect = false
+        },
+        streetChange() {
+            if (this.street !== '' && this.city !== '' && this.province !== '' && this.postal !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        cityFocus() {
+            this.notSelect = false
+        },
+        cityChange() {
+            if (this.street !== '' && this.city !== '' && this.province !== '' && this.postal !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        provinceFocus() {
+            this.notSelect = false
+        },
+        provinceChange() {
+            if (this.street !== '' && this.city !== '' && this.province !== '' && this.postal !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        postalFocus() {
+            this.notSelect = false
+        },
+        postalChange() {
+            if (this.street !== '' && this.city !== '' && this.province !== '' && this.postal !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        bornYearFocus() {
+            this.notSelect = false
+        },
+        bornYearChange() {
+            if (this.bornYear !== '' && this.bornMounth !== '' && this.bornDay !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        bornMounthFocus() {
+            this.notSelect = false
+        },
+        bornMounthChange() {
+            if (this.bornYear !== '' && this.bornMounth !== '' && this.bornDay !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        bornDayFocus() {
+            this.notSelect = false
+        },
+        bornDayChange() {
+            if (this.bornYear !== '' && this.bornMounth !== '' && this.bornDay !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        firstNameFocus() {
+            this.notSelect = false
+        },
+        firstNameChange() {
+            if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.phone !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        lastNameFocus() {
+            this.notSelect = false
+        },
+        lastNameChange() {
+            if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.phone !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        emailFocus() {
+            this.notSelect = false
+        },
+        emailChange() {
+            if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.phone !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
+        phoneFocus() {
+            this.notSelect = false
+        },
+        phoneChange() {
+            if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.phone !== '') {
+                this.gotSelect = true
+                this.notSelect = false
+            }
+        },
     }
 }
 </script>
@@ -171,15 +477,20 @@ export default {
     }
 }
 .select {
+    margin-top: 10px;
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 14px;
+    column-gap: 10px;
     row-gap: 10px;
 }
 .select.input{
     position: relative;
     grid-template-columns: 1fr;
+}
+.select.born{
+    position: relative;
+    grid-template-columns: 2fr 1fr 1fr;
 }
 .select_btn {
     font-weight: 600;
@@ -245,6 +556,11 @@ export default {
     border: 1px solid #D7D7D7;
     border-radius: 2px;
     padding: 10px 20px;
-
+    &::placeholder{
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 159%;
+        color: #D7D7D7;
+    }
 }
 </style>

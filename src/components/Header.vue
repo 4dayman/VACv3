@@ -133,11 +133,11 @@ export default {
             active: false,
             formActive: false,
             successActive: false,
-                name: null,
-                phone: null,
-                email: null,
-                requiredNameLength: 2,
-                requiredPhoneLength: 10,
+            name: null,
+            phone: null,
+            email: null,
+            requiredNameLength: 2,
+            requiredPhoneLength: 10,
         }
     },
     validations() {
