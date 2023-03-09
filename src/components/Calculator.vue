@@ -90,7 +90,9 @@
                             </div>
                         </div>
                     </div>
-                    <main-button class="colored calcBtn">request a car</main-button>
+                    <router-link to="/quiz/0">
+                        <main-button class="colored calcBtn">request a car</main-button>
+                    </router-link>
                 </div>
             </div>
         </div>

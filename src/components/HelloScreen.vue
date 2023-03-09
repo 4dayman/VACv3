@@ -14,9 +14,9 @@
                         />
                     </div>
                 </div>
-                <div class="content_btn">
+                <router-link to="/quiz/0" class="content_btn">
                     <main-button class="white max">Request a {{ this.model }}</main-button>
-                </div>
+                </router-link>
             </div>
         </div>
     </div>

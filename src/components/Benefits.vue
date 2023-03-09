@@ -5,7 +5,9 @@
                 <h2>Benefits of getting an auto loan with VAC</h2>
                 <p>For many people getting a reasonable auto loan is the best way for them to get a new car. However, the benefits of getting the right loan go beyond just being able to drive a nice vehicle.</p>
                 <h3>When you work with VAC, there are never any hidden costs or fees! We lay out all the terms and conditions so that you know exactly what details of the loan are before you sign anything.</h3>
-                <main-button class="colored">Request a car</main-button>
+                <router-link to="/quiz/0">
+                    <main-button class="colored">Request a car</main-button>
+                </router-link>
             </div>
             <div class="benefits_right">
                 <div class="benefits_right_img">

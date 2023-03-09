@@ -237,7 +237,7 @@ export default {
             ],
             defaltProgres: 11,
             progresFill: '10%',
-            step: 9,
+            step: 1,
             gotSelect: false,
             notSelect: false,
             income: '',

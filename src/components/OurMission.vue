@@ -4,7 +4,9 @@
             <div class="mission_left">
                 <h2>Our mission</h2>
                 <p>Our mission at VAC is to help you find the perfect car at the perfect price and with the perfect auto loan. We make buying a car simple. You can complete the entire process from home—we’ll even deliver the car to you!</p>
-                <main-button class="colored">Request a car</main-button>
+                <router-link to="/quiz/0">
+                    <main-button class="colored">Request a car</main-button>
+                </router-link>
             </div>
             <div class="mission_right">
                 <div class="mission_right_img">

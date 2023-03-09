@@ -25,7 +25,9 @@
                 <div class="metrics_bottom_content">
                     <p>What are you waiting?
                     Get started right now!</p>
-                    <main-button class="colored" >request a car</main-button>
+                    <router-link to="/quiz/0">
+                        <main-button class="colored" >request a car</main-button>
+                    </router-link>
                 </div>
             </div>
         </div>

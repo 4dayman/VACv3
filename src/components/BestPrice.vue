@@ -9,7 +9,9 @@
             <div class="best_price_right">
                 <h3>We think that VAC is the best way to buy a car in Canada. Try it for yourself and see how much time and money you can save.</h3>
                 <p>There are never any hidden fees or costs. We never ask you to sign anything until we have explained it clearly and you have had a chance to read it.</p>
-                <main-button class="colored">Request a car</main-button>
+                <router-link to="/quiz/0">
+                    <main-button class="colored">Request a car</main-button>
+                </router-link>
             </div>
         </div>
     </div>
