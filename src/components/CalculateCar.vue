@@ -364,6 +364,7 @@ export default {
 }
 
 .calcBtn {
+    padding: 16px 10px;
     display: flex;
     width: 100%;
     align-items: center;
