@@ -301,6 +301,13 @@ export default {
             this.city = ''
             this.province = ''
             this.postal = ''
+            this.bornYear = ''
+            this.bornMounth = ''
+            this.bornDay = ''
+            this.firstName = ''
+            this.lastName = ''
+            this.email = ''
+            this.phone = ''
             this.months = this.months.map((month) => {
                 month.selected = false
                 return month;
@@ -550,6 +557,9 @@ export default {
     border-radius: 2px;
     padding: 15px;
     cursor: pointer;
+    &:hover{
+        border: 1px solid #7481FF;
+    }
 }
 .select_btn.active{
     color: #7481FF;
@@ -612,6 +622,9 @@ export default {
         font-size: 16px;
         line-height: 159%;
         color: #D7D7D7;
+    }
+    &:focus{
+        border: 1px solid #606276;
     }
 }
 .success_check{
