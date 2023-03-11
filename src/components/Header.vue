@@ -176,16 +176,16 @@ export default {
     watch: {
         // whenever active changes, this function will run
         active() {
-            document.body.style.overflow = this.active ? 'hidden' : ''
+            document.body.style.overflowY = this.active ? 'hidden' : 'scroll'
             document.body.style.paddingRight = this.active ? '22px' : ''
         },
         formActive() {
             this.v$.$reset()
-            document.body.style.overflow = this.formActive ? 'hidden' : ''
+            document.body.style.overflowY = this.formActive ? 'hidden' : 'scroll'
             document.body.style.paddingRight = this.formActive ? '22px' : ''
         },
         successActive() {
-            document.body.style.overflow = this.successActive ? 'hidden' : ''
+            document.body.style.overflowY = this.successActive ? 'hidden' : 'scroll'
             document.body.style.paddingRight = this.successActive ? '22px' : ''
         }
     }
