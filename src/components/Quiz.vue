@@ -219,6 +219,9 @@
 </template>
 
 <script>
+import { useVuelidate } from '@vuelidate/core'
+import { minLength, required, email, numeric } from '@vuelidate/validators'
+
 export default {
     data() { 
         return {
@@ -237,7 +240,7 @@ export default {
             ],
             defaltProgres: 11,
             progresFill: '10%',
-            step: 1,
+            step: 8,
             gotSelect: false,
             notSelect: false,
             income: '',
@@ -267,6 +270,14 @@ export default {
         },
 
     },
+    setup() {
+        return { v$: useVuelidate() }
+    },
+    validations() {
+        return {
+            email: { required, email },
+        }
+    },
     created() {
         const car = this.cars.find(car => car.id == this.$route.params.id)
         if (car) {
@@ -282,7 +293,7 @@ export default {
 
     methods: {
         nextStep() { 
-            if (this.gotSelect) {
+            if (this.gotSelect && !this.v$.$error) {
                 this.step++
                 this.progresFill = this.defaltProgres * this.step + '%'
                 this.gotSelect = false
@@ -440,7 +451,7 @@ export default {
             this.notSelect = false
         },
         firstNameChange() {
-            if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.phone !== '') {
+            if (!this.v$.$error && this.firstName !== '' && this.lastName !== ''  && this.phone !== '') {
                 this.gotSelect = true
                 this.notSelect = false
             }
@@ -449,7 +460,7 @@ export default {
             this.notSelect = false
         },
         lastNameChange() {
-            if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.phone !== '') {
+            if (!this.v$.$error && this.firstName !== '' && this.lastName !== ''  && this.phone !== '') {
                 this.gotSelect = true
                 this.notSelect = false
             }
@@ -458,7 +469,7 @@ export default {
             this.notSelect = false
         },
         emailChange() {
-            if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.phone !== '') {
+            if (!this.v$.$error && this.firstName !== '' && this.lastName !== '' && this.phone !== '') {
                 this.gotSelect = true
                 this.notSelect = false
             }
@@ -467,7 +478,7 @@ export default {
             this.notSelect = false
         },
         phoneChange() {
-            if (this.firstName !== '' && this.lastName !== '' && this.email !== '' && this.phone !== '') {
+            if (!this.v$.$error && this.firstName !== '' && this.lastName !== '' && this.phone !== '') {
                 this.gotSelect = true
                 this.notSelect = false
             }
