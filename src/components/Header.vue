@@ -177,13 +177,16 @@ export default {
         // whenever active changes, this function will run
         active() {
             document.body.style.overflow = this.active ? 'hidden' : ''
+            document.body.style.paddingRight = this.active ? '22px' : ''
         },
         formActive() {
             this.v$.$reset()
             document.body.style.overflow = this.formActive ? 'hidden' : ''
+            document.body.style.paddingRight = this.formActive ? '22px' : ''
         },
         successActive() {
             document.body.style.overflow = this.successActive ? 'hidden' : ''
+            document.body.style.paddingRight = this.successActive ? '22px' : ''
         }
     }
 };
