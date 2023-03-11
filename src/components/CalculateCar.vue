@@ -52,7 +52,9 @@
                             </div>
                         </div>
                     </div>
-                    <main-button class="colored calcBtn">apply for this vehicle</main-button>
+                    <router-link :to="{ path: `/quiz/${this.$route.params.id}` }">
+                        <main-button class="colored calcBtn">apply for this vehicle</main-button>
+                    </router-link>
                 </div>
             </div>
         </div>

@@ -38,7 +38,7 @@
             <div class="quiz_change" v-show="step === 3">
                 <h2>Enter your monthly income</h2>
                 <p>Your income details help us make sure your vehicle payments are easy and affordable. Before taxes and deductions.</p>
-                <div class="select input">
+                <div class="select input_fill">
                     <input 
                         @focus="incomeFocus"
                         @change="incomeChange"
@@ -75,7 +75,7 @@
             <div class="quiz_change" v-show="step === 5">
                 <h2>How long receiving?</h2>
                 <p>Your income details help us make sure your vehicle payments are easy and affordable.</p>
-                <div class="select input">
+                <div class="select input_fill">
                     <input 
                         @focus="timeFocus"
                         @change="timeChange"
@@ -90,7 +90,7 @@
             <div class="quiz_change" v-show="step === 6">
                 <h2>Where do you live?</h2>
                 <p>Providing your location helps find the best deals near you.</p>
-                <div class="select input">
+                <div class="select input_fill">
                     <input 
                         @focus="streetFocus"
                         @change="streetChange"
@@ -173,7 +173,7 @@
                         type="text" 
                         placeholder="Last name">
                 </div>
-                <div class="select input">
+                <div class="select input_fill">
                     <input 
                         @focus="emailFocus"
                         @change="emailChange"
@@ -528,7 +528,7 @@ export default {
         grid-template-columns: 1fr;
     }
 }
-.select.input{
+.select.input_fill{
     position: relative;
     grid-template-columns: 1fr;
 }

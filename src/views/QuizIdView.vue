@@ -77,7 +77,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scouped>
 .inventory {
     margin-top: 80px;
     display: grid;
