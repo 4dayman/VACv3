@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container fix-block" >
     <header class="header">
         <div class="header_logo">
             <router-link to="/">
@@ -19,7 +19,7 @@
                     <main-button v-show="onCarBtnHide" class="colored">Apply for this vehicle</main-button>
                 </router-link>
             </div>
-            <div class="menu_icon" @click="active = !active" :class="{active}">
+            <div class="menu_icon" @click="isActive" :class="{active}">
                 <span></span>
             </div>
             <div class="menu_body_shadow" @click="active = !active" :class="{active}"></div>
@@ -142,7 +142,7 @@ export default {
             email: null,
             requiredNameLength: 2,
             requiredPhoneLength: 10,
-            cars
+            cars,
         }
     },
     validations() {
@@ -172,21 +172,29 @@ export default {
                 this.v$.$reset()
             }
         },
+        isActive() {
+            this.active = !this.active
+            let paddingOfset = window.innerWidth - document.body.offsetWidth + 'px'
+            document.body.style.paddingRight = this.active ? paddingOfset : ''
+            let fixBlock = document.querySelectorAll('.fix-block')
+            fixBlock.forEach((el) => {
+                el.style.paddingRight = paddingOfset
+            })
+        }
     },
     watch: {
         // whenever active changes, this function will run
         active() {
-            document.body.style.overflowY = this.active ? 'hidden' : 'scroll'
-            document.body.style.paddingRight = this.active ? '22px' : ''
+            document.body.style.overflowY = this.active ? 'hidden' : ''
         },
         formActive() {
             this.v$.$reset()
-            document.body.style.overflowY = this.formActive ? 'hidden' : 'scroll'
-            document.body.style.paddingRight = this.formActive ? '22px' : ''
+            document.body.style.overflowY = this.formActive ? 'hidden' : ''
+            document.body.style.paddingRight = this.formActive ? '23px' : ''
         },
         successActive() {
-            document.body.style.overflowY = this.successActive ? 'hidden' : 'scroll'
-            document.body.style.paddingRight = this.successActive ? '22px' : ''
+            document.body.style.overflowY = this.successActive ? 'hidden' : ''
+            document.body.style.paddingRight = this.successActive ? '23px' : ''
         }
     }
 };
@@ -199,13 +207,10 @@ export default {
     top: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.9);
-    padding: 0 24px;
+    // padding: 0 24px;
     margin: 0 auto;
     box-shadow: 0px 1px 0px #D7D7D7;
-    transition: all 0.5s ease 0.1s;
-    @media (max-width: 460px) {
-        padding: 0 20px;
-    }
+    // transition: all 0.5s ease 0.1s;
 }
 .header {
     margin: 0 auto;
@@ -217,6 +222,10 @@ export default {
     align-items: center;
     transition: all 1.5 ease 0;
     z-index: 1;
+    padding: 0 24px;
+    @media (max-width: 460px) {
+        padding: 0 20px;
+    }
     @media (max-width: 360px) {
         min-height: 55px;
     }
@@ -319,7 +328,7 @@ export default {
 }
 .menu_icon.active {
     top: 0px;
-    right: 0px;
+    right: 20px;
 }
 
 .menu_icon.active span {
@@ -388,10 +397,10 @@ export default {
     @media (max-width: 1024px) {
         width: 50%;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
         width: 70%;
     }
-    @media (max-width: 425px) {
+    @media (max-width: 500px) {
         width: 100%;
         box-shadow: none;
     }
