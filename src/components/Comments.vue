@@ -92,6 +92,7 @@ export default {
     padding: 0 24px;
     margin: 0 auto;
     transition: all ease 0.5s;
+    overflow: hidden;
     @media (max-width: 460px) {
         padding: 0 20px;
     }

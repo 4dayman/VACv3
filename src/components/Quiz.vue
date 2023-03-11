@@ -331,17 +331,19 @@ export default {
         selectPermonth(i) {
             this.months = this.months.map((month, index) => {
                 if (index === i) {
-                    month.selected = !month.selected
+                    month.selected = true
                     this.gotSelect = true
                     this.notSelect = false
-                } else { month.selected = false }
+                } else {
+                    month.selected = false
+                }
                 return month;
             })
         },
         selectStatus(i) {
             this.statuss = this.statuss.map((status, index) => {
                 if (index === i) {
-                    status.selected = !status.selected
+                    status.selected = true
                     this.gotSelect = true
                     this.notSelect = false
                 } else { status.selected = false }

@@ -90,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                    <router-link to="/quiz/0">
+                    <router-link class="calcBtn" to="/quiz/0">
                         <main-button class="colored calcBtn">request a car</main-button>
                     </router-link>
                 </div>
@@ -217,6 +217,17 @@ export default {
     max-width: 800px;
     @media (max-width: 768px) {
         width: 100%;
+    }
+}
+.settings_tab{
+    @media (max-width: 460px) {
+    margin: 0 auto;
+    }
+    .white{
+        @media (max-width: 460px) {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
     }
 }
 .calculator_amount{
@@ -366,8 +377,11 @@ export default {
     align-items: center;
     justify-content: center;
     transition: all ease 0.5s;
+    @media (max-width: 1032px) {
+        width: 100%;
+    }
     @media (max-width: 768px) {
-        width: 50%;
+        width: 100%;
     }
     @media (max-width: 560px) {
         width: 100%;

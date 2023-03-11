@@ -26,7 +26,7 @@
                     <p>What are you waiting?
                     Get started right now!</p>
                     <router-link to="/quiz/0">
-                        <main-button class="colored" >request a car</main-button>
+                        <main-button class="colored per" >request a car</main-button>
                     </router-link>
                 </div>
             </div>
@@ -197,4 +197,10 @@ export default {
         }
     }
 }
+@media (max-width: 460px) {
+        .per {
+            display: block;
+            width: 100%;
+        }
+    }
 </style>

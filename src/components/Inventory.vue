@@ -122,11 +122,12 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-          @media (max-width: 460px) {
-              .per {
-                  width: 100%;
-              }
-          }
-
+        
+    }
+    @media (max-width: 460px) {
+        .per {
+            display: block;
+            width: 100%;
+        }
     }
 </style>
