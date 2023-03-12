@@ -50,4 +50,7 @@ export default {
   display: grid;
   grid-template: 1fr / 1fr;
 }
+html{
+    // overflow-y: overlay;
+}
 </style>

@@ -7,7 +7,7 @@
             <div class="calculator_bottom">
                 <div class="calculator_settings">
                     <div class="settings_tab">
-                        <main-button v-for="(button, index) in buttons" :key="index" class="white"
+                        <main-button v-for="(button, index) in buttons" :key="index" class="btn white"
                             :class="{ 'active': active === index }" @click="selectTab(index)">
                             {{ button.slot }}
                         </main-button>
@@ -52,8 +52,8 @@
                             </div>
                         </div>
                     </div>
-                    <router-link :to="{ path: `/quiz/${this.$route.params.id}` }">
-                        <main-button class="colored calcBtn">apply for this vehicle</main-button>
+                    <router-link class="calcBtn" :to="{ path: `/quiz/${this.$route.params.id}` }">
+                        <main-button class="colored">apply for this vehicle</main-button>
                     </router-link>
                 </div>
             </div>
@@ -126,7 +126,7 @@ export default {
     column-gap: 101px;
     margin-bottom: 60px;
 
-    @media (max-width: 560px) {
+    @media (max-width: 1024px) {
         grid-template-columns: 1fr;
         row-gap: 10px;
     }
@@ -157,10 +157,10 @@ export default {
 
 .calculator_bottom {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr 1.5fr;
     column-gap: 30px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         grid-template-columns: 1fr;
 
     }
@@ -177,7 +177,7 @@ export default {
     justify-content: flex-start;
     padding: 60px 60px 112px 60px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         padding: 40px;
     }
 
@@ -191,16 +191,38 @@ export default {
     gap: 60px;
     max-width: 800px;
 
-    @media (max-width: 768px) {
-        width: 100%;
+    @media (max-width: 1024px) {
+        max-width: 100%;
     }
+}
+.settings_tab{
+    padding: 15px 0px;
+    overflow: hidden;
+    border: 1px solid #7481FF;
+    border-radius: 2px;
+    @media (max-width: 460px) {
+        padding: 10px 0px;
+    margin: 0 auto;
+    }
+    .white{
+        @media (max-width: 460px) {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+}
+.btn{
+    margin-left: -1px;
+
+    margin-right: -1px;
+    border-radius: 0px;
 }
 
 .calculator_amount {
-    max-width: 370px;
+    max-width: 500px;
     padding-bottom: 60px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         max-width: 100%;
         padding-bottom: 40px;
     }
@@ -371,11 +393,10 @@ export default {
     justify-content: center;
     transition: all ease 0.5s;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         width: 50%;
     }
-
-    @media (max-width: 560px) {
+    @media (max-width: 768px) {
         width: 100%;
     }
 }</style>

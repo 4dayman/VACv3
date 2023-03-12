@@ -15,26 +15,36 @@
                 <div class="catalog_filters">
                     <div class="catalog_filter" :class="open1 ? 'open1' : ''" >
                         <div class="filter_title" @click="open1 = !open1">Make, Model</div>
+                        <div class="filter_desc_close" v-show="!open1">
+                            <div class="make_clear" @click="clearMake"  :class="makeClear ? 'active' : ''">
+                                <img src="../assets/Close_filter.svg" alt="no-img">
+                                {{ searchMake }}
+                            </div>
+                            <div class="model_clear" @click="clearModel" :class="modelClear ? 'active' : ''">
+                                <img src="../assets/Close_filter.svg" alt="no-img">
+                                {{ searchModel }}
+                            </div>
+                        </div>
                         <div class="filter_desc" :class="open1 ? 'open' : ''">
                             <div class="search_make" :class="makeClear ? 'active' : ''">
                                 <p>Make</p>
                                 <div class="search_make_wrap">
-                                    <input @focus="makeSearchPop = true" v-model="searchMake" class="input" type="text" placeholder="Search Make...">
+                                    <input @click="clearModel" @focus="makeSearchPop = true" v-model="searchMake" class="input" type="text" placeholder="Search Make...">
                                     <div class="search_make_pop" :class="makeSearchPop ? 'active' : ''">
-                                        <ul v-for="(car, i) in carList" :key="i" >
+                                        <ul v-for="(car, i) in carListFilter" :key="i">
                                             <li @click="makeSelect(i)" >{{ car.make }}</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div class="make_clear" @click="clearMake" :class="makeClear ? 'active' : ''">
+                            <div class="make_clear" @click="clearMake"  :class="makeClear ? 'active' : ''">
                                 <img src="../assets/Close_filter.svg" alt="no-img">
                                 {{ searchMake }}
                             </div>
                             <div class="search_model" :class="modelClear ? 'active' : ''">
                                 <p>Model</p>
                                 <div class="search_model_wrap">
-                                    <input @focus="modelSearchPop = true" v-model="searchModel" class="input" type="text" placeholder="Search Model...">
+                                    <input  @focus="modelSearchPop = true" v-model="searchModel" class="input" type="text" placeholder="Search Model...">
                                     <div class="search_make_pop" :class="modelSearchPop ? 'active' : ''">
                                         <ul v-for="(car, i) in filteredCars" :key="i" >
                                             <li @click="modelSelect(i)" >{{ car.model }}</li>
@@ -50,6 +60,13 @@
                     </div>
                     <div class="catalog_filter" :class="open2 ? 'open2' : ''" >
                         <div class="filter_title" @click="open2 = !open2">Body type</div>
+                        <div class="filter_desc_close" v-show="!open2">
+                            <div class="checkbox_checks" v-for="(bod, i) in body.length" :key="i">
+                                <div @click="this.body.splice(i, 1)" class="checks">
+                                    <img src="../assets/Close_filter.svg" alt="">{{ this.body[i] }}
+                                </div>
+                            </div>
+                        </div>
                         <div class="filter_desc" :class="open2 ? 'open' : ''">
                             <label class="checkbox" for="Truck">
                                 <img src="../assets/Truckicon.svg" alt="no-img">
@@ -102,6 +119,13 @@
                     </div>
                     <div class="catalog_filter" :class="open3 ? 'open3' : ''" >
                         <div class="filter_title" @click="open3 = !open3">Transmission</div>
+                        <div class="filter_desc_close" v-show="!open3">
+                            <div class="checkbox_checks" v-for="(trans, i) in transmition.length" :key="i">
+                                <div @click="this.transmition.splice(i, 1)" class="checks">
+                                    <img src="../assets/Close_filter.svg" alt="">{{ this.transmition[i] }}
+                                </div>
+                            </div>
+                        </div>
                         <div class="filter_desc" :class="open3 ? 'open' : ''">
                             <label class="checkbox" for="Automatic">
                                 <p>Automatic</p>
@@ -122,6 +146,13 @@
                     </div>
                     <div class="catalog_filter" :class="open4 ? 'open4' : ''" >
                         <div class="filter_title" @click="open4 = !open4">Price</div>
+                        <div class="filter_desc_close" v-if="!open4 && clearPrice" >
+                            <div class="checkbox_checks " :class="clearPrice ? 'active' : ''">
+                                <div @click="priceClear" class="checks" v-if="this.price[0] != 10000 || this.price[1] != 350000" >
+                                    <img src="../assets/Close_filter.svg" alt="">$ {{ this.price[0] }} - $ {{ this.price[1] }}
+                                </div>
+                            </div>
+                        </div>
                         <div class="filter_desc" :class="open4 ? 'open' : ''">
                             <div class="price_value">
                                 <p>$ {{this.price[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</p>
@@ -143,6 +174,13 @@
                     </div>
                     <div class="catalog_filter" :class="open5 ? 'open5' : ''" >
                         <div class="filter_title" @click="open5 = !open5">Year</div>
+                        <div class="filter_desc_close" v-if="!open5 && clearYear">
+                            <div class="checkbox_checks" :class="clearYear ? 'active' : ''">
+                                <div @click="yearClear" class="checks" v-if="this.year[0] != 1990 || this.year[1] != 2023" >
+                                    <img src="../assets/Close_filter.svg" alt="">$ {{ this.year[0] }} - $ {{ this.year[1] }}
+                                </div>
+                            </div>
+                        </div>
                         <div class="filter_desc" :class="open5 ? 'open' : ''">
                             <div class="year_value">
                                 <p>{{this.year[0]}}</p>
@@ -164,6 +202,13 @@
                     </div>
                     <div class="catalog_filter" :class="open6 ? 'open6' : ''" >
                         <div class="filter_title" @click="open6 = !open6">Kilometres</div>
+                        <div class="filter_desc_close" v-if="!open6 && clearKm">
+                            <div class="checkbox_checks" :class="clearKm ? 'active' : ''">
+                                <div @click="kmClear" class="checks" v-if="this.kilometres != 500000" >
+                                    <img src="../assets/Close_filter.svg" alt="">{{ this.kilometres }}
+                                </div>
+                            </div>
+                        </div>
                         <div class="filter_desc" :class="open6 ? 'open' : ''">
                             <div class="kilometres_value">
                                 <p>{{this.kilometres.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} or less</p>
@@ -389,10 +434,21 @@ export default {
                 car.transmition.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
             })
         },
+        
+        carListFilter() { 
+            
+            this.pageNumber = 0
+            this.active = 0
+            // return this.filteredCars.filter((make, id) => this.filteredCars.indexOf(make) === id);
+            // return [...new Set(this.filteredCars)]
+            return this.carList.filter(car => {
+                return car.make.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
+            })
+        },
         makeFilter() {
             if(this.searchMake !==  ''){
                 this.clearFilters = true
-                this.makeClear = true
+                // this.makeClear = true
             }
             return this.modelFilter.filter(car => {
                 return car.make.toLowerCase().indexOf(this.searchMake.toLowerCase()) > -1
@@ -401,7 +457,7 @@ export default {
         modelFilter() {
             if(this.searchModel !==  ''){
                 this.clearFilters = true
-                this.modelClear = true
+                // this.modelClear = true
             }
             return this.yearCange.filter(car => {
                 return car.model.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1
@@ -511,17 +567,19 @@ export default {
         },
         carSelect(i){
             this.popActive = false
-            this.search = this.carList[i].make
+            this.search = this.carListFilter[i].make
         },
         makeSelect(i){
             this.makeSearchPop = false
-            this.searchMake = this.carList[i].make
+            this.searchMake = this.carListFilter[i].make
             this.modelClear = false
             this.searchModel = ''
+            this.makeClear = true
         },
         modelSelect(i){
             this.modelSearchPop = false
             this.searchModel = this.filteredCars[i].model
+            this.modelClear = true
         },
         recom() {
             this.selected = this.recomValue
@@ -1095,6 +1153,10 @@ export default {
     display: inline-block;
     overflow: auto;
 
+}
+.filter_desc_close{
+    text-align: left;
+    padding: 0 20px;
 }
 .make_clear,
 .model_clear{

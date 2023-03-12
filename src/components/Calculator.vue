@@ -11,8 +11,8 @@
                         <main-button 
                             v-for="(button, index) in buttons"
                             :key="index"
-                            class="white" 
-                            :class="{'active': active === index}"
+                            class="btn white" 
+                            :class="{'active': active === index }"
                             @click="selectTab(index)"
                         >
                             {{button.slot}}
@@ -108,9 +108,9 @@ export default {
     data() {
         return {
             buttons: [
-                {slot: 'poor', amountValue: 30000, amountDuration: 12},
-                {slot: 'average', amountValue: 50000, amountDuration: 18},
-                {slot: 'good', amountValue: 70000, amountDuration: 24}
+                { id: 0, slot: 'poor', amountValue: 30000, amountDuration: 12},
+                { id: 1, slot: 'average', amountValue: 50000, amountDuration: 18},
+                { id: 2, slot: 'good', amountValue: 70000, amountDuration: 24}
             ],
             amountValue: 30000,
             amountDuration: 12,
@@ -220,7 +220,12 @@ export default {
     }
 }
 .settings_tab{
+    padding: 15px 0px;
+    overflow: hidden;
+    border: 1px solid #7481FF;
+    border-radius: 2px;
     @media (max-width: 460px) {
+        padding: 10px 0px;
     margin: 0 auto;
     }
     .white{
@@ -229,6 +234,12 @@ export default {
             padding-bottom: 10px;
         }
     }
+}
+.btn{
+    margin-left: -1px;
+
+    margin-right: -1px;
+    border-radius: 0px;
 }
 .calculator_amount{
     max-width: 370px;

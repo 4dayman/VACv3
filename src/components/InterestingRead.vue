@@ -121,10 +121,12 @@ export default {
 .interesting_main{
     margin: 0 auto;
     max-width: 94vw;
-    padding: 0 18px 40px 18px;
-    // box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    @media (max-width: 768px) {
+    padding: 0 10px 40px 10px;
+    @media (max-width: 1170px) {
         max-width: 90vw;
+    }
+    @media (max-width: 768px) {
+        max-width: 89vw;
         margin-bottom: 30px;
         border-radius: 5px;
         box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);

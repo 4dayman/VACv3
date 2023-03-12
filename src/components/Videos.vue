@@ -13,8 +13,8 @@
                 </div>
             </div>
         </div>
-        <div class="video_popup_shadow" @click="popupActive = !popupActive" :class="{popupActive}"></div>
-        <div class="video_popup" :class="{popupActive}">
+        <div v-show="popupActive" class="video_popup_shadow" @click="popupActive = !popupActive" :class="{popupActive}"></div>
+        <div v-show="popupActive" class="video_popup" :class="{popupActive}">
             <div @click="popupActive = !popupActive" class="video_popup_close">
                 <img src="../assets/CloseW.svg" alt="">
             </div>
@@ -178,6 +178,7 @@ export default {
         width: 10px;
         height: 10px;
         border-radius: 50%;
+        margin-top: 10px;
         margin-right: 10px;
         margin-bottom: 40px;
         background: #606276;

@@ -129,6 +129,9 @@ export default {
     background: #FFFFFF;
     border-radius: 5px;
     box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.1);
+    @media (max-width: 760px) {
+        max-width: 89vw;
+    }
 }
 .comments_slide{
     height: 100%;
