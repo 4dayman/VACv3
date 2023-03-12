@@ -5,7 +5,7 @@
                 <h2>Our credit policy</h2>
                 <p>You want to secure a loan that works for your budget. Here at VAC we work with Canada’s largest lenders to help you find the best interest rates and terms for your auto loan.</p>
                 <router-link to="/quiz/0">
-                    <main-button class="colored">Request a car</main-button>
+                    <main-button class="colored per">Request a car</main-button>
                 </router-link>
             </div>
             <div class="mission_right">
@@ -99,4 +99,11 @@ export default {
         height: 100%;object-fit: cover;
     }
 }
+    @media (max-width: 460px) {
+        .per {
+            display: block;
+            width: 100%;
+        }
+    }
+
 </style>
