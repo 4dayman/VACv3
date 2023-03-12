@@ -412,6 +412,7 @@ export default {
             this.v$.$touch()
             this.v$.$validate()
             if (!this.v$.income.$error) {
+                this.v$.$reset()
                 this.step++
                 this.progresFill = this.defaltProgres * this.step + '%'
                 this.gotSelect = false
@@ -421,6 +422,7 @@ export default {
             this.v$.$touch()
             this.v$.$validate()
             if (!this.v$.years.$error && !this.v$.mounths.$error) {
+                this.v$.$reset()
                 this.step++
                 this.progresFill = this.defaltProgres * this.step + '%'
                 this.gotSelect = false
@@ -430,6 +432,7 @@ export default {
             this.v$.$touch()
             this.v$.$validate()
             if (!this.v$.time.$error) {
+                this.v$.$reset()
                 this.step++
                 this.progresFill = this.defaltProgres * this.step + '%'
                 this.gotSelect = false
@@ -439,6 +442,7 @@ export default {
             this.v$.$touch()
             this.v$.$validate()
             if (!this.v$.street.$error && !this.v$.city.$error && !this.v$.province.$error && !this.v$.postal.$error) {
+                this.v$.$reset()
                 this.step++
                 this.progresFill = this.defaltProgres * this.step + '%'
                 this.gotSelect = false
@@ -448,6 +452,7 @@ export default {
             this.v$.$touch()
             this.v$.$validate()
             if (!this.v$.bornYear.$error && !this.v$.bornMounth.$error && !this.v$.bornDay.$error) {
+                this.v$.$reset()
                 this.step++
                 this.progresFill = this.defaltProgres * this.step + '%'
                 this.gotSelect = false
@@ -457,6 +462,7 @@ export default {
             this.v$.$touch()
             this.v$.$validate()
             if (!this.v$.firstName.$error && !this.v$.lastName.$error && !this.v$.email.$error && !this.v$.phone.$error) {
+                this.v$.$reset()
                 this.step++
                 this.progresFill = this.defaltProgres * this.step + '%'
                 this.gotSelect = false
@@ -792,7 +798,7 @@ export default {
     padding-top: 5px;
     font-size: 14px;
     text-align: left;
-    color: rgb(241, 86, 86);
+    color: #F54E4E;
 }
 .monthly_income{
     width: 100%;
@@ -811,7 +817,7 @@ export default {
         border: 1px solid #606276;
     }
     &.invalid{
-        box-shadow: 0px 0px 5px rgb(255, 49, 49);
+        box-shadow: 0px 0px 5px #F54E4E;
     }
 }
 .success_check{
