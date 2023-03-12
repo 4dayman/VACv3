@@ -298,8 +298,8 @@
                 <button @click="nextStep" class="continue_btn" type="button">Continue</button>
                 <button @click="prevStep" v-show="step > 1" class="back_btn" type="button"><img src="../assets/Arrow-Bottom.svg" alt="arrow">Back</button>
             </div> -->
-            <router-link to="/" class="quiz_continue" v-show="step == 9">
-                <button @click="nextStep" class="continue_btn" type="button">Go to main page</button>
+            <router-link to="/" class="quiz_continue last_btn" v-show="step == 9">
+                <button  class="continue_btn" type="button">Go to main page</button>
             </router-link>
         </div>
     </div>
@@ -328,7 +328,7 @@ export default {
             ],
             defaltProgres: 11,
             progresFill: '10%',
-            step: 8,
+            step: 1,
             gotSelect: false,
             notSelect: false,
             income: '',
@@ -778,6 +778,12 @@ export default {
             margin-right: 15px;
         }
     }
+}
+.last_btn{
+    @media (max-width: 460px) {
+        grid-template-columns: 1fr;
+    }
+
 }
 .select_error{
     // position: absolute;

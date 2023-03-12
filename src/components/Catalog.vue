@@ -154,21 +154,24 @@
                             </div>
                         </div>
                         <div class="filter_desc" :class="open4 ? 'open' : ''">
-                            <div class="price_value">
-                                <p>$ {{this.price[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</p>
-                                <p>$ {{this.price[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</p>
-                            </div>
-                            <Slider
-                                v-model="price"
-                                :min="0"
-                                :max="350000"
-                                :step="1000"
-                                @change="priceChange"
-                            />
-                            <div class="checkbox_checks price_checks" :class="clearPrice ? 'active' : ''">
-                                <div @click="priceClear" class="checks" v-if="this.price[0] != 10000 || this.price[1] != 350000" >
-                                    <img src="../assets/Close_filter.svg" alt="">$ {{ this.price[0]}} - $ {{ this.price[1] }}
+                            <div class="price_fix">
+                                <div class="price_value">
+                                    <p>$ {{this.price[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</p>
+                                    <p>$ {{this.price[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}</p>
                                 </div>
+                                <Slider
+                                    v-model="price"
+                                    :min="0"
+                                    :max="350000"
+                                    :step="1000"
+                                    @change="priceChange"
+                                />
+                                <div class="checkbox_checks" :class="clearPrice ? 'active' : ''">
+                                    <div @click="priceClear" class="checks" v-if="this.price[0] != 10000 || this.price[1] != 350000" >
+                                        <img src="../assets/Close_filter.svg" alt="">$ {{ this.price[0]}} - $ {{ this.price[1] }}
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -182,20 +185,22 @@
                             </div>
                         </div>
                         <div class="filter_desc" :class="open5 ? 'open' : ''">
-                            <div class="year_value">
-                                <p>{{this.year[0]}}</p>
-                                <p>{{this.year[1]}}</p>
-                            </div>
-                            <Slider
-                                v-model="year"
-                                :min="1990"
-                                :max="2023"
-                                :step="1"
-                                @change='yearCange'
-                            />
-                            <div class="checkbox_checks price_checks" :class="clearYear ? 'active' : ''">
-                                <div @click="yearClear" class="checks" v-if="this.year[0] != 1990 || this.year[1] != 2023" >
-                                    <img src="../assets/Close_filter.svg" alt="">$ {{ this.year[0] }} - $ {{ this.year[1] }}
+                            <div class="price_fix">
+                                <div class="year_value">
+                                    <p>{{this.year[0]}}</p>
+                                    <p>{{this.year[1]}}</p>
+                                </div>
+                                <Slider
+                                    v-model="year"
+                                    :min="1990"
+                                    :max="2023"
+                                    :step="1"
+                                    @change='yearCange'
+                                />
+                                <div class="checkbox_checks" :class="clearYear ? 'active' : ''">
+                                    <div @click="yearClear" class="checks" v-if="this.year[0] != 1990 || this.year[1] != 2023" >
+                                        <img src="../assets/Close_filter.svg" alt="">$ {{ this.year[0] }} - $ {{ this.year[1] }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +225,7 @@
                                 :step="1000"
                                 @change="kmChange"
                             />
-                            <div class="checkbox_checks price_checks" :class="clearKm ? 'active' : ''">
+                            <div class="checkbox_checks" :class="clearKm ? 'active' : ''">
                                 <div @click="kmClear" class="checks" v-if="this.kilometres != 500000" >
                                     <img src="../assets/Close_filter.svg" alt="">{{ this.kilometres }}
                                 </div>
@@ -467,7 +472,7 @@ export default {
             if(this.year[0] !==  1990){
                 this.clearFilters = true
                 this.clearYear = true
-            }
+            } else { this.clearYear = false }
             if(this.year[1] !== 2023 ){
                 this.clearFilters = true
                 this.clearYear = true
@@ -477,10 +482,10 @@ export default {
             }) 
         },
         priceChange() {
-            if(this.price[0] !==  10000){
+            if (this.price[0] !== 10000) {
                 this.clearFilters = true
                 this.clearPrice = true
-            }
+            } else { this.clearPrice = false }
             if(this.price[1] !== 350000 ){
                 this.clearFilters = true
                 this.clearPrice = true
@@ -493,7 +498,7 @@ export default {
             if(this.kilometres !== 500000){
                 this.clearFilters = true
                 this.clearKm = true
-            }
+            } else { this.clearKm = false }
             return this.transmChange.filter(car => {
                 return car.kilometres <= this.kilometres
             }) 
@@ -958,7 +963,7 @@ export default {
     text-transform: uppercase;
     color: #FFFFFF;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
     .apply_btn.active{
         display: block;
     }
@@ -1055,15 +1060,19 @@ export default {
     max-height: 0px;
     overflow-y: hidden;
     transition: all 0.4s ease-out;
+    // padding-bottom: 10px;
     &.open {
         opacity:1;
         max-height: 1000px;
-        padding-bottom: 20px;
+        margin-bottom: 10px;
         padding-top: 8px;
         @media (max-width: 450px) {
-            padding-bottom: 20px;
+            padding-bottom: 10px;
         }
     }
+}
+.price_fix{
+    margin-bottom: -10px;
 }
 .filter_desc.recommendations {
     text-align: left;
@@ -1286,6 +1295,7 @@ export default {
     color: #41456B;
     margin-bottom: 10px;
     margin-right: 10px;
+    margin-top: 15px;
     cursor: pointer;
     img{
         padding-right: 10px;
